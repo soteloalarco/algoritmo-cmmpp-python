@@ -29,20 +29,22 @@ dispositivos.append(creardispositivos(dipositivos_Tipo3, lambdaRegular_Tipo3,'De
 ##########  Algoritmo CMMPP  #################
 
 for k in range(0,int(iteraciones + 1)): # Ciclo que avanza el tiempo
-    print(tiempo)
+
 
     for dispositivosaux in dispositivos: # Ciclo que recorre todos los dispositivos
         theta = np.random.beta(3, 4, 1)  # variable aleatoria beta para determinar Theta_n[k] = theta[k] * delta_n , una distinta por cada aplicacion
         for dispositivo in dispositivosaux:
-            print(dispositivo.tipo)
             Pnk= dispositivo.calcular_Pnk(theta)  # parte A del diagrama  /assets/CMMPP_diagrama.jpg
-            print(Pnk)
             dispositivo.actualizarestado(Pnk) # parte B del diagrama
             dispositivo.generararribo(tiempo) # parte C del diagrama
 
 
 
     tiempo = round(tiempo + deltaTiempo, numerosDecimalesDeltaTiempo) # Función para redondear decimales
+
+def takeSecond(elem):
+    return elem[0]
+arriboOrdenado = dispositivo.registroArribos.sort(key=takeSecond)
 
 for arribo in dispositivo.registroArribos:
     estadoAux= "normal" if arribo[3]==0 else "alarma"

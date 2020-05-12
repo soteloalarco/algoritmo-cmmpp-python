@@ -49,7 +49,7 @@ class DeviceMTC(object):
         self.registroArribos.append([int(self.tiempoArribo), self.tipo,self.identificador,self.estado])  # se registra el arribo en la lista
 
     def calcular_delta_n(self):  # TODO: checar la distribución para el cálculo de delta_n
-        return np.random.normal(0.5, 0.16, 1)  # variable aleatoria normal para delta_n
+        return np.random.normal(0.1, 0.029, 1)  # variable aleatoria normal para delta_n
 
     # def generarpaquetenormal
 
