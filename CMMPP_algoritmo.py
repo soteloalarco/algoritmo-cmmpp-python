@@ -4,7 +4,7 @@ from clases.DeviceMTC import DeviceMTC
 from funciones.funcionesdispositivos import creardispositivos
 
 #Variables a modificar
-tiempoLimite = 1 # segundos, tiempo de paro del algoritmo
+tiempoLimite = 100 # segundos, tiempo de paro del algoritmo
 deltaTiempo = 0.01 #segundos , diferencial de tiempo entre iteración
 numerosDecimalesDeltaTiempo=2 #Si se modifica deltaTiempo modificar también esta veriable
 
@@ -44,6 +44,12 @@ for k in range(0,int(iteraciones + 1)): # Ciclo que avanza el tiempo
 
     tiempo = round(tiempo + deltaTiempo, numerosDecimalesDeltaTiempo) # Función para redondear decimales
 
-for arribo in dispositivo.registroArribos:
+
+def takeSecond(elem):
+    return elem[0]
+arriboOrdenado = dispositivo.registroCompletoArribos.sort(key=takeSecond)
+
+
+for arribo in dispositivo.registroCompletoArribos:
     estadoAux= "normal" if arribo[3]==0 else "alarma"
-    print ("Instante: " + str(arribo[0]) +"     Identificador: " +str(arribo[2])+ ":"+str(arribo[1])+"      Estado: "+ estadoAux)
+    print ("Instante: " + str(arribo[0]) +"     Identificador: " +str(arribo[2])+ ":"+str(arribo[1])+"      Estado: "+ estadoAux+"         Tamaño paquete:  "+str(arribo[4]))
