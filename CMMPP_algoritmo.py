@@ -4,15 +4,15 @@ from clases.DeviceMTC import DeviceMTC
 from funciones.funcionesdispositivos import creardispositivos
 
 #Variables a modificar
-tiempoLimite = 1 # segundos, tiempo de paro del algoritmo
-deltaTiempo = 0.01 #segundos , diferencial de tiempo entre iteración
-numerosDecimalesDeltaTiempo=2 #Si se modifica deltaTiempo modificar también esta veriable
+tiempoLimite = 10 # segundos, tiempo de paro del algoritmo
+deltaTiempo = 0.1 #segundos , diferencial de tiempo entre iteración
+numerosDecimalesDeltaTiempo = 2 #Si se modifica deltaTiempo modificar también esta veriable
 
-dipositivos_Tipo1 = 3 # número de dispositivos de tipo 1, Control de iluminación
+dipositivos_Tipo1 = 100 # número de dispositivos de tipo 1, Control de iluminación
 lambdaRegular_Tipo1=1/60 # la tasa lambda para el estado regular de los dispositivos de tipo 1 (1 paquete cada 60 seg)
-dipositivos_Tipo2 = 2 # número de dispositivos de tipo 2, Monitoreo de consumo del agua y electricidad
+dipositivos_Tipo2 = 100 # número de dispositivos de tipo 2, Monitoreo de consumo del agua y electricidad
 lambdaRegular_Tipo2=1/120 # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
-dipositivos_Tipo3 = 1 # número de dispositivos de tipo 3, Detección de terremotos
+dipositivos_Tipo3 = 100 # número de dispositivos de tipo 3, Detección de terremotos
 lambdaRegular_Tipo3=1/180 # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
 
 #Inicialización de parámetros y variables
@@ -38,13 +38,13 @@ for k in range(0,int(iteraciones + 1)): # Ciclo que avanza el tiempo
             dispositivo.actualizarestado(Pnk) # parte B del diagrama
             dispositivo.generararribo(tiempo) # parte C del diagrama
 
-
-
     tiempo = round(tiempo + deltaTiempo, numerosDecimalesDeltaTiempo) # Función para redondear decimales
 
+
+####### MOSTRAR EN TERMINAL LA LISTA DE ARRIBOS ORDENADA ########
 def takeSecond(elem):
     return elem[0]
-arriboOrdenado = dispositivo.registroArribos.sort(key=takeSecond)
+dispositivo.registroArribos.sort(key=takeSecond)
 
 for arribo in dispositivo.registroArribos:
     estadoAux= "normal" if arribo[3]==0 else "alarma"
