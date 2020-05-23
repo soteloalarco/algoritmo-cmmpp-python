@@ -1,4 +1,5 @@
 import numpy as np  # NumPy package for arrays, random number generation, etc
+import pandas as pd
 
 from clases.DeviceMTC import DeviceMTC
 from funciones.funcionesdispositivos import creardispositivos
@@ -53,3 +54,14 @@ arriboOrdenado = dispositivo.registroCompletoArribos.sort(key=takeSecond)
 for arribo in dispositivo.registroCompletoArribos:
     estadoAux= "normal" if arribo[3]==0 else "alarma"
     print ("Instante: " + str(arribo[0]) +"     Identificador: " +str(arribo[2])+ ":"+str(arribo[1])+"      Estado: "+ estadoAux+"         Tamaño paquete:  "+str(arribo[4]))
+
+#Registro de todos los eventos
+ListaEventos = dispositivo.registroCompletoArribos
+# Creación de un Dataframe apartir de una lista
+df_eventos=pd.DataFrame(ListaEventos)
+# Guardado de datos en archivo con extensión .csv
+df_eventos.to_csv("ArchivoEventos.csv")
+# Recuperación de archivo
+df_eventos_rec = pd.read_csv("prueba1.csv", index_col=0)
+# Convertir de DataFrame a Lista
+ListaEventosrec = df_eventos_rec.values.tolist()
