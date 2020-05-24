@@ -54,14 +54,14 @@ class DeviceMTC(object):
         self.registroCompletoArribos.append([int(self.tiempoArribo), self.tipo,self.identificador,self.estado, self.tamañopkt])
 
     def calcular_delta_n(self):  # TODO: checar la distribución para el cálculo de delta_n
-        return np.random.normal(0.5, 0.16, 1)  # variable aleatoria normal para delta_n
+        return np.random.normal(0.05, 0.01, 1)  # variable aleatoria normal para delta_n
 
-    def generarpaquetenormal(self):
+    def generarpaquetenormal(self): # Generar paquete con distribución de Pareto
         while True:
-            lower = 20  # the lower bound for your values
-            shape = 1  # the distribution shape parameter, also known as `a` or `alpha`
-            size = 1  # the size of your sample (number of random values)
-            x = np.random.pareto(shape, size) + lower
+            minimo = 20  # la cota menor para los tamaños
+            shape = 1  # el parámetro de forma de la disgtribución, también conocido como `a` o `alpha`
+            tamano = 1  # el tamaño de tu muestra (número de valores aleatorios)
+            x = np.random.pareto(shape, tamano) + minimo
             upper = x
             if upper<=200:
                 break
