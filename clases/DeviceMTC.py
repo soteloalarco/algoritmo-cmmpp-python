@@ -3,7 +3,7 @@ import numpy as np  # NumPy package for arrays, random number generation, etc
 
 class DeviceMTC(object):
     # Definición de constructor
-    def __init__(self, lambdareg, Xpos, Ypos, estado, tipo,tiempoInicial,identificador, registroArribos, tamañopkt):
+    def __init__(self, lambdareg, Xpos, Ypos, estado, tipo,tiempoInicial,identificador, registroArribos, tamañopkt,color,marcador):
         self.lambdareg = lambdareg # tasa de generación de paquetes
         self.posicion = [Xpos, Ypos]  # la posición espacial dentro de la celula
         self.estado = estado  # estado regular o de alarma (0 es regular y 1 alarma)
@@ -11,7 +11,9 @@ class DeviceMTC(object):
         self.tiempoArribo = tiempoInicial # siguiente instante en el que se realizará una petición, debe iniciarse con el tiempo inicial
         self.identificador = identificador # un id de cada dispositivo, se puede repetir en distintos tipos de dispositivo
         self.registroArribos = registroArribos # lista de los arribos calendarizados a partir de este dispositivo
-        self.tamañopkt = tamañopkt
+        self.tamañopkt = tamañopkt # tamaño de paquete del evento actual calculado
+        self.color=color # color de dispositivo en la animacion
+        self.marcador=marcador # marcador del dispositivo en la animacion
 
 
     matriz_Pu = [[1, 1], [0, 0]]  # matriz que describe el comportamiento no unsincronized
@@ -21,10 +23,6 @@ class DeviceMTC(object):
     #matriz_Pnk = []  # matriz de probabilidad de transición entre estados Pn[k]= Theta_n[k]*Pc + (1-Theta_n[k]*Pu)
     registroCompletoArribos = []  # El conglomerado de arribos del estado normal y del de alarma
     cuentaAlarmas = 0  # Contador que registra las veces que se estuvo en estado de alarma
-
-    # def calcular_Pnk(self, theta):
-    #     thetank = theta * self.calcular_delta_n()  # thetank= theta[k] * delta_n = Theta_n[k]
-    #     return (1 - thetank) * self.m_Pu + thetank * self.m_Pc  # Pn[k]= Theta_n[k]*Pc + (1-Theta_n[k]*Pu)
 
     def actualizarestado(self, pnk):
         auxUniforme = np.random.uniform(0, 1, 1)
@@ -53,9 +51,6 @@ class DeviceMTC(object):
         self.registroArribos.append([int(self.tiempoArribo), self.tipo,self.identificador,self.estado,self.tamañopkt])  # se registra el arribo en la lista
         self.registroCompletoArribos.append([int(self.tiempoArribo), self.tipo,self.identificador,self.estado, self.tamañopkt])
 
-    # def calcular_delta_n(self):
-    #     return np.random.normal(0.04, 0.01, 1)  # variable aleatoria normal para delta_n
-
     def generarpaquetenormal(self): # Generar paquete con distribución de Pareto
         while True:
             minimo = 20  # la cota menor para los tamaños
@@ -70,3 +65,8 @@ class DeviceMTC(object):
     def generarpaquetealarma(self):
         self.tamañopkt=20
 
+    def hayPaquete(self,tiempo,delta):
+        if(tiempo <= self.tiempoArribo < tiempo+delta):
+            return True
+        else:
+            return False
