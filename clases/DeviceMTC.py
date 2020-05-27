@@ -23,6 +23,7 @@ class DeviceMTC(object):
     #matriz_Pnk = []  # matriz de probabilidad de transición entre estados Pn[k]= Theta_n[k]*Pc + (1-Theta_n[k]*Pu)
     registroCompletoArribos = []  # El conglomerado de arribos del estado normal y del de alarma
     cuentaAlarmas = 0  # Contador que registra las veces que se estuvo en estado de alarma
+    totalAlarmas=[]
 
     def actualizarestado(self, pnk):
         auxUniforme = np.random.uniform(0, 1, 1)
@@ -44,6 +45,7 @@ class DeviceMTC(object):
         self.registroArribos.append([tiempo,self.tipo,self.identificador,self.estado,self.tamañopkt])  # se registra el arribo en la lista
         self.registroCompletoArribos.append([tiempo,self.tipo,self.identificador,self.estado,self.tamañopkt])
         self.cuentaAlarmas = self.cuentaAlarmas + 1 #¿QUE FUNCION TIENE ESTE CONTADOR?, sólo es para ver si los valores que produce el programa tienen sentido.
+        self.totalAlarmas.append([self.identificador,self.tipo,tiempo])
 
     def generararribonormal(self):
         tiempoEspera = np.random.exponential(1 / (self.lambdareg),1)  # el siguiente arribo se producirá segun una varible exponencial

@@ -1,36 +1,72 @@
 ,0,1,2,3,4
-0,4,Monitoreo de consumo del agua y electricidad,8,0,[20.29269797]
-1,10,Control de iluminación,8,0,[21.32852769]
-2,11,Control de iluminación,8,0,[20.06122412]
-3,16,Monitoreo de consumo del agua y electricidad,3,0,[22.53296415]
-4,16,Control de iluminación,8,0,[20.21937968]
-5,25,Monitoreo de consumo del agua y electricidad,5,0,[20.2041002]
-6,25,Monitoreo de consumo del agua y electricidad,8,0,[25.31578481]
-7,27,Control de iluminación,5,0,[21.74836785]
-8,27,Detección de terremotos,4,0,[22.92146441]
-9,31,Control de iluminación,6,0,[21.92753306]
-10,36,Monitoreo de consumo del agua y electricidad,4,0,[20.5512414]
-11,44,Control de iluminación,7,0,[20.13140746]
-12,47,Monitoreo de consumo del agua y electricidad,1,0,[63.31746394]
-13,51,Control de iluminación,9,0,[22.21928041]
-14,52,Control de iluminación,8,0,[20.59127414]
-15,55,Control de iluminación,0,0,[22.66385864]
-16,70,Detección de terremotos,3,0,[20.15620168]
-17,81,Monitoreo de consumo del agua y electricidad,0,0,[20.49974811]
-18,89,Detección de terremotos,7,0,[50.34746967]
-19,105,Control de iluminación,1,0,[21.12306932]
-20,106,Monitoreo de consumo del agua y electricidad,9,0,[21.90208207]
-21,124,Monitoreo de consumo del agua y electricidad,6,0,[22.74576613]
-22,131,Control de iluminación,2,0,[20.28858221]
-23,134,Control de iluminación,4,0,[20.61966836]
-24,141,Monitoreo de consumo del agua y electricidad,7,0,[21.84950517]
-25,159,Monitoreo de consumo del agua y electricidad,3,0,[21.12726964]
-26,161,Monitoreo de consumo del agua y electricidad,2,0,[23.35934758]
-27,162,Detección de terremotos,0,0,[22.31720049]
-28,194,Detección de terremotos,6,0,[20.40772261]
-29,218,Control de iluminación,3,0,[20.87877768]
-30,260,Detección de terremotos,8,0,[21.28930315]
-31,276,Detección de terremotos,2,0,[24.96060389]
-32,378,Detección de terremotos,5,0,[20.53014296]
-33,640,Detección de terremotos,9,0,[20.20064574]
-34,1007,Detección de terremotos,1,0,[20.9756417]
+0,2.0,Monitoreo de consumo del agua y electricidad,0,0,[22.63322754]
+1,2.8,Detección de terremotos,0,1,20
+2,2.8,Detección de terremotos,2,1,20
+3,2.8,Detección de terremotos,3,1,20
+4,2.8,Detección de terremotos,5,1,20
+5,2.8,Detección de terremotos,7,1,20
+6,2.8,Detección de terremotos,8,1,20
+7,2.8,Detección de terremotos,9,1,20
+8,3.3,Monitoreo de consumo del agua y electricidad,0,1,20
+9,3.3,Monitoreo de consumo del agua y electricidad,2,1,20
+10,3.3,Monitoreo de consumo del agua y electricidad,4,1,20
+11,3.3,Monitoreo de consumo del agua y electricidad,5,1,20
+12,6.6,Monitoreo de consumo del agua y electricidad,2,1,20
+13,6.6,Monitoreo de consumo del agua y electricidad,4,1,20
+14,6.6,Monitoreo de consumo del agua y electricidad,5,1,20
+15,6.6,Monitoreo de consumo del agua y electricidad,7,1,20
+16,7.0,Monitoreo de consumo del agua y electricidad,3,1,20
+17,7.0,Monitoreo de consumo del agua y electricidad,6,1,20
+18,7.0,Monitoreo de consumo del agua y electricidad,8,1,20
+19,7.6,Detección de terremotos,2,1,20
+20,7.6,Detección de terremotos,3,1,20
+21,7.6,Detección de terremotos,5,1,20
+22,7.6,Detección de terremotos,8,1,20
+23,10.0,Monitoreo de consumo del agua y electricidad,3,0,[23.89324764]
+24,12.0,Monitoreo de consumo del agua y electricidad,7,0,[21.05670262]
+25,12.0,Monitoreo de consumo del agua y electricidad,7,0,[21.45210192]
+26,12.3,Control de iluminación,0,1,20
+27,12.3,Control de iluminación,2,1,20
+28,12.3,Control de iluminación,3,1,20
+29,12.3,Control de iluminación,4,1,20
+30,12.3,Control de iluminación,7,1,20
+31,13.8,Monitoreo de consumo del agua y electricidad,0,1,20
+32,13.8,Monitoreo de consumo del agua y electricidad,2,1,20
+33,13.8,Monitoreo de consumo del agua y electricidad,4,1,20
+34,13.8,Monitoreo de consumo del agua y electricidad,5,1,20
+35,13.8,Monitoreo de consumo del agua y electricidad,7,1,20
+36,13.8,Monitoreo de consumo del agua y electricidad,9,1,20
+37,14.0,Control de iluminación,1,0,[25.8212084]
+38,14.2,Detección de terremotos,3,1,20
+39,14.2,Detección de terremotos,5,1,20
+40,14.2,Detección de terremotos,7,1,20
+41,23.0,Control de iluminación,7,0,[20.3173668]
+42,29.0,Detección de terremotos,6,0,[20.38166223]
+43,31.0,Control de iluminación,1,0,[23.91451322]
+44,33.0,Monitoreo de consumo del agua y electricidad,5,0,[22.18821606]
+45,36.0,Control de iluminación,5,0,[20.68758745]
+46,40.0,Monitoreo de consumo del agua y electricidad,1,0,[21.11601491]
+47,41.0,Detección de terremotos,9,0,[20.0997368]
+48,45.0,Monitoreo de consumo del agua y electricidad,0,0,[21.53264081]
+49,51.0,Detección de terremotos,7,0,[43.46733141]
+50,56.0,Detección de terremotos,1,0,[20.06431305]
+51,74.0,Detección de terremotos,2,0,[21.88705109]
+52,92.0,Control de iluminación,4,0,[26.31174795]
+53,101.0,Control de iluminación,2,0,[20.63167742]
+54,102.0,Detección de terremotos,5,0,[21.49485842]
+55,104.0,Control de iluminación,6,0,[50.1388496]
+56,119.0,Detección de terremotos,0,0,[20.11965013]
+57,120.0,Control de iluminación,8,0,[24.09278619]
+58,123.0,Detección de terremotos,4,0,[21.75625702]
+59,125.0,Control de iluminación,3,0,[20.82459488]
+60,127.0,Control de iluminación,0,0,[20.54988005]
+61,130.0,Control de iluminación,9,0,[42.78297553]
+62,159.0,Monitoreo de consumo del agua y electricidad,7,0,[20.14166624]
+63,172.0,Monitoreo de consumo del agua y electricidad,6,0,[20.06023359]
+64,229.0,Monitoreo de consumo del agua y electricidad,3,0,[22.53205082]
+65,236.0,Monitoreo de consumo del agua y electricidad,2,0,[25.43786154]
+66,241.0,Detección de terremotos,3,0,[20.95096562]
+67,269.0,Monitoreo de consumo del agua y electricidad,4,0,[21.50517647]
+68,301.0,Monitoreo de consumo del agua y electricidad,8,0,[22.36352428]
+69,342.0,Monitoreo de consumo del agua y electricidad,9,0,[20.11169368]
+70,487.0,Detección de terremotos,8,0,[20.50011634]

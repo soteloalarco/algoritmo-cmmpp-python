@@ -13,12 +13,13 @@ class GeneradorAlarmas(object):
         self.constanteEspacial2=constanteEspacial2 # dth para raised-cosine window, nada para dacaying exponential
         self.posicion = posicion  # la posición espacial dentro de la celula
 
+
 #TODO Hay un problema y todos los eventos se crean mass o menos al mismo tiempo sin importar lass distintas lambdas
     def calcularSiguienteAlarma(self): #Calcular en qué momento sucederá la siguiente alarma
         tiempoEspera = np.random.exponential(1 / (self.lambdaEvento), 1)  # el siguiente arribo se producirá segun una varible exponencial
         self.siguienteArribo=self.siguienteArribo + tiempoEspera
         #TODO crear funcion para generar posicion en la célula
-        self.posicion=[np.random.uniform(0, 100, 1), np.random.uniform(0, 100, 1)] # se calcula la posicion
+        self.posicion=[np.random.uniform(0, 100, 1)-50, np.random.uniform(0, 100, 1)-50] # se calcula la posicion
 
     def generarAlarma(self,tiempoActual):
 

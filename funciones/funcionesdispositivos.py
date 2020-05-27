@@ -19,6 +19,9 @@ def funDeltaCustom(x,deltaTiempo):
         return 0
 
 def calcularThetak(tiempoActual, tiempoAlarma,distancia,velocidad,deltaTiempo): #Theta_n[k] = theta[k] * delta_n
+    print('distancia al sig evento ' + str(distancia))
+    print('tiempo sig evento ' + str(tiempoAlarma))
+
     aux = (tiempoActual-tiempoAlarma-(distancia/velocidad))
     return funDeltaCustom(aux,deltaTiempo)
 
@@ -31,5 +34,7 @@ def calcularPnk(tiempoActual,tiempoAlarma,distancia,velocidad,modelo,constanteEs
     thetak=calcularThetak(tiempoActual,tiempoAlarma,distancia,velocidad,deltaTiempo) #Theta_n[k] = theta[k] * delta_n
     dn= calculardn(distancia,modelo,constanteEspacial1,constanteEspacial2)
     thetank = thetak*dn
+    print('thetak ' + str(thetak))
+    print('dn ' + str(dn))
     return (1 - thetank) * Pu + thetank * Pc  # Pn[k]= Theta_n[k]*Pc + (1-Theta_n[k]*Pu)
 

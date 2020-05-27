@@ -11,17 +11,17 @@ import matplotlib.pyplot as plt
 
 ######################################################
 #Variables a modificar
-tiempoLimite = 20 # segundos, tiempo de paro del algoritmo
+tiempoLimite = 15 # segundos, tiempo de paro del algoritmo
 deltaTiempo = 0.1 #segundos , diferencial de tiempo entre iteración
 numerosDecimalesDeltaTiempo=2 #Si se modifica deltaTiempo modificar también esta veriable
 
 ### Control de iluminación
 dipositivos_Tipo1 = 10 # número de dispositivos de tipo 1,
 lambdaRegular_Tipo1=1/60 # la tasa lambda para el estado regular de los dispositivos de tipo 1 (1 paquete cada 60 seg)
-lambdaAlarma_Tipo1=1/60 # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 500 seg)
+lambdaAlarma_Tipo1=1/3 # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 500 seg)
 velPropagacionAlarma_Tipo1= 500 # m/s Velocidad de propagación de alarma
 modeloEspacial_Tipo1=0 # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
-constanteEspacial1_Tipo1= 0.1 # alpha para Decaying exponential, W para raised-cosine Window
+constanteEspacial1_Tipo1= 0.005 # alpha para Decaying exponential, W para raised-cosine Window
 constanteEspacial2_Tipo1=0 # ignorar para Decaying exponential, dth para raised-cosine Window
 #animacion
 color_Tipo1= 'b'
@@ -30,10 +30,10 @@ marcador_Tipo1= 'd'
 ### Monitoreo de consumo del agua y electricidad
 dipositivos_Tipo2 = 10 # número de dispositivos de tipo 2
 lambdaRegular_Tipo2=1/120 # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
-lambdaAlarma_Tipo2=1/60 # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 200 seg)
-velPropagacionAlarma_Tipo2= 600 # m/s Velocidad de propagación de alarma
+lambdaAlarma_Tipo2=1/3 # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 200 seg)
+velPropagacionAlarma_Tipo2= 1000 # m/s Velocidad de propagación de alarma
 modeloEspacial_Tipo2=0 # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
-constanteEspacial1_Tipo2= 0.1 # alpha para Decaying exponential, W para raised-cosine Window
+constanteEspacial1_Tipo2= 0.005 # alpha para Decaying exponential, W para raised-cosine Window
 constanteEspacial2_Tipo2=0 # ignorar para Decaying exponential, dth para raised-cosine Window
 #animacion
 color_Tipo2= 'r'
@@ -42,10 +42,10 @@ marcador_Tipo2= '*'
 ### Detección de terremotos
 dipositivos_Tipo3 = 10 # número de dispositivos de tipo 3
 lambdaRegular_Tipo3=1/180 # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
-lambdaAlarma_Tipo3=1/60 # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
-velPropagacionAlarma_Tipo3= 100 # m/s Velocidad de propagación de alarma
+lambdaAlarma_Tipo3=1/3 # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
+velPropagacionAlarma_Tipo3= 1000 # m/s Velocidad de propagación de alarma
 modeloEspacial_Tipo3=0 # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
-constanteEspacial1_Tipo3= 0.1 # alpha para Decaying exponential, W para raised-cosine Window
+constanteEspacial1_Tipo3= 0.007 # alpha para Decaying exponential, W para raised-cosine Window
 constanteEspacial2_Tipo3=0 # ignorar para Decaying exponential, dth para raised-cosine Window
 #animacion
 color_Tipo3= 'k'
@@ -82,15 +82,17 @@ for k in range(0,int(iteraciones + 1)): # Ciclo que avanza el tiempo
 
     for dispositivosaux,generadorAlarma in iter.zip_longest(dispositivos,generadoresAlarmas): # Ciclo que recorre los distintos tipos de dispositivos y sus geenradores de alarmas
 
-        generadorAlarma.generarAlarma(tiempo) # se genera una nueva alarma en una posición aleatoria si la actual ya sucedió
-
-        theta = np.random.beta(3, 4, 1)  # variable aleatoria beta para determinar Theta_n[k] = theta[k] * delta_n , una distinta por cada aplicacion
+        if(tiempo==0):
+            generadorAlarma.generarAlarma(tiempo) # se calcula el primer tiempo de alarma
 
         for dispositivo in dispositivosaux: # Ciclo que recorre cada uno de los dispositivos del mismo tipo
+            print('tiempo actual ' + str(tiempo))
+            print('dispositivo tipo ' + dispositivo.tipo +'-'+ str(dispositivo.identificador))
             Pnk= calcularPnk(tiempo,generadorAlarma.siguienteArribo,distanciaList(generadorAlarma.posicion,dispositivo.posicion),generadorAlarma.velocidad,generadorAlarma.modeloEspacial,generadorAlarma.constanteEspacial1,generadorAlarma.constanteEspacial2,dispositivo.m_Pu,dispositivo.m_Pc,deltaTiempo) # parte A del diagrama  /assets/CMMPP_diagrama.jpg
             dispositivo.actualizarestado(Pnk) # parte B del diagrama
             dispositivo.generararribo(tiempo) # parte C del diagrama
-            print(Pnk)
+            print('Pnk dispositivo' + str(Pnk))
+            print('------------------------')
 
             #TODO la animacion debe hacerse de todos los puntos al mismo tiempo si pertenecen al mismo instante de tiempo
             #Animacion
@@ -98,6 +100,7 @@ for k in range(0,int(iteraciones + 1)): # Ciclo que avanza el tiempo
                 #animacionTrafico.dibujarPaquete(dispositivo.posicion,dispositivo.estado)
                 #animacionTrafico.actualizar()
 
+        generadorAlarma.generarAlarma(tiempo)  # se genera una nueva alarma en una posición aleatoria si la actual ya sucedió
 
 
     tiempo = round(tiempo + deltaTiempo, numerosDecimalesDeltaTiempo) # Función para redondear decimales
