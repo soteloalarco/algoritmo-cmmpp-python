@@ -19,8 +19,6 @@ def funDeltaCustom(x,deltaTiempo):
         return 0
 
 def calcularThetak(tiempoActual, tiempoAlarma,distancia,velocidad,deltaTiempo): #Theta_n[k] = theta[k] * delta_n
-    print('distancia al sig evento ' + str(distancia))
-    print('tiempo sig evento ' + str(tiempoAlarma))
 
     aux = (tiempoActual-tiempoAlarma-(distancia/velocidad))
     return funDeltaCustom(aux,deltaTiempo)
@@ -41,8 +39,7 @@ def calcularPnk(tiempoActual,alarmas,velocidad,modelo,constanteEspacial1,constan
         thetank = thetak*dn
         if(thetak==0): # si en esta ventana de tiempo la alarma no llega al dispositivo aun se agrega a la nueva lista
                 nuevaAlarma.append(alarma)
-        print('thetak ' + str(thetak))
-        print('dn ' + str(dn))
+
         Pnk.append((1 - thetank) * Pu + thetank * Pc)   # Pn[k]= Theta_n[k]*Pc + (1-Theta_n[k]*Pu)
 
     return [Pnk,nuevaAlarma]

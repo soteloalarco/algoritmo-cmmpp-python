@@ -7,44 +7,44 @@ from clases.AnimacionTrafico import AnimacionTrafico
 from funciones.funcionesdispositivos import creardispositivos
 from funciones.funcionesdispositivos import calcularPnk
 from funciones.miscelaneo import distanciaList
-import matplotlib.pyplot as plt
+
 
 ######################################################
 #Variables a modificar
-tiempoLimite = 10 # segundos, tiempo de paro del algoritmo
+tiempoLimite = 100 # segundos, tiempo de paro del algoritmo
 deltaTiempo = 0.1 #segundos , diferencial de tiempo entre iteración
 numerosDecimalesDeltaTiempo=2 #Si se modifica deltaTiempo modificar también esta veriable
 tiposDispositivos=3 # Cantidad total de dispositivos a caracterizar a continuación
 
 ### Control de iluminación
-dipositivos_Tipo1 = 10 # número de dispositivos de tipo 1,
-lambdaRegular_Tipo1=1/60 # la tasa lambda para el estado regular de los dispositivos de tipo 1 (1 paquete cada 60 seg)
-lambdaAlarma_Tipo1=1/3 # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 500 seg)
+dipositivos_Tipo1 = 30 # número de dispositivos de tipo 1,
+lambdaRegular_Tipo1=1/6 # la tasa lambda para el estado regular de los dispositivos de tipo 1 (1 paquete cada 60 seg)
+lambdaAlarma_Tipo1=1/5 # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 500 seg)
 velPropagacionAlarma_Tipo1= 500 # m/s Velocidad de propagación de alarma
 modeloEspacial_Tipo1=0 # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
-constanteEspacial1_Tipo1= 0.005 # alpha para Decaying exponential, W para raised-cosine Window
+constanteEspacial1_Tipo1= 0.007 # alpha para Decaying exponential, W para raised-cosine Window
 constanteEspacial2_Tipo1=0 # ignorar para Decaying exponential, dth para raised-cosine Window
 #animacion
 color_Tipo1= 'b'
 marcador_Tipo1= 'd'
 
 ### Monitoreo de consumo del agua y electricidad
-dipositivos_Tipo2 = 10 # número de dispositivos de tipo 2
-lambdaRegular_Tipo2=1/120 # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
-lambdaAlarma_Tipo2=1/3 # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 200 seg)
-velPropagacionAlarma_Tipo2= 1000 # m/s Velocidad de propagación de alarma
+dipositivos_Tipo2 = 100 # número de dispositivos de tipo 2
+lambdaRegular_Tipo2=1/60 # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
+lambdaAlarma_Tipo2=1/1000 # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 200 seg)
+velPropagacionAlarma_Tipo2= 500 # m/s Velocidad de propagación de alarma
 modeloEspacial_Tipo2=0 # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
-constanteEspacial1_Tipo2= 0.005 # alpha para Decaying exponential, W para raised-cosine Window
+constanteEspacial1_Tipo2= 0.007 # alpha para Decaying exponential, W para raised-cosine Window
 constanteEspacial2_Tipo2=0 # ignorar para Decaying exponential, dth para raised-cosine Window
 #animacion
 color_Tipo2= 'r'
 marcador_Tipo2= '*'
 
 ### Detección de terremotos
-dipositivos_Tipo3 = 10 # número de dispositivos de tipo 3
+dipositivos_Tipo3 = 30 # número de dispositivos de tipo 3
 lambdaRegular_Tipo3=1/180 # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
-lambdaAlarma_Tipo3=1/3 # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
-velPropagacionAlarma_Tipo3= 1000 # m/s Velocidad de propagación de alarma
+lambdaAlarma_Tipo3=1/3600 # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
+velPropagacionAlarma_Tipo3= 3000 # m/s Velocidad de propagación de alarma
 modeloEspacial_Tipo3=0 # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
 constanteEspacial1_Tipo3= 0.007 # alpha para Decaying exponential, W para raised-cosine Window
 constanteEspacial2_Tipo3=0 # ignorar para Decaying exponential, dth para raised-cosine Window
@@ -89,19 +89,15 @@ for k in range(0,int(iteraciones + 1)): # Ciclo que avanza el tiempo
 
         for dispositivo in dispositivosaux: # Ciclo que recorre cada uno de los dispositivos del mismo tipo
 
-            dispositivo.registrarAlarma(generadorAlarma.idAlarma,generadorAlarma.siguienteArribo,generadorAlarma.siguienteArribo+(distanciaList(dispositivo.posicion,generadorAlarma.posicion)/generadorAlarma.velocidad),generadorAlarma.posicion,nuevaAlarma[tipoDisp])
+            dispositivo.registrarAlarma(generadorAlarma.idAlarma,generadorAlarma.siguienteArribo,round((generadorAlarma.siguienteArribo+(distanciaList(dispositivo.posicion,generadorAlarma.posicion)/generadorAlarma.velocidad))[0],numerosDecimalesDeltaTiempo+2),generadorAlarma.posicion,nuevaAlarma[tipoDisp])
 
-            print('tiempo actual ' + str(tiempo))
-            print('dispositivo tipo ' + dispositivo.tipo +'-'+ str(dispositivo.identificador))
-            print('Lista antes de calcular Pnk ' + str(dispositivo.listaAlarmas))
             [listaPnk, nuevaListaAlarmas]= calcularPnk(tiempo,dispositivo.listaAlarmas,generadorAlarma.velocidad,generadorAlarma.modeloEspacial,generadorAlarma.constanteEspacial1,generadorAlarma.constanteEspacial2,dispositivo.m_Pu,dispositivo.m_Pc,deltaTiempo) # parte A del diagrama  /assets/CMMPP_diagrama.jpg
+
             # listaAlarmas=[idAlarma,tiempoAparicion,tiempoLLegada,posicionAlarma,self.posicion] esta es la forma de listaAlarmas
-            print('Lista despues de calcular Pnk '+ str(dispositivo.listaAlarmas))
             for pnk,listaAlarmas in iter.zip_longest(listaPnk,dispositivo.listaAlarmas):
                 dispositivo.actualizarestado(pnk) # parte B del diagrama
                 dispositivo.generararribo(tiempo,listaAlarmas[0],listaAlarmas[2]) # parte C del diagrama
                 dispositivo.actualizarestadoanormal() # por si hay más de un evento que cree estados de alarma, se cambia siempre a estado normal,
-            print('------------------------')
 
             dispositivo.actualizarListaAlarmas(nuevaListaAlarmas)
 
@@ -124,7 +120,7 @@ arriboOrdenado = dispositivo.registroCompletoArribos.sort(key=takeSecond)
 
 for arribo in dispositivo.registroCompletoArribos:
     estadoAux= "normal" if arribo[4]==0 else "alarma"
-    #print ("Instante: " + str(arribo[0]) +"     Identificador: " +str(arribo[2])+ ":"+str(arribo[1])+"      Estado: "+ estadoAux+"         Tamaño paquete:  "+str(arribo[4]))
+
 
 #Registro de todos los eventos
 ListaEventos = dispositivo.registroCompletoArribos

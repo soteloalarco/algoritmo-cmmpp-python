@@ -63,7 +63,7 @@ class DeviceMTC(object):
             upper = x
             if upper<=200:
                 break
-        self.tamañopkt=x
+        self.tamañopkt=round(x[0],2)
 
     def generarpaquetealarma(self):
         self.tamañopkt=20
