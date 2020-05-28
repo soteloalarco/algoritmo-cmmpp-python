@@ -11,15 +11,15 @@ from funciones.miscelaneo import distanciaList
 
 ######################################################
 #Variables a modificar
-tiempoLimite = 100 # segundos, tiempo de paro del algoritmo
+tiempoLimite = 150 # segundos, tiempo de paro del algoritmo
 deltaTiempo = 0.1 #segundos , diferencial de tiempo entre iteración
 numerosDecimalesDeltaTiempo=1 #Si se modifica deltaTiempo modificar también esta veriable
 tiposDispositivos=3 # Cantidad total de dispositivos a caracterizar a continuación
 
 ### Control de iluminación
 dipositivos_Tipo1 = 30 # número de dispositivos de tipo 1,
-lambdaRegular_Tipo1=1/6 # la tasa lambda para el estado regular de los dispositivos de tipo 1 (1 paquete cada 60 seg)
-lambdaAlarma_Tipo1=1/5 # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 500 seg)
+lambdaRegular_Tipo1=1/40 # la tasa lambda para el estado regular de los dispositivos de tipo 1 (1 paquete cada 60 seg)
+lambdaAlarma_Tipo1=1/20 # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 500 seg)
 velPropagacionAlarma_Tipo1= 500 # m/s Velocidad de propagación de alarma
 modeloEspacial_Tipo1=0 # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
 constanteEspacial1_Tipo1= 0.007 # alpha para Decaying exponential, W para raised-cosine Window
@@ -33,9 +33,9 @@ dipositivos_Tipo2 = 100 # número de dispositivos de tipo 2
 lambdaRegular_Tipo2=1/60 # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
 lambdaAlarma_Tipo2=1/1000 # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 200 seg)
 velPropagacionAlarma_Tipo2= 500 # m/s Velocidad de propagación de alarma
-modeloEspacial_Tipo2=0 # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
-constanteEspacial1_Tipo2= 0.007 # alpha para Decaying exponential, W para raised-cosine Window
-constanteEspacial2_Tipo2=0 # ignorar para Decaying exponential, dth para raised-cosine Window
+modeloEspacial_Tipo2=1 # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
+constanteEspacial1_Tipo2= 200 # alpha para Decaying exponential, W para raised-cosine Window
+constanteEspacial2_Tipo2=80 # ignorar para Decaying exponential, dth para raised-cosine Window
 #animacion
 color_Tipo2= 'r'
 marcador_Tipo2= '*'
@@ -43,7 +43,7 @@ marcador_Tipo2= '*'
 ### Detección de terremotos
 dipositivos_Tipo3 = 30 # número de dispositivos de tipo 3
 lambdaRegular_Tipo3=1/180 # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
-lambdaAlarma_Tipo3=1/3600 # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
+lambdaAlarma_Tipo3=1/50 # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
 velPropagacionAlarma_Tipo3= 3000 # m/s Velocidad de propagación de alarma
 modeloEspacial_Tipo3=0 # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
 constanteEspacial1_Tipo3= 0.007 # alpha para Decaying exponential, W para raised-cosine Window

@@ -26,7 +26,9 @@ def calcularThetak(tiempoActual, tiempoAlarma,distancia,velocidad,deltaTiempo): 
 def calculardn(distancia,modelo,constanteEspacial1,constanteEspacial2): #Theta_n[k] = theta[k] * delta_n
     if(modelo==0):
         return math.exp(-constanteEspacial1*distancia)
-    #TODO programar else de modelo raised-cosine window
+    else:
+        return raisedCosineWindow(distancia,constanteEspacial1,constanteEspacial2)
+
 
 def calcularPnk(tiempoActual,alarmas,velocidad,modelo,constanteEspacial1,constanteEspacial2,Pu,Pc,deltaTiempo): #Proceso maestro
     # alarma=[idAlarma,tiempoAparicion,tiempoLLegada,posicionAlarma,self.posicion]
@@ -44,3 +46,10 @@ def calcularPnk(tiempoActual,alarmas,velocidad,modelo,constanteEspacial1,constan
 
     return [Pnk,nuevaAlarma]
 
+def raisedCosineWindow(dn,W,dth):
+    if(dn<dth):
+        return 1
+    elif(dth<dn<2*W-dth):
+        return (1/2)*(1 - math.sin((math.pi*(dn-W))/(2*(W-dth))))
+    else:
+        return 0
