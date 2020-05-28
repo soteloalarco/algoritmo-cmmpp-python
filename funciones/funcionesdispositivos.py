@@ -1,7 +1,7 @@
 import numpy as np  # NumPy package for arrays, random number generation, etc
 import math as math
 from clases.DeviceMTC import DeviceMTC
-
+from funciones.miscelaneo import distanciaList
 
 def creardispositivos( numeroDispositivos, lambdaRegular_Tipo,tipo,tiempo,color,marcador):
     dispositivos = []
@@ -30,11 +30,20 @@ def calculardn(distancia,modelo,constanteEspacial1,constanteEspacial2): #Theta_n
         return math.exp(-constanteEspacial1*distancia)
     #TODO programar else de modelo raised-cosine window
 
-def calcularPnk(tiempoActual,tiempoAlarma,distancia,velocidad,modelo,constanteEspacial1,constanteEspacial2,Pu,Pc,deltaTiempo): #Proceso maestro
-    thetak=calcularThetak(tiempoActual,tiempoAlarma,distancia,velocidad,deltaTiempo) #Theta_n[k] = theta[k] * delta_n
-    dn= calculardn(distancia,modelo,constanteEspacial1,constanteEspacial2)
-    thetank = thetak*dn
-    print('thetak ' + str(thetak))
-    print('dn ' + str(dn))
-    return (1 - thetank) * Pu + thetank * Pc  # Pn[k]= Theta_n[k]*Pc + (1-Theta_n[k]*Pu)
+def calcularPnk(tiempoActual,alarmas,velocidad,modelo,constanteEspacial1,constanteEspacial2,Pu,Pc,deltaTiempo): #Proceso maestro
+    # alarma=[idAlarma,tiempoAparicion,tiempoLLegada,posicionAlarma,self.posicion]
+    Pnk=[] # Pn[k]= Theta_n[k]*Pc + (1-Theta_n[k]*Pu)
+    nuevaAlarma=[]  # despues de borrar los eventos que se resuelvan, esta sera la lista a sustituir en el dispositivo
+    for alarma in alarmas: # Se verifican todas las alarmas pendientes
+        distancia= distanciaList(alarma[3],alarma[4])
+        thetak=calcularThetak(tiempoActual,alarma[1],distancia,velocidad,deltaTiempo) #Theta_n[k] = theta[k] * delta_n
+        dn= calculardn(distancia,modelo,constanteEspacial1,constanteEspacial2)
+        thetank = thetak*dn
+        if(thetak==0): # si en esta ventana de tiempo la alarma no llega al dispositivo aun se agrega a la nueva lista
+                nuevaAlarma.append(alarma)
+        print('thetak ' + str(thetak))
+        print('dn ' + str(dn))
+        Pnk.append((1 - thetank) * Pu + thetank * Pc)   # Pn[k]= Theta_n[k]*Pc + (1-Theta_n[k]*Pu)
+
+    return [Pnk,nuevaAlarma]
 

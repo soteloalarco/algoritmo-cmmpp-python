@@ -14,6 +14,7 @@ class DeviceMTC(object):
         self.tamañopkt = tamañopkt # tamaño de paquete del evento actual calculado
         self.color=color # color de dispositivo en la animacion
         self.marcador=marcador # marcador del dispositivo en la animacion
+        self.listaAlarmas=[] # en esta lista se guardan los eventos de alarma que aun no llegan a la posición del dispositivo, se guarda el tiempo y la posicion donde se origina la alarma
 
 
     matriz_Pu = [[1, 1], [0, 0]]  # matriz que describe el comportamiento no unsincronized
@@ -32,26 +33,26 @@ class DeviceMTC(object):
         if self.estado == 0 and auxUniforme > pnk[0][0]:  # Si se está en estado normal y si la variable uniforme es mayor a la probabilidad de que no cambie de estado, cambia de estado
             self.estado = 1
 
-    def generararribo(self, tiempo):
+    def generararribo(self, tiempo, identificadorEvento, tiempoAlarma):
         if self.estado == 1:  # alarma
             self.generarpaquetealarma() # tamaño fijo parte D del diagrama  /assets/CMMPP_diagrama.jpg
-            self.generararriboalarma(tiempo)  # Generar exactamente 1 paquete
+            self.generararriboalarma(tiempoAlarma,identificadorEvento)  # Generar exactamente 1 paquete
 
         elif self.tiempoArribo <= tiempo:
             self.generarpaquetenormal() # variable de pareto parte D del diagrama  /assets/CMMPP_diagrama.jpg
             self.generararribonormal()  # Generar un paquete en caso de que no exista ya uno
 
-    def generararriboalarma(self, tiempo):
-        self.registroArribos.append([tiempo,self.tipo,self.identificador,self.estado,self.tamañopkt])  # se registra el arribo en la lista
-        self.registroCompletoArribos.append([tiempo,self.tipo,self.identificador,self.estado,self.tamañopkt])
+    def generararriboalarma(self, tiempo,identificadorEvento):
+        self.registroArribos.append([identificadorEvento, tiempo,self.identificador,self.tipo,self.estado,self.tamañopkt])  # se registra el arribo en la lista
+        self.registroCompletoArribos.append([identificadorEvento, tiempo,self.identificador,self.tipo,self.estado,self.tamañopkt])
         self.cuentaAlarmas = self.cuentaAlarmas + 1 #¿QUE FUNCION TIENE ESTE CONTADOR?, sólo es para ver si los valores que produce el programa tienen sentido.
         self.totalAlarmas.append([self.identificador,self.tipo,tiempo])
 
     def generararribonormal(self):
         tiempoEspera = np.random.exponential(1 / (self.lambdareg),1)  # el siguiente arribo se producirá segun una varible exponencial
         self.tiempoArribo = self.tiempoArribo + tiempoEspera
-        self.registroArribos.append([int(self.tiempoArribo), self.tipo,self.identificador,self.estado,self.tamañopkt])  # se registra el arribo en la lista
-        self.registroCompletoArribos.append([int(self.tiempoArribo), self.tipo,self.identificador,self.estado, self.tamañopkt])
+        self.registroArribos.append([0,int(self.tiempoArribo),self.identificador, self.tipo,self.estado,self.tamañopkt])  # se registra el arribo en la lista
+        self.registroCompletoArribos.append([0,int(self.tiempoArribo),self.identificador, self.tipo,self.estado, self.tamañopkt])
 
     def generarpaquetenormal(self): # Generar paquete con distribución de Pareto
         while True:
@@ -72,3 +73,13 @@ class DeviceMTC(object):
             return True
         else:
             return False
+
+    def registrarAlarma(self, idAlarma, tiempoAparicion, tiempoLLegada, posicionAlarma, nuevaAlarma):
+        if(nuevaAlarma):
+            self.listaAlarmas.append([idAlarma,tiempoAparicion,tiempoLLegada,posicionAlarma,self.posicion])
+
+    def actualizarListaAlarmas(self,nuevaLista):
+        self.listaAlarmas=nuevaLista
+
+    def actualizarestadoanormal(self):
+        self.estado=0

@@ -11,9 +11,10 @@ import matplotlib.pyplot as plt
 
 ######################################################
 #Variables a modificar
-tiempoLimite = 15 # segundos, tiempo de paro del algoritmo
+tiempoLimite = 10 # segundos, tiempo de paro del algoritmo
 deltaTiempo = 0.1 #segundos , diferencial de tiempo entre iteración
 numerosDecimalesDeltaTiempo=2 #Si se modifica deltaTiempo modificar también esta veriable
+tiposDispositivos=3 # Cantidad total de dispositivos a caracterizar a continuación
 
 ### Control de iluminación
 dipositivos_Tipo1 = 10 # número de dispositivos de tipo 1,
@@ -58,6 +59,7 @@ tiempo = 0 # tiempo inicial
 iteraciones=tiempoLimite/deltaTiempo # las iteraciones  que se producirán recorriendo el tiempo k
 dispositivos= [] # una lista para guardar las instancias de dipoitivos de distintos tipos
 generadoresAlarmas=[] # una lista para guardar los genradores de eventos de alarmas, uno para cada tipo de dispositivo
+nuevaAlarma= [False] * tiposDispositivos
 animacionTrafico= AnimacionTrafico() # Creamos animación y la dibujamos
 animacionTrafico.dibujar()
 animacionTrafico.actualizar()
@@ -80,19 +82,28 @@ animacionTrafico.actualizar()
 
 for k in range(0,int(iteraciones + 1)): # Ciclo que avanza el tiempo
 
-    for dispositivosaux,generadorAlarma in iter.zip_longest(dispositivos,generadoresAlarmas): # Ciclo que recorre los distintos tipos de dispositivos y sus geenradores de alarmas
+    for dispositivosaux,generadorAlarma,tipoDisp in iter.zip_longest(dispositivos,generadoresAlarmas,range(0,dispositivos.__len__())): # Ciclo que recorre los distintos tipos de dispositivos y sus geenradores de alarmas
 
         if(tiempo==0):
-            generadorAlarma.generarAlarma(tiempo) # se calcula el primer tiempo de alarma
+            nuevaAlarma[tipoDisp]= generadorAlarma.generarAlarma(tiempo) # se calcula el primer tiempo de alarma
 
         for dispositivo in dispositivosaux: # Ciclo que recorre cada uno de los dispositivos del mismo tipo
+
+            dispositivo.registrarAlarma(generadorAlarma.idAlarma,generadorAlarma.siguienteArribo,generadorAlarma.siguienteArribo+(distanciaList(dispositivo.posicion,generadorAlarma.posicion)/generadorAlarma.velocidad),generadorAlarma.posicion,nuevaAlarma[tipoDisp])
+
             print('tiempo actual ' + str(tiempo))
             print('dispositivo tipo ' + dispositivo.tipo +'-'+ str(dispositivo.identificador))
-            Pnk= calcularPnk(tiempo,generadorAlarma.siguienteArribo,distanciaList(generadorAlarma.posicion,dispositivo.posicion),generadorAlarma.velocidad,generadorAlarma.modeloEspacial,generadorAlarma.constanteEspacial1,generadorAlarma.constanteEspacial2,dispositivo.m_Pu,dispositivo.m_Pc,deltaTiempo) # parte A del diagrama  /assets/CMMPP_diagrama.jpg
-            dispositivo.actualizarestado(Pnk) # parte B del diagrama
-            dispositivo.generararribo(tiempo) # parte C del diagrama
-            print('Pnk dispositivo' + str(Pnk))
+            print('Lista antes de calcular Pnk ' + str(dispositivo.listaAlarmas))
+            [listaPnk, nuevaListaAlarmas]= calcularPnk(tiempo,dispositivo.listaAlarmas,generadorAlarma.velocidad,generadorAlarma.modeloEspacial,generadorAlarma.constanteEspacial1,generadorAlarma.constanteEspacial2,dispositivo.m_Pu,dispositivo.m_Pc,deltaTiempo) # parte A del diagrama  /assets/CMMPP_diagrama.jpg
+            # listaAlarmas=[idAlarma,tiempoAparicion,tiempoLLegada,posicionAlarma,self.posicion] esta es la forma de listaAlarmas
+            print('Lista despues de calcular Pnk '+ str(dispositivo.listaAlarmas))
+            for pnk,listaAlarmas in iter.zip_longest(listaPnk,dispositivo.listaAlarmas):
+                dispositivo.actualizarestado(pnk) # parte B del diagrama
+                dispositivo.generararribo(tiempo,listaAlarmas[0],listaAlarmas[2]) # parte C del diagrama
+                dispositivo.actualizarestadoanormal() # por si hay más de un evento que cree estados de alarma, se cambia siempre a estado normal,
             print('------------------------')
+
+            dispositivo.actualizarListaAlarmas(nuevaListaAlarmas)
 
             #TODO la animacion debe hacerse de todos los puntos al mismo tiempo si pertenecen al mismo instante de tiempo
             #Animacion
@@ -100,19 +111,19 @@ for k in range(0,int(iteraciones + 1)): # Ciclo que avanza el tiempo
                 #animacionTrafico.dibujarPaquete(dispositivo.posicion,dispositivo.estado)
                 #animacionTrafico.actualizar()
 
-        generadorAlarma.generarAlarma(tiempo)  # se genera una nueva alarma en una posición aleatoria si la actual ya sucedió
+        nuevaAlarma[tipoDisp]= generadorAlarma.generarAlarma(tiempo)  # se genera una nueva alarma en una posición aleatoria si la actual ya sucedió
 
 
     tiempo = round(tiempo + deltaTiempo, numerosDecimalesDeltaTiempo) # Función para redondear decimales
 
 
 def takeSecond(elem):
-    return elem[0]
+    return elem[1]
 arriboOrdenado = dispositivo.registroCompletoArribos.sort(key=takeSecond)
 
 
 for arribo in dispositivo.registroCompletoArribos:
-    estadoAux= "normal" if arribo[3]==0 else "alarma"
+    estadoAux= "normal" if arribo[4]==0 else "alarma"
     #print ("Instante: " + str(arribo[0]) +"     Identificador: " +str(arribo[2])+ ":"+str(arribo[1])+"      Estado: "+ estadoAux+"         Tamaño paquete:  "+str(arribo[4]))
 
 #Registro de todos los eventos
