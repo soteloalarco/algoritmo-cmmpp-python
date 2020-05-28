@@ -11,7 +11,7 @@ def creardispositivos( numeroDispositivos, lambdaRegular_Tipo,tipo,tiempo,color,
             DeviceMTC(lambdaRegular_Tipo, np.random.uniform(0, 100, 1)-50, np.random.uniform(0, 100, 1)-50, 0,tipo,tiempo,disp,[],0,color,marcador))
 
     return dispositivos
-#TODO hacer el deltaTiempo Global
+
 def funDeltaCustom(x,deltaTiempo):
     if(0<=x<deltaTiempo):
         return 1

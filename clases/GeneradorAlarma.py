@@ -12,7 +12,7 @@ class GeneradorAlarmas(object):
         self.constanteEspacial1=constanteEspacial1 # alpha para modelo decaying exponential, W para raised-cosine window
         self.constanteEspacial2=constanteEspacial2 # dth para raised-cosine window, nada para dacaying exponential
         self.posicion = posicion  # la posición espacial dentro de la celula
-        self.idAlarma=1
+        self.idAlarma=0
         self.totalAlarmas=[]
 
 
