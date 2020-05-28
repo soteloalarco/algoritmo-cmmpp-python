@@ -49,10 +49,12 @@ class DeviceMTC(object):
         self.totalAlarmas.append([self.identificador,self.tipo,tiempo])
 
     def generararribonormal(self):
-        self.registroArribos.append([0,int(self.tiempoArribo),self.identificador, self.tipo,self.estado,self.tamañopkt])  # se registra el arribo en la lista
-        self.registroCompletoArribos.append([0,int(self.tiempoArribo),self.identificador, self.tipo,self.estado, self.tamañopkt])
-        tiempoEspera = np.random.exponential(1 / (self.lambdareg),1)  # el siguiente arribo se producirá segun una varible exponencial
+        tiempoEspera = np.random.exponential(1 / (self.lambdareg), 1)  # el siguiente arribo se producirá segun una varible exponencial
         self.tiempoArribo = self.tiempoArribo + tiempoEspera
+        #TODO Encontrar una mejor manera de asignar los decimales a redondear, hardcoded 4
+        self.registroArribos.append([0,round(float(self.tiempoArribo),4),self.identificador, self.tipo,self.estado,self.tamañopkt])  # se registra el arribo en la lista
+        self.registroCompletoArribos.append([0,round(float(self.tiempoArribo),4),self.identificador, self.tipo,self.estado, self.tamañopkt])
+
 
     def generarpaquetenormal(self): # Generar paquete con distribución de Pareto
         while True:
