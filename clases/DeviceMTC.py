@@ -33,27 +33,27 @@ class DeviceMTC(object):
         if self.estado == 0 and auxUniforme > pnk[0][0]:  # Si se está en estado normal y si la variable uniforme es mayor a la probabilidad de que no cambie de estado, cambia de estado
             self.estado = 1
 
-    def generararribo(self, tiempo, identificadorEvento, tiempoAlarma):
+    def generararribo(self, tiempo, identificadorEvento, tiempoAlarma,numeroDecimales):
         if self.estado == 1:  # alarma
             self.generarpaquetealarma() # tamaño fijo parte D del diagrama  /assets/CMMPP_diagrama.jpg
-            self.generararriboalarma(tiempoAlarma,identificadorEvento)  # Generar exactamente 1 paquete
+            self.generararriboalarma(tiempoAlarma,identificadorEvento,numeroDecimales)  # Generar exactamente 1 paquete
 
         elif self.tiempoArribo <= tiempo:
             self.generarpaquetenormal() # variable de pareto parte D del diagrama  /assets/CMMPP_diagrama.jpg
-            self.generararribonormal()  # Generar un paquete en caso de que no exista ya uno
+            self.generararribonormal(numeroDecimales)  # Generar un paquete en caso de que no exista ya uno
 
-    def generararriboalarma(self, tiempo,identificadorEvento):
-        self.registroArribos.append([identificadorEvento, tiempo,self.identificador,self.tipo,self.estado,self.tamañopkt])  # se registra el arribo en la lista
-        self.registroCompletoArribos.append([identificadorEvento, tiempo,self.identificador,self.tipo,self.estado,self.tamañopkt])
+    def generararriboalarma(self, tiempo,identificadorEvento,numeroDecimales):
+        self.registroArribos.append([identificadorEvento, round(tiempo,numeroDecimales+1),self.identificador,self.tipo,self.estado,self.tamañopkt])  # se registra el arribo en la lista
+        self.registroCompletoArribos.append([identificadorEvento, round(tiempo,numeroDecimales+1),self.identificador,self.tipo,self.estado,self.tamañopkt])
         self.cuentaAlarmas = self.cuentaAlarmas + 1 #¿QUE FUNCION TIENE ESTE CONTADOR?, sólo es para ver si los valores que produce el programa tienen sentido.
         self.totalAlarmas.append([self.identificador,self.tipo,tiempo])
 
-    def generararribonormal(self):
+    def generararribonormal(self,numeroDecimales):
         tiempoEspera = np.random.exponential(1 / (self.lambdareg), 1)  # el siguiente arribo se producirá segun una varible exponencial
         self.tiempoArribo = self.tiempoArribo + tiempoEspera
         #TODO Encontrar una mejor manera de asignar los decimales a redondear, hardcoded 4
-        self.registroArribos.append([0,round(float(self.tiempoArribo),4),self.identificador, self.tipo,self.estado,self.tamañopkt])  # se registra el arribo en la lista
-        self.registroCompletoArribos.append([0,round(float(self.tiempoArribo),4),self.identificador, self.tipo,self.estado, self.tamañopkt])
+        self.registroArribos.append([0,round(float(self.tiempoArribo),numeroDecimales+1),self.identificador, self.tipo,self.estado,self.tamañopkt])  # se registra el arribo en la lista
+        self.registroCompletoArribos.append([0,round(float(self.tiempoArribo),numeroDecimales+1),self.identificador, self.tipo,self.estado, self.tamañopkt])
 
 
     def generarpaquetenormal(self): # Generar paquete con distribución de Pareto

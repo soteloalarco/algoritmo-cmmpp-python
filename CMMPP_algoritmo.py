@@ -13,7 +13,7 @@ from funciones.miscelaneo import distanciaList
 #Variables a modificar
 tiempoLimite = 100 # segundos, tiempo de paro del algoritmo
 deltaTiempo = 0.1 #segundos , diferencial de tiempo entre iteración
-numerosDecimalesDeltaTiempo=2 #Si se modifica deltaTiempo modificar también esta veriable
+numerosDecimalesDeltaTiempo=1 #Si se modifica deltaTiempo modificar también esta veriable
 tiposDispositivos=3 # Cantidad total de dispositivos a caracterizar a continuación
 
 ### Control de iluminación
@@ -89,14 +89,14 @@ for k in range(0,int(iteraciones + 1)): # Ciclo que avanza el tiempo
 
         for dispositivo in dispositivosaux: # Ciclo que recorre cada uno de los dispositivos del mismo tipo
 
-            dispositivo.registrarAlarma(generadorAlarma.idAlarma,generadorAlarma.siguienteArribo,round((generadorAlarma.siguienteArribo+(distanciaList(dispositivo.posicion,generadorAlarma.posicion)/generadorAlarma.velocidad))[0],numerosDecimalesDeltaTiempo+2),generadorAlarma.posicion,nuevaAlarma[tipoDisp])
+            dispositivo.registrarAlarma(generadorAlarma.idAlarma,generadorAlarma.siguienteArribo,(generadorAlarma.siguienteArribo+(distanciaList(dispositivo.posicion,generadorAlarma.posicion)/generadorAlarma.velocidad))[0],generadorAlarma.posicion,nuevaAlarma[tipoDisp])
 
             [listaPnk, nuevaListaAlarmas]= calcularPnk(tiempo,dispositivo.listaAlarmas,generadorAlarma.velocidad,generadorAlarma.modeloEspacial,generadorAlarma.constanteEspacial1,generadorAlarma.constanteEspacial2,dispositivo.m_Pu,dispositivo.m_Pc,deltaTiempo) # parte A del diagrama  /assets/CMMPP_diagrama.jpg
 
             # listaAlarmas=[idAlarma,tiempoAparicion,tiempoLLegada,posicionAlarma,self.posicion] esta es la forma de listaAlarmas
             for pnk,listaAlarmas in iter.zip_longest(listaPnk,dispositivo.listaAlarmas):
                 dispositivo.actualizarestado(pnk) # parte B del diagrama
-                dispositivo.generararribo(tiempo,listaAlarmas[0],listaAlarmas[2]) # parte C del diagrama
+                dispositivo.generararribo(tiempo,listaAlarmas[0],listaAlarmas[2],numerosDecimalesDeltaTiempo) # parte C del diagrama
                 dispositivo.actualizarestadoanormal() # por si hay más de un evento que cree estados de alarma, se cambia siempre a estado normal,
 
             dispositivo.actualizarListaAlarmas(nuevaListaAlarmas)
