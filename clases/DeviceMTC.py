@@ -49,10 +49,10 @@ class DeviceMTC(object):
         self.totalAlarmas.append([self.identificador,self.tipo,tiempo])
 
     def generararribonormal(self):
-        tiempoEspera = np.random.exponential(1 / (self.lambdareg),1)  # el siguiente arribo se producirá segun una varible exponencial
-        self.tiempoArribo = self.tiempoArribo + tiempoEspera
         self.registroArribos.append([0,int(self.tiempoArribo),self.identificador, self.tipo,self.estado,self.tamañopkt])  # se registra el arribo en la lista
         self.registroCompletoArribos.append([0,int(self.tiempoArribo),self.identificador, self.tipo,self.estado, self.tamañopkt])
+        tiempoEspera = np.random.exponential(1 / (self.lambdareg),1)  # el siguiente arribo se producirá segun una varible exponencial
+        self.tiempoArribo = self.tiempoArribo + tiempoEspera
 
     def generarpaquetenormal(self): # Generar paquete con distribución de Pareto
         while True:
