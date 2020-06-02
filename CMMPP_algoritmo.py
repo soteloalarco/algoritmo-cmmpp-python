@@ -1,6 +1,7 @@
 import numpy as np  # NumPy package for arrays, random number generation, etc
 import pandas as pd
 import itertools as iter
+from tkinter import Tk
 
 from clases.GeneradorAlarma import GeneradorAlarmas
 from clases.AnimacionTrafico import AnimacionTrafico
@@ -60,9 +61,9 @@ iteraciones=tiempoLimite/deltaTiempo # las iteraciones  que se producirán recor
 dispositivos= [] # una lista para guardar las instancias de dipoitivos de distintos tipos
 generadoresAlarmas=[] # una lista para guardar los genradores de eventos de alarmas, uno para cada tipo de dispositivo
 nuevaAlarma= [False] * tiposDispositivos
-animacionTrafico= AnimacionTrafico() # Creamos animación y la dibujamos
-animacionTrafico.dibujar()
-animacionTrafico.actualizar()
+#animacionTrafico= AnimacionTrafico() # Creamos animación y la dibujamos
+#animacionTrafico.dibujar()
+#animacionTrafico.actualizar()
 
 #Se generan las instancias de cada tipo de dipositivos y sus generadores de alarmas
 dispositivos.append(creardispositivos(dipositivos_Tipo1, lambdaRegular_Tipo1,'Control de iluminacion',tiempo,color_Tipo1,marcador_Tipo1))
@@ -73,10 +74,10 @@ dispositivos.append(creardispositivos(dipositivos_Tipo3, lambdaRegular_Tipo3,'De
 generadoresAlarmas.append(GeneradorAlarmas(lambdaAlarma_Tipo3,velPropagacionAlarma_Tipo3,tiempo,modeloEspacial_Tipo3,constanteEspacial1_Tipo3,constanteEspacial2_Tipo3,[0,0]))
 
 #Graficamos los dispositivos en la celda
-for dispositivosaux in dispositivos:
-    for dispositivo in dispositivosaux: #ciclo para recorrer la lista de dispositivos y dibujar cada uno
-        animacionTrafico.dibujarDispositivo(dispositivo.posicion,dispositivo.color,dispositivo.marcador)
-animacionTrafico.actualizar()
+#for dispositivosaux in dispositivos:
+#    for dispositivo in dispositivosaux: #ciclo para recorrer la lista de dispositivos y dibujar cada uno
+#        animacionTrafico.dibujarDispositivo(dispositivo.posicion,dispositivo.color,dispositivo.marcador)
+#animacionTrafico.actualizar()
 
 ##########  Algoritmo CMMPP  #################
 
