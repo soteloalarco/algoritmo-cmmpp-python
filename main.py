@@ -86,6 +86,7 @@
 
 
 import tkinter as tk
+from tkinter import ttk
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -108,8 +109,33 @@ class Application(tk.Frame):
         self.frame00=tk.LabelFrame(self.upperFrame, text='Opciones de Célula',bg='grey', bd=3, heigh=self.altocaja1, width=self.anchocaja1)
         self.frame00.grid(row=0, column=0)
 
+        #Recuadro de Control de iluminación
         self.frame01 = tk.LabelFrame(self.upperFrame, text='Control de iluminación', bg='grey', bd=3, heigh=self.altocaja1, width=self.anchocaja1)
-        self.frame01.grid(row=0, column=1)
+        self.frame01.grid(row=0, column=1,sticky='n' + 's')
+        #cantidad de dispositivos
+        tk.Label(self.frame01,text='Cantidad:').grid(row=0,column=0,sticky='w'+'e')
+        self.numero01 = tk.Entry(self.frame01,width=6)
+        self.numero01.grid(row=0,column=1)
+        tk.Label(self.frame01, text='dispositivos').grid(row=0, column=2, sticky='w' + 'e')
+        #tasa de generación de paquetes
+        tk.Label(self.frame01, text='Tasa de paquete:').grid(row=1, column=0,sticky='w'+'e')
+        self.tasapaquete01 = tk.Entry(self.frame01,width=6)
+        self.tasapaquete01.grid(row=1, column=1)
+        tk.Label(self.frame01, text='paquete/seg').grid(row=1, column=2, sticky='w' + 'e')
+        #tasa de generación de eventos de alarma
+        tk.Label(self.frame01, text='Tasa de alarma:').grid(row=2, column=0,sticky='w'+'e')
+        self.tasaalarma01 = tk.Entry(self.frame01,width=6)
+        self.tasaalarma01.grid(row=2, column=1)
+        tk.Label(self.frame01, text='alarma/seg').grid(row=2, column=2, sticky='w' + 'e')
+        #velocidad de protagación de alarmas
+        tk.Label(self.frame01, text='Velocidad alarma:').grid(row=3, column=0, sticky='w' + 'e')
+        self.veloalarma01 = tk.Entry(self.frame01,width=6)
+        self.veloalarma01.grid(row=3, column=1)
+        tk.Label(self.frame01, text='metros/seg').grid(row=3, column=2, sticky='w' + 'e')
+        #Modelo de propagación espacial
+        tk.Label(self.frame01, text='Propagación espacial:').grid(row=4, column=0, sticky='w' + 'e')
+        self.modeloesp01 = ttk.Combobox(self.frame01, state="readonly")
+        self.modeloesp01.grid(row=4,column=1,columnspan=2)
 
         self.frame02 = tk.LabelFrame(self.upperFrame, text='Consumo de agua y electricidad', bg='grey', bd=3, heigh=self.altocaja1,
                                      width=self.anchocaja1)
