@@ -1,10 +1,7 @@
-import numpy as np  # NumPy package for arrays, random number generation, etc
+
 import pandas as pd
 import itertools as iter
-from tkinter import Tk
-
 from clases.GeneradorAlarma import GeneradorAlarmas
-from clases.AnimacionTrafico import AnimacionTrafico
 from funciones.funcionesdispositivos import creardispositivos
 from funciones.funcionesdispositivos import calcularPnk
 from funciones.miscelaneo import distanciaList
@@ -12,7 +9,7 @@ from funciones.miscelaneo import distanciaList
 
 ######################################################
 #Variables a modificar
-tiempoLimite = 150 # segundos, tiempo de paro del algoritmo
+tiempoLimite = 15 # segundos, tiempo de paro del algoritmo
 deltaTiempo = 0.1 #segundos , diferencial de tiempo entre iteración
 numerosDecimalesDeltaTiempo=1 #Si se modifica deltaTiempo modificar también esta veriable
 tiposDispositivos=3 # Cantidad total de dispositivos a caracterizar a continuación
