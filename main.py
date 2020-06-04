@@ -6,6 +6,7 @@ from clases.GeneradorAlarma import GeneradorAlarmas
 from funciones.funcionesdispositivos import creardispositivos
 from funciones.funcionesdispositivos import calcularPnk
 from funciones.miscelaneo import distanciaList
+from decimal import *
 
 class Application(tk.Frame):
 
@@ -409,6 +410,78 @@ class Application(tk.Frame):
         self.const211.delete(0, tk.END)
         self.const211.insert(0, str(self.constanteEspacial2_Tipo5))
 
+    def leerentradas(self):
+        # Variables a modificar
+        self.tiempoLimite = float(self.tiemposimulacion.get())  # segundos, tiempo de paro del algoritmo
+        self.deltaTiempo = float(self.diftiempo.get())  # segundos , diferencial de tiempo entre iteración
+        decimales=Decimal(self.diftiempo.get())
+        self.numerosDecimalesDeltaTiempo = -1*(int(decimales.as_tuple().exponent))  # Si se modifica deltaTiempo modificar también esta veriable
+        print(self.tiempoLimite)
+        print(self.deltaTiempo)
+        print(self.numerosDecimalesDeltaTiempo)
+        self.tiposDispositivos = 3  # Cantidad total de dispositivos a caracterizar a continuación
+
+        ### Control de iluminación
+        self.dipositivos_Tipo1 = 30  # número de dispositivos de tipo 1,
+        self.lambdaRegular_Tipo1 = 1 / 40  # la tasa lambda para el estado regular de los dispositivos de tipo 1 (1 paquete cada 60 seg)
+        self.lambdaAlarma_Tipo1 = 1 / 20  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 500 seg)
+        self.velPropagacionAlarma_Tipo1 = 500  # m/s Velocidad de propagación de alarma
+        self.modeloEspacial_Tipo1 = 0  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
+        self.constanteEspacial1_Tipo1 = 0.007  # alpha para Decaying exponential, W para raised-cosine Window
+        self.constanteEspacial2_Tipo1 = 0  # ignorar para Decaying exponential, dth para raised-cosine Window
+        # animacion
+        self.color_Tipo1 = 'b'
+        self.marcador_Tipo1 = 'd'
+
+        ### Monitoreo de consumo del agua y electricidad
+        self.dipositivos_Tipo2 = 100  # número de dispositivos de tipo 2
+        self.lambdaRegular_Tipo2 = 1 / 60  # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
+        self.lambdaAlarma_Tipo2 = 1 / 1000  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 200 seg)
+        self.velPropagacionAlarma_Tipo2 = 500  # m/s Velocidad de propagación de alarma
+        self.modeloEspacial_Tipo2 = 1  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
+        self.constanteEspacial1_Tipo2 = 200  # alpha para Decaying exponential, W para raised-cosine Window
+        self.constanteEspacial2_Tipo2 = 80  # ignorar para Decaying exponential, dth para raised-cosine Window
+        # animacion
+        self.color_Tipo2 = 'r'
+        self.marcador_Tipo2 = '*'
+
+        ### Detección de terremotos
+        self.dipositivos_Tipo3 = 30  # número de dispositivos de tipo 3
+        self.lambdaRegular_Tipo3 = 1 / 180  # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
+        self.lambdaAlarma_Tipo3 = 1 / 50  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
+        self.velPropagacionAlarma_Tipo3 = 3000  # m/s Velocidad de propagación de alarma
+        self.modeloEspacial_Tipo3 = 0  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
+        self.constanteEspacial1_Tipo3 = 0.007  # alpha para Decaying exponential, W para raised-cosine Window
+        self.constanteEspacial2_Tipo3 = 0  # ignorar para Decaying exponential, dth para raised-cosine Window
+        # animacion
+        self.color_Tipo3 = 'k'
+        self.marcador_Tipo3 = '^'
+
+        ### Contaminación del aire
+        self.dipositivos_Tipo4 = 49  # número de dispositivos de tipo 3
+        self.lambdaRegular_Tipo4 = 1 / 190  # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
+        self.lambdaAlarma_Tipo4 = 1 / 100  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
+        self.velPropagacionAlarma_Tipo4 = 1000  # m/s Velocidad de propagación de alarma
+        self.modeloEspacial_Tipo4 = 0  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
+        self.constanteEspacial1_Tipo4 = 0.005  # alpha para Decaying exponential, W para raised-cosine Window
+        self.constanteEspacial2_Tipo4 = 0  # ignorar para Decaying exponential, dth para raised-cosine Window
+        # animacion
+        self.color_Tipo4 = 'k'
+        self.marcador_Tipo4 = '^'
+
+        ### Control de semáforos
+        self.dipositivos_Tipo5 = 57  # número de dispositivos de tipo 3
+        self.lambdaRegular_Tipo5 = 1 / 170  # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
+        self.lambdaAlarma_Tipo5 = 1 / 200  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
+        self.velPropagacionAlarma_Tipo5 = 2000  # m/s Velocidad de propagación de alarma
+        self.modeloEspacial_Tipo5 = 1  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
+        self.constanteEspacial1_Tipo5 = 300  # alpha para Decaying exponential, W para raised-cosine Window
+        self.constanteEspacial2_Tipo5 = 200  # ignorar para Decaying exponential, dth para raised-cosine Window
+        # animacion
+        self.color_Tipo5 = 'k'
+        self.marcador_Tipo5 = '^'
+
+
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
@@ -419,49 +492,60 @@ class Application(tk.Frame):
         self.create_widgets()
 
     #--------------funciones para el GUI----------------
-    def modified(self,event):
+    def cambiomodelo1(self, event):
         if(self.modeloesp01.get()=='Decaying Exponential'):
             self.constante11.set('Alpha')
             self.constante12.set('----')
-            self.const101['state'] = 'normal'
-            self.const201['state']='disabled'
             self.const101.delete(0, tk.END)
             self.const201.delete(0, tk.END)
+            self.const101['state'] = 'normal'
+            self.const201['state']='disabled'
+
         elif(self.modeloesp01.get()=='Raised-Cosine Window'):
             self.constante11.set('W')
             self.constante12.set('dth')
-            self.const101['state'] = 'normal'
-            self.const201['state'] = 'normal'
             self.const101.delete(0, tk.END)
             self.const201.delete(0, tk.END)
+            self.const101['state'] = 'normal'
+            self.const201['state'] = 'normal'
+
+    def cambiomodelo2(self, event):
         if (self.modeloesp02.get() == 'Decaying Exponential'):
             self.constante21.set('Alpha')
             self.constante22.set('----')
-            self.const102['state'] = 'normal'
-            self.const202['state'] = 'disabled'
             self.const102.delete(0, tk.END)
             self.const202.delete(0, tk.END)
+            self.const102['state'] = 'normal'
+            self.const202['state'] = 'disabled'
+
         elif (self.modeloesp02.get() == 'Raised-Cosine Window'):
             self.constante21.set('W')
             self.constante22.set('dth')
-            self.const102['state'] = 'normal'
-            self.const202['state'] = 'normal'
             self.const102.delete(0, tk.END)
             self.const202.delete(0, tk.END)
+            self.const102['state'] = 'normal'
+            self.const202['state'] = 'normal'
+
+
+    def cambiomodelo3(self, event):
         if (self.modeloesp03.get() == 'Decaying Exponential'):
             self.constante31.set('Alpha')
             self.constante32.set('----')
-            self.const103['state'] = 'normal'
-            self.const203['state'] = 'disabled'
             self.const103.delete(0, tk.END)
             self.const203.delete(0, tk.END)
+            self.const103['state'] = 'normal'
+            self.const203['state'] = 'disabled'
+
         elif (self.modeloesp03.get() == 'Raised-Cosine Window'):
             self.constante31.set('W')
             self.constante32.set('dth')
-            self.const103['state'] = 'normal'
-            self.const203['state'] = 'normal'
             self.const103.delete(0, tk.END)
             self.const203.delete(0, tk.END)
+            self.const103['state'] = 'normal'
+            self.const203['state'] = 'normal'
+
+
+    def cambiomodelo4(self, event):
         if (self.modeloesp10.get() == 'Decaying Exponential'):
             self.constante41.set('Alpha')
             self.constante42.set('----')
@@ -472,24 +556,30 @@ class Application(tk.Frame):
         elif (self.modeloesp10.get() == 'Raised-Cosine Window'):
             self.constante41.set('W')
             self.constante42.set('dth')
-            self.const110['state'] = 'normal'
-            self.const210['state'] = 'normal'
             self.const110.delete(0, tk.END)
             self.const210.delete(0, tk.END)
+            self.const110['state'] = 'normal'
+            self.const210['state'] = 'normal'
+
+    def cambiomodelo5(self, event):
         if (self.modeloesp11.get() == 'Decaying Exponential'):
             self.constante51.set('Alpha')
             self.constante52.set('----')
-            self.const111['state'] = 'normal'
-            self.const211['state'] = 'disabled'
             self.const111.delete(0, tk.END)
             self.const211.delete(0, tk.END)
+            self.const111['state'] = 'normal'
+            self.const211['state'] = 'disabled'
+
         elif (self.modeloesp11.get() == 'Raised-Cosine Window'):
             self.constante51.set('W')
             self.constante52.set('dth')
-            self.const111['state'] = 'normal'
-            self.const211['state'] = 'normal'
             self.const111.delete(0, tk.END)
             self.const211.delete(0, tk.END)
+            self.const111['state'] = 'normal'
+            self.const211['state'] = 'normal'
+
+
+    def cambiomodelo6(self, event):
         if (self.modeloesp12.get() == 'Decaying Exponential'):
             self.constante61.set('Alpha')
             self.constante62.set('----')
@@ -498,6 +588,8 @@ class Application(tk.Frame):
             self.constante61.set('W')
             self.constante62.set('dth')
             self.const212['state'] = 'normal'
+
+    def cambiomodelo7(self, event):
         if (self.modeloesp13.get() == 'Decaying Exponential'):
             self.constante71.set('Alpha')
             self.constante72.set('----')
@@ -565,7 +657,7 @@ class Application(tk.Frame):
         self.modeloesp01 = ttk.Combobox(self.frame01, state="readonly",width=18)
         self.modeloesp01["values"] = ["Decaying Exponential","Raised-Cosine Window"]
         self.modeloesp01.set("Seleccionar modelo")
-        self.modeloesp01.bind('<<ComboboxSelected>>', self.modified)
+        self.modeloesp01.bind('<<ComboboxSelected>>', self.cambiomodelo1)
         self.modeloesp01.grid(row=4,column=1,columnspan=2)
         #Constante modelo 1
         self.const101label = tk.Label(self.frame01, textvariable=self.constante11)
@@ -613,7 +705,7 @@ class Application(tk.Frame):
         self.modeloesp02 = ttk.Combobox(self.frame02, state="readonly", width=18)
         self.modeloesp02["values"] = ["Decaying Exponential", "Raised-Cosine Window"]
         self.modeloesp02.set("Seleccionar modelo")
-        self.modeloesp02.bind('<<ComboboxSelected>>', self.modified)
+        self.modeloesp02.bind('<<ComboboxSelected>>', self.cambiomodelo2)
         self.modeloesp02.grid(row=4, column=1, columnspan=2)
         # Constante modelo 1
         self.const102label = tk.Label(self.frame02, textvariable=self.constante21)
@@ -661,7 +753,7 @@ class Application(tk.Frame):
         self.modeloesp03 = ttk.Combobox(self.frame03, state="readonly", width=18)
         self.modeloesp03["values"] = ["Decaying Exponential", "Raised-Cosine Window"]
         self.modeloesp03.set("Seleccionar modelo")
-        self.modeloesp03.bind('<<ComboboxSelected>>', self.modified)
+        self.modeloesp03.bind('<<ComboboxSelected>>', self.cambiomodelo3)
         self.modeloesp03.grid(row=4, column=1, columnspan=2)
         # Constante modelo 1
         self.const103label = tk.Label(self.frame03, textvariable=self.constante31)
@@ -708,7 +800,7 @@ class Application(tk.Frame):
         self.modeloesp10 = ttk.Combobox(self.frame10, state="readonly", width=18)
         self.modeloesp10["values"] = ["Decaying Exponential", "Raised-Cosine Window"]
         self.modeloesp10.set("Seleccionar modelo")
-        self.modeloesp10.bind('<<ComboboxSelected>>', self.modified)
+        self.modeloesp10.bind('<<ComboboxSelected>>', self.cambiomodelo4)
         self.modeloesp10.grid(row=4, column=1, columnspan=2)
         # Constante modelo 1
         self.const110label = tk.Label(self.frame10, textvariable=self.constante41)
@@ -756,7 +848,7 @@ class Application(tk.Frame):
         self.modeloesp11 = ttk.Combobox(self.frame11, state="readonly", width=18)
         self.modeloesp11["values"] = ["Decaying Exponential", "Raised-Cosine Window"]
         self.modeloesp11.set("Seleccionar modelo")
-        self.modeloesp11.bind('<<ComboboxSelected>>', self.modified)
+        self.modeloesp11.bind('<<ComboboxSelected>>', self.cambiomodelo5)
         self.modeloesp11.grid(row=4, column=1, columnspan=2)
         # Constante modelo 1
         self.const111label = tk.Label(self.frame11, textvariable=self.constante51)
@@ -804,7 +896,7 @@ class Application(tk.Frame):
         self.modeloesp12 = ttk.Combobox(self.frame12, state="readonly", width=18)
         self.modeloesp12["values"] = ["Decaying Exponential", "Raised-Cosine Window"]
         self.modeloesp12.set("Decaying Exponential")
-        self.modeloesp12.bind('<<ComboboxSelected>>', self.modified)
+        self.modeloesp12.bind('<<ComboboxSelected>>', self.cambiomodelo6)
         self.modeloesp12.grid(row=4, column=1, columnspan=2)
         # Constante modelo 1
         self.const112label = tk.Label(self.frame12, textvariable=self.constante61)
@@ -850,7 +942,7 @@ class Application(tk.Frame):
         self.modeloesp13 = ttk.Combobox(self.frame13, state="readonly", width=18)
         self.modeloesp13["values"] = ["Decaying Exponential", "Raised-Cosine Window"]
         self.modeloesp13.set("Decaying Exponential")
-        self.modeloesp13.bind('<<ComboboxSelected>>', self.modified)
+        self.modeloesp13.bind('<<ComboboxSelected>>', self.cambiomodelo7)
         self.modeloesp13.grid(row=4, column=1, columnspan=2)
         # Constante modelo 1
         self.const113label = tk.Label(self.frame13, textvariable=self.constante71)
@@ -886,6 +978,7 @@ class Application(tk.Frame):
         self.botoniniciar.grid(row=0, column=6)
 
     def rutinaCMMPP(self):
+        self.leerentradas()
         ######################################################
         # Inicialización de parámetros y variables
         n_Tipo1 = 0  # dispositivo de tipo1 inicial
