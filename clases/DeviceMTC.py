@@ -51,7 +51,7 @@ class DeviceMTC(object):
     def generararribonormal(self,numeroDecimales):
         tiempoEspera = np.random.exponential(1 / (self.lambdareg), 1)  # el siguiente arribo se producirá segun una varible exponencial
         self.tiempoArribo = self.tiempoArribo + tiempoEspera
-        #TODO Encontrar una mejor manera de asignar los decimales a redondear, hardcoded 4
+        #TODO dar flexibilidad a la cantidad de decimales que se pueden evaluar
         self.registroArribos.append([0,round(float(self.tiempoArribo),numeroDecimales+1),self.identificador, self.tipo,self.estado,self.tamañopkt])  # se registra el arribo en la lista
         self.registroCompletoArribos.append([0,round(float(self.tiempoArribo),numeroDecimales+1),self.identificador, self.tipo,self.estado, self.tamañopkt])
 
