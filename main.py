@@ -15,7 +15,7 @@ class Application(tk.Frame):
     deltaTiempo = 0.1  # segundos , diferencial de tiempo entre iteración
     numerosDecimalesDeltaTiempo = 1  # Si se modifica deltaTiempo modificar también esta veriable
     tiposDispositivos = 3  # Cantidad total de dispositivos a caracterizar a continuación
-    radiocelula=1000
+    radiocelula=1000 # radio de la célula en metros
     modelodisopsitivos=0 # 0 para PPP y 1 para uniforme
     repeticiones=1 # repeticiones de la rutina CCMMPP
 
