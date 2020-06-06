@@ -13,6 +13,7 @@ tiempoLimite = 15 # segundos, tiempo de paro del algoritmo
 deltaTiempo = 0.1 #segundos , diferencial de tiempo entre iteración
 numerosDecimalesDeltaTiempo=1 #Si se modifica deltaTiempo modificar también esta veriable
 tiposDispositivos=3 # Cantidad total de dispositivos a caracterizar a continuación
+#TODO agregar radio, modelo dispo y repeticiones
 
 ### Control de iluminación
 dipositivos_Tipo1 = 30 # número de dispositivos de tipo 1,

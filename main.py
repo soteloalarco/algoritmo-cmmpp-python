@@ -15,6 +15,9 @@ class Application(tk.Frame):
     deltaTiempo = 0.1  # segundos , diferencial de tiempo entre iteración
     numerosDecimalesDeltaTiempo = 1  # Si se modifica deltaTiempo modificar también esta veriable
     tiposDispositivos = 3  # Cantidad total de dispositivos a caracterizar a continuación
+    radiocelula=1000
+    modelodisopsitivos=0 # 0 para PPP y 1 para uniforme
+    repeticiones=1 # repeticiones de la rutina CCMMPP
 
     ### Control de iluminación
     dipositivos_Tipo1 = 30  # número de dispositivos de tipo 1,
@@ -77,13 +80,23 @@ class Application(tk.Frame):
     marcador_Tipo5 = '^'
 
     def resetTodo(self): #Cargamos al GUI los valores de la clase Application, los que erán poteriormente leidos para realizar la rutina
-
+        #TODO leer de un archido
         #-----Inicio de Rutina
 
         self.tiemposimulacion.delete(0,tk.END)
         self.tiemposimulacion.insert(0,str(self.tiempoLimite))
         self.diftiempo.delete(0,tk.END)
         self.diftiempo.insert(0,str(self.deltaTiempo))
+        if(self.modelodisopsitivos==0):
+            self.modelodisp00.set('PPP')
+        else:
+            self.modelodisp00.set('Uniforme')
+        self.radio00.delete(0,tk.END)
+        self.radio00.insert(0,str(self.radiocelula))
+        self.repeticiones00.delete(0,tk.END)
+        self.repeticiones00.insert(0,str(self.repeticiones))
+
+        self.cambiomodelodispresettodo()
 
         #-----Control de iluminación
         # Cantidad de dispositivos
@@ -416,6 +429,13 @@ class Application(tk.Frame):
         self.deltaTiempo = float(self.diftiempo.get())  # segundos , diferencial de tiempo entre iteración
         decimales=Decimal(self.diftiempo.get())
         self.numerosDecimalesDeltaTiempo = -1*(int(decimales.as_tuple().exponent))  # Si se modifica deltaTiempo modificar también esta veriable
+        #TODO agregar nuevas variables
+        self.radiocelula=float(self.radio00.get())
+        if (self.modelodisp00.get() == 'PPP'):
+            self.modelodisopsitivos=0
+        else:
+            self.modelodisopsitivos = 1
+        self.repeticiones=int(self.repeticiones00.get())
 
         self.tiposDispositivos = 3  # Cantidad total de dispositivos a caracterizar a continuación
 
@@ -504,8 +524,8 @@ class Application(tk.Frame):
         super().__init__(master)
         self.master = master
         self.master.title("Generación de Tráfico IoT")
-        self.master.geometry("1030x430+100+80")
-        self.anchocaja1=300
+        self.master.geometry("1033x430+100+80")
+        self.anchocaja1=320
         self.altocaja1=200
         self.create_widgets()
 
@@ -514,87 +534,87 @@ class Application(tk.Frame):
         if(self.modeloesp01.get()=='Decaying Exponential'):
             self.constante11.set('Alpha')
             self.constante12.set('----')
+            self.const101['state'] = 'normal'
             self.const101.delete(0, tk.END)
             self.const201.delete(0, tk.END)
-            self.const101['state'] = 'normal'
             self.const201['state']='disabled'
 
         elif(self.modeloesp01.get()=='Raised-Cosine Window'):
             self.constante11.set('W')
             self.constante12.set('dth')
-            self.const101.delete(0, tk.END)
-            self.const201.delete(0, tk.END)
             self.const101['state'] = 'normal'
             self.const201['state'] = 'normal'
+            self.const101.delete(0, tk.END)
+            self.const201.delete(0, tk.END)
 
     def cambiomodelo2(self, event):
         if (self.modeloesp02.get() == 'Decaying Exponential'):
             self.constante21.set('Alpha')
             self.constante22.set('----')
+            self.const102['state'] = 'normal'
             self.const102.delete(0, tk.END)
             self.const202.delete(0, tk.END)
-            self.const102['state'] = 'normal'
             self.const202['state'] = 'disabled'
 
         elif (self.modeloesp02.get() == 'Raised-Cosine Window'):
             self.constante21.set('W')
             self.constante22.set('dth')
-            self.const102.delete(0, tk.END)
-            self.const202.delete(0, tk.END)
             self.const102['state'] = 'normal'
             self.const202['state'] = 'normal'
-
+            self.const102.delete(0, tk.END)
+            self.const202.delete(0, tk.END)
 
     def cambiomodelo3(self, event):
         if (self.modeloesp03.get() == 'Decaying Exponential'):
             self.constante31.set('Alpha')
             self.constante32.set('----')
+            self.const103['state'] = 'normal'
             self.const103.delete(0, tk.END)
             self.const203.delete(0, tk.END)
-            self.const103['state'] = 'normal'
             self.const203['state'] = 'disabled'
 
         elif (self.modeloesp03.get() == 'Raised-Cosine Window'):
             self.constante31.set('W')
             self.constante32.set('dth')
-            self.const103.delete(0, tk.END)
-            self.const203.delete(0, tk.END)
             self.const103['state'] = 'normal'
             self.const203['state'] = 'normal'
-
+            self.const103.delete(0, tk.END)
+            self.const203.delete(0, tk.END)
 
     def cambiomodelo4(self, event):
         if (self.modeloesp10.get() == 'Decaying Exponential'):
             self.constante41.set('Alpha')
             self.constante42.set('----')
             self.const110['state'] = 'normal'
-            self.const210['state'] = 'disabled'
             self.const110.delete(0, tk.END)
             self.const210.delete(0, tk.END)
+            self.const210['state'] = 'disabled'
         elif (self.modeloesp10.get() == 'Raised-Cosine Window'):
             self.constante41.set('W')
             self.constante42.set('dth')
-            self.const110.delete(0, tk.END)
-            self.const210.delete(0, tk.END)
             self.const110['state'] = 'normal'
             self.const210['state'] = 'normal'
+            self.const110.delete(0, tk.END)
+            self.const210.delete(0, tk.END)
+
 
     def cambiomodelo5(self, event):
         if (self.modeloesp11.get() == 'Decaying Exponential'):
             self.constante51.set('Alpha')
             self.constante52.set('----')
+            self.const111['state'] = 'normal'
             self.const111.delete(0, tk.END)
             self.const211.delete(0, tk.END)
-            self.const111['state'] = 'normal'
             self.const211['state'] = 'disabled'
 
         elif (self.modeloesp11.get() == 'Raised-Cosine Window'):
             self.constante51.set('W')
             self.constante52.set('dth')
-            self.const111.delete(0, tk.END)
-            self.const211.delete(0, tk.END)
             self.const111['state'] = 'normal'
             self.const211['state'] = 'normal'
+            self.const111.delete(0, tk.END)
+            self.const211.delete(0, tk.END)
+
 
 
     def cambiomodelo6(self, event):
@@ -617,6 +637,130 @@ class Application(tk.Frame):
             self.constante72.set('dth')
             self.const213['state'] = 'normal'
 
+    def cambiomodelodisp(self,event):
+        if(self.modelodisp00.get()=='PPP'):
+            self.constante13.set('Intensidad')
+            self.constante23.set('Intensidad')
+            self.constante33.set('Intensidad')
+            self.constante43.set('Intensidad')
+            self.constante53.set('Intensidad')
+            self.constante63.set('Intensidad')
+            self.constante73.set('Intensidad')
+            self.constante14.set('disp\'s/m^2')
+            self.constante24.set('disp\'s/m^2')
+            self.constante34.set('disp\'s/m^2')
+            self.constante44.set('disp\'s/m^2')
+            self.constante54.set('disp\'s/m^2')
+            self.constante64.set('disp\'s/m^2')
+            self.constante74.set('disp\'s/m^2')
+            self.numero01['state'] = 'normal'
+            self.numero01.delete(0, tk.END)
+            self.numero02['state'] = 'normal'
+            self.numero02.delete(0, tk.END)
+            self.numero03['state'] = 'normal'
+            self.numero03.delete(0, tk.END)
+            self.numero10['state'] = 'normal'
+            self.numero10.delete(0, tk.END)
+            self.numero11['state'] = 'normal'
+            self.numero11.delete(0, tk.END)
+            self.numero12['state'] = 'normal'
+            self.numero12.delete(0, tk.END)
+            self.numero13['state'] = 'normal'
+            self.numero13.delete(0, tk.END)
+
+        else:
+            self.constante13.set('Cantidad')
+            self.constante23.set('Cantidad')
+            self.constante33.set('Cantidad')
+            self.constante43.set('Cantidad')
+            self.constante53.set('Cantidad')
+            self.constante63.set('Cantidad')
+            self.constante73.set('Cantidad')
+            self.constante14.set('dispositivos')
+            self.constante24.set('dispositivos')
+            self.constante34.set('dispositivos')
+            self.constante44.set('dispositivos')
+            self.constante54.set('dispositivos')
+            self.constante64.set('dispositivos')
+            self.constante74.set('dispositivos')
+            self.numero01['state'] = 'normal'
+            self.numero01.delete(0, tk.END)
+            self.numero02['state'] = 'normal'
+            self.numero02.delete(0, tk.END)
+            self.numero03['state'] = 'normal'
+            self.numero03.delete(0, tk.END)
+            self.numero10['state'] = 'normal'
+            self.numero10.delete(0, tk.END)
+            self.numero11['state'] = 'normal'
+            self.numero11.delete(0, tk.END)
+            self.numero12['state'] = 'normal'
+            self.numero12.delete(0, tk.END)
+            self.numero13['state'] = 'normal'
+            self.numero13.delete(0, tk.END)
+
+
+    def cambiomodelodispresettodo(self):
+        if (self.modelodisopsitivos==0):
+            self.constante13.set('Intensidad')
+            self.constante23.set('Intensidad')
+            self.constante33.set('Intensidad')
+            self.constante43.set('Intensidad')
+            self.constante53.set('Intensidad')
+            self.constante63.set('Intensidad')
+            self.constante73.set('Intensidad')
+            self.constante14.set('disp\'s/m^2')
+            self.constante24.set('disp\'s/m^2')
+            self.constante34.set('disp\'s/m^2')
+            self.constante44.set('disp\'s/m^2')
+            self.constante54.set('disp\'s/m^2')
+            self.constante64.set('disp\'s/m^2')
+            self.constante74.set('disp\'s/m^2')
+            self.numero01['state'] = 'normal'
+            self.numero01.delete(0, tk.END)
+            self.numero02['state'] = 'normal'
+            self.numero02.delete(0, tk.END)
+            self.numero03['state'] = 'normal'
+            self.numero03.delete(0, tk.END)
+            self.numero10['state'] = 'normal'
+            self.numero10.delete(0, tk.END)
+            self.numero11['state'] = 'normal'
+            self.numero11.delete(0, tk.END)
+            self.numero12['state'] = 'normal'
+            self.numero12.delete(0, tk.END)
+            self.numero13['state'] = 'normal'
+            self.numero13.delete(0, tk.END)
+        else:
+            self.constante13.set('Cantidad')
+            self.constante23.set('Cantidad')
+            self.constante33.set('Cantidad')
+            self.constante43.set('Cantidad')
+            self.constante53.set('Cantidad')
+            self.constante63.set('Cantidad')
+            self.constante73.set('Cantidad')
+            self.constante14.set('dispositivos')
+            self.constante24.set('dispositivos')
+            self.constante34.set('dispositivos')
+            self.constante44.set('dispositivos')
+            self.constante54.set('dispositivos')
+            self.constante64.set('dispositivos')
+            self.constante74.set('dispositivos')
+            self.numero01['state'] = 'normal'
+            self.numero01.delete(0, tk.END)
+            self.numero02['state'] = 'normal'
+            self.numero02.delete(0, tk.END)
+            self.numero03['state'] = 'normal'
+            self.numero03.delete(0, tk.END)
+            self.numero10['state'] = 'normal'
+            self.numero10.delete(0, tk.END)
+            self.numero11['state'] = 'normal'
+            self.numero11.delete(0, tk.END)
+            self.numero12['state'] = 'normal'
+            self.numero12.delete(0, tk.END)
+            self.numero13['state'] = 'normal'
+            self.numero13.delete(0, tk.END)
+
+
+
     def create_widgets(self):
         self.upperFrame=tk.Frame(self.master)
         self.upperFrame.grid(row=0,column=0)
@@ -625,36 +769,69 @@ class Application(tk.Frame):
         self.bottomFrame = tk.LabelFrame(self.master,text='Generar Tráfico',heigh=50,width=1000,bg='grey',bd=3)
         self.bottomFrame.grid(row=2, column=0)
 
-        self.frame00=tk.LabelFrame(self.upperFrame, text='Opciones de Célula',bg='grey', bd=3, heigh=self.altocaja1, width=self.anchocaja1)
-        self.frame00.grid(row=0, column=0,sticky='n' + 's')
 
         self.constante11 = tk.StringVar()
         self.constante12 = tk.StringVar()
+        self.constante13 = tk.StringVar()
+        self.constante14 = tk.StringVar()
         self.constante21 = tk.StringVar()
         self.constante22 = tk.StringVar()
+        self.constante23 = tk.StringVar()
+        self.constante24 = tk.StringVar()
         self.constante31 = tk.StringVar()
         self.constante32 = tk.StringVar()
+        self.constante33 = tk.StringVar()
+        self.constante34 = tk.StringVar()
         self.constante41 = tk.StringVar()
         self.constante42 = tk.StringVar()
+        self.constante43 = tk.StringVar()
+        self.constante44 = tk.StringVar()
         self.constante51 = tk.StringVar()
         self.constante52 = tk.StringVar()
+        self.constante53 = tk.StringVar()
+        self.constante54 = tk.StringVar()
         self.constante61 = tk.StringVar()
         self.constante62 = tk.StringVar()
+        self.constante63 = tk.StringVar()
+        self.constante64 = tk.StringVar()
         self.constante71 = tk.StringVar()
         self.constante72 = tk.StringVar()
+        self.constante73 = tk.StringVar()
+        self.constante74 = tk.StringVar()
 
 
         #----------Opciones Celula---------
-        tk.Label(self.frame00, text='Forma y demás de la célula').grid(row=0, column=0, sticky='w' + 'e')
+        self.frame00 = tk.LabelFrame(self.upperFrame, text='Opciones de Célula', bg='grey', bd=3, heigh=self.altocaja1,
+                                     width=self.anchocaja1)
+        self.frame00.grid(row=0, column=0, sticky='n' + 's')
+        # Radio de la célula
+        tk.Label(self.frame00, text='Radio célula:').grid(row=0, column=0, sticky='w' + 'e')
+        self.radio00 = tk.Entry(self.frame00, width=8)
+        self.radio00.grid(row=0, column=1)
+        tk.Label(self.frame00, text='metros').grid(row=0, column=2, sticky='w' + 'e')
+        # Modelo de distribución de usuarios
+        tk.Label(self.frame00, text='Distribución de usuarios:').grid(row=1, column=0, columnspan=2,sticky='w' + 'e')
+        self.modelodisp00 = ttk.Combobox(self.frame00, state="readonly", width=10)
+        self.modelodisp00["values"] = ['PPP', 'Uniforme']
+        self.modelodisp00.set('Seleccionar')
+        self.modelodisp00.bind('<<ComboboxSelected>>', self.cambiomodelodisp)
+        self.modelodisp00.grid(row=1, column=2, columnspan=2)
+        # Repeticiones
+        tk.Label(self.frame00, text='Repetir:').grid(row=2, column=0, sticky='w' + 'e')
+        self.repeticiones00 = tk.Entry(self.frame00, width=8)
+        self.repeticiones00.grid(row=0, column=1)
+        tk.Label(self.frame00, text='veces').grid(row=2, column=2, sticky='w' + 'e')
+
 
         #-----------Recuadro de Control de iluminación------------
         self.frame01 = tk.LabelFrame(self.upperFrame, text='Control de iluminación', bg='grey', bd=3, heigh=self.altocaja1, width=self.anchocaja1)
         self.frame01.grid(row=0, column=1,sticky='n' + 's')
         #cantidad de dispositivos
-        tk.Label(self.frame01,text='Cantidad:').grid(row=0,column=0,sticky='w'+'e')
+        tk.Label(self.frame01,textvariable=self.constante13).grid(row=0,column=0,sticky='w'+'e')
         self.numero01 = tk.Entry(self.frame01,width=6)
+        self.numero01['state'] = 'disabled'
         self.numero01.grid(row=0,column=1)
-        tk.Label(self.frame01, text='dispositivos').grid(row=0, column=2, sticky='w' + 'e')
+        tk.Label(self.frame01, textvariable=self.constante14).grid(row=0, column=2, sticky='w' + 'e')
         #tasa de generación de paquetes
         tk.Label(self.frame01, text='Tasa de paquete:').grid(row=1, column=0,sticky='w'+'e')
         self.tasapaquete01 = tk.Entry(self.frame01,width=6)
@@ -699,10 +876,11 @@ class Application(tk.Frame):
         self.frame02.grid(row=0, column=2, sticky='n' + 's')
 
         # cantidad de dispositivos
-        tk.Label(self.frame02, text='Cantidad:').grid(row=0, column=0, sticky='w' + 'e')
+        tk.Label(self.frame02, textvariable=self.constante23).grid(row=0, column=0, sticky='w' + 'e')
         self.numero02 = tk.Entry(self.frame02, width=6)
+        self.numero02['state'] = 'disabled'
         self.numero02.grid(row=0, column=1)
-        tk.Label(self.frame02, text='dispositivos').grid(row=0, column=2, sticky='w' + 'e')
+        tk.Label(self.frame02, textvariable=self.constante24).grid(row=0, column=2, sticky='w' + 'e')
         # tasa de generación de paquetes
         tk.Label(self.frame02, text='Tasa de paquete:').grid(row=1, column=0, sticky='w' + 'e')
         self.tasapaquete02 = tk.Entry(self.frame02, width=6)
@@ -747,10 +925,11 @@ class Application(tk.Frame):
         self.frame03.grid(row=0, column=3,sticky='n' + 's')
 
         # cantidad de dispositivos
-        tk.Label(self.frame03, text='Cantidad:').grid(row=0, column=0, sticky='w' + 'e')
+        tk.Label(self.frame03, textvariable=self.constante33).grid(row=0, column=0, sticky='w' + 'e')
         self.numero03 = tk.Entry(self.frame03, width=6)
+        self.numero03['state'] = 'disabled'
         self.numero03.grid(row=0, column=1)
-        tk.Label(self.frame03, text='dispositivos').grid(row=0, column=2, sticky='w' + 'e')
+        tk.Label(self.frame03, textvariable=self.constante34).grid(row=0, column=2, sticky='w' + 'e')
         # tasa de generación de paquetes
         tk.Label(self.frame03, text='Tasa de paquete:').grid(row=1, column=0, sticky='w' + 'e')
         self.tasapaquete03 = tk.Entry(self.frame03, width=6)
@@ -794,10 +973,11 @@ class Application(tk.Frame):
         self.frame10.grid(row=0, column=0,sticky='n' + 's')
 
         # cantidad de dispositivos
-        tk.Label(self.frame10, text='Cantidad:').grid(row=0, column=0, sticky='w' + 'e')
+        tk.Label(self.frame10, textvariable=self.constante43).grid(row=0, column=0, sticky='w' + 'e')
         self.numero10 = tk.Entry(self.frame10, width=6)
+        self.numero10['state'] = 'disabled'
         self.numero10.grid(row=0, column=1)
-        tk.Label(self.frame10, text='dispositivos').grid(row=0, column=2, sticky='w' + 'e')
+        tk.Label(self.frame10, textvariable=self.constante44).grid(row=0, column=2, sticky='w' + 'e')
         # tasa de generación de paquetes
         tk.Label(self.frame10, text='Tasa de paquete:').grid(row=1, column=0, sticky='w' + 'e')
         self.tasapaquete10 = tk.Entry(self.frame10, width=6)
@@ -842,10 +1022,11 @@ class Application(tk.Frame):
         self.frame11.grid(row=0, column=1,sticky='n' + 's')
 
         # cantidad de dispositivos
-        tk.Label(self.frame11, text='Cantidad:').grid(row=0, column=0, sticky='w' + 'e')
+        tk.Label(self.frame11, textvariable=self.constante53).grid(row=0, column=0, sticky='w' + 'e')
         self.numero11 = tk.Entry(self.frame11, width=6)
+        self.numero11['state'] = 'disabled'
         self.numero11.grid(row=0, column=1)
-        tk.Label(self.frame11, text='dispositivos').grid(row=0, column=2, sticky='w' + 'e')
+        tk.Label(self.frame11, textvariable=self.constante54).grid(row=0, column=2, sticky='w' + 'e')
         # tasa de generación de paquetes
         tk.Label(self.frame11, text='Tasa de paquete:').grid(row=1, column=0, sticky='w' + 'e')
         self.tasapaquete11 = tk.Entry(self.frame11, width=6)
@@ -890,10 +1071,11 @@ class Application(tk.Frame):
         self.frame12.grid(row=0, column=2,sticky='n' + 's')
 
         # cantidad de dispositivos
-        tk.Label(self.frame12, text='Cantidad:').grid(row=0, column=0, sticky='w' + 'e')
+        tk.Label(self.frame12, textvariable=self.constante63).grid(row=0, column=0, sticky='w' + 'e')
         self.numero12 = tk.Entry(self.frame12, width=6)
+        self.numero12['state'] = 'disabled'
         self.numero12.grid(row=0, column=1)
-        tk.Label(self.frame12, text='dispositivos').grid(row=0, column=2, sticky='w' + 'e')
+        tk.Label(self.frame12, textvariable=self.constante64).grid(row=0, column=2, sticky='w' + 'e')
         # tasa de generación de paquetes
         tk.Label(self.frame12, text='Tasa de paquete:').grid(row=1, column=0, sticky='w' + 'e')
         self.tasapaquete12 = tk.Entry(self.frame12, width=6)
@@ -936,10 +1118,11 @@ class Application(tk.Frame):
         self.frame13.grid(row=0, column=3,sticky='n' + 's')
 
         # cantidad de dispositivos
-        tk.Label(self.frame13, text='Cantidad:').grid(row=0, column=0, sticky='w' + 'e')
+        tk.Label(self.frame13, textvariable=self.constante73).grid(row=0, column=0, sticky='w' + 'e')
         self.numero13 = tk.Entry(self.frame13, width=6)
+        self.numero13['state'] = 'disabled'
         self.numero13.grid(row=0, column=1)
-        tk.Label(self.frame13, text='dispositivos').grid(row=0, column=2, sticky='w' + 'e')
+        tk.Label(self.frame13, textvariable=self.constante74).grid(row=0, column=2, sticky='w' + 'e')
         # tasa de generación de paquetes
         tk.Label(self.frame13, text='Tasa de paquete:').grid(row=1, column=0, sticky='w' + 'e')
         self.tasapaquete13 = tk.Entry(self.frame13, width=6)
