@@ -1,2 +1,24 @@
 
 ArchivoEventos.csv
+
+.idea/misc.xml
+
+.idea/trafico-cmmpp.iml
+
+clases/__pycache__/AnimacionTrafico.cpython-38.pyc
+
+clases/__pycache__/DeviceMTC.cpython-38.pyc
+
+clases/__pycache__/GeneradorAlarma.cpython-38.pyc
+
+funciones/__pycache__/funcionesdispositivos.cpython-38.pyc
+
+funciones/__pycache__/miscelaneo.cpython-38.pyc
+
+.idea/
+
+clases/__pycache__/DeviceMTC.cpython-36.pyc
+
+funciones/__pycache__/funcionesdispositivos.cpython-36.pyc
+
+clases/__pycache__/GeneradorAlarma.cpython-36.pyc

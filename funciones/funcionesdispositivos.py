@@ -3,13 +3,11 @@ import math as math
 from clases.DeviceMTC import DeviceMTC
 from funciones.miscelaneo import distanciaList
 
-def creardispositivos( numeroDispositivos, lambdaRegular_Tipo,tipo,tiempo,color,marcador):
+def creardispositivos( numeroDispositivos,posiciones, lambdaRegular_Tipo,tipo,tiempo,color,marcador):
     dispositivos = []
     for disp in range(0, numeroDispositivos):  # Generamos la cantidad indicada de dispositivos de cada tipo
-        # TODO: crear una función para asignar la posición en la célula en un círculo
         dispositivos.append(
-            DeviceMTC(lambdaRegular_Tipo, np.random.uniform(0, 100, 1)-50, np.random.uniform(0, 100, 1)-50, 0,tipo,tiempo,disp,[],0,color,marcador))
-
+            DeviceMTC(lambdaRegular_Tipo, posiciones[0][disp], posiciones[1][disp], 0,tipo,tiempo,disp,[],0,color,marcador))
     return dispositivos
 
 def funDeltaCustom(x,deltaTiempo):

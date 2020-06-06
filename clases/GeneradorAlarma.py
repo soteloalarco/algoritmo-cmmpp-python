@@ -15,19 +15,23 @@ class GeneradorAlarmas(object):
         self.idAlarma=0
         self.totalAlarmas=[]
 
-
-    def calcularSiguienteAlarma(self): #Calcular en qué momento sucederá la siguiente alarma
+    def calcularSiguienteAlarma(self,radio): #Calcular en qué momento sucederá la siguiente alarma
         tiempoEspera = np.random.exponential(1 / (self.lambdaEvento), 1)  # el siguiente arribo se producirá segun una varible exponencial
         self.siguienteArribo=self.siguienteArribo + tiempoEspera
-        #TODO crear funcion para generar posicion en la célula
-        self.posicion=[np.random.uniform(0, 100, 1)-50, np.random.uniform(0, 100, 1)-50] # se calcula la posicion
+        #Generar posición en un círculo
+        theta = 2 * np.pi * np.random.uniform(0, 1, 1);  # componente angular
+        rho = radio * np.sqrt(np.random.uniform(0, 1, 1));  # componente radial
+        # convertimos coordenadas polares a cartesianas
+        xx = rho * np.cos(theta);
+        yy = rho * np.sin(theta);
+        self.posicion=[xx, yy] # se asigna la posición del evento dentro de la célula
         self.totalAlarmas.append([self.idAlarma,self.siguienteArribo,self.posicion])
         self.idAlarma=self.idAlarma+1
 
-    def generarAlarma(self,tiempoActual):
+    def generarAlarma(self,tiempoActual,radio): # Función que verifica si ya ssucedio la última alarma
 
         if(self.siguienteArribo <= tiempoActual): # Si ya sucedió la última alarma calcular una nueva
-            self.calcularSiguienteAlarma()
+            self.calcularSiguienteAlarma(radio)
             return True
         else:
             return False

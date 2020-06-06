@@ -17,11 +17,11 @@ class DeviceMTC(object):
         self.listaAlarmas=[] # en esta lista se guardan los eventos de alarma que aun no llegan a la posición del dispositivo, se guarda el tiempo y la posicion donde se origina la alarma
 
 
+
     matriz_Pu = [[1, 1], [0, 0]]  # matriz que describe el comportamiento no unsincronized
     m_Pu = np.array(matriz_Pu)
     matriz_Pc = [[0, 1], [1, 0]]  # matriz que describe el comportamiento sincronized
     m_Pc = np.array(matriz_Pc)
-    #matriz_Pnk = []  # matriz de probabilidad de transición entre estados Pn[k]= Theta_n[k]*Pc + (1-Theta_n[k]*Pu)
     registroCompletoArribos = []  # El conglomerado de arribos del estado normal y del de alarma
     cuentaAlarmas = 0  # Contador que registra las veces que se estuvo en estado de alarma
     totalAlarmas=[]
@@ -51,7 +51,7 @@ class DeviceMTC(object):
     def generararribonormal(self,numeroDecimales):
         tiempoEspera = np.random.exponential(1 / (self.lambdareg), 1)  # el siguiente arribo se producirá segun una varible exponencial
         self.tiempoArribo = self.tiempoArribo + tiempoEspera
-        #TODO Encontrar una mejor manera de asignar los decimales a redondear, hardcoded 4
+        #TODO dar flexibilidad a la cantidad de decimales que se pueden evaluar
         self.registroArribos.append([0,round(float(self.tiempoArribo),numeroDecimales+1),self.identificador, self.tipo,self.estado,self.tamañopkt])  # se registra el arribo en la lista
         self.registroCompletoArribos.append([0,round(float(self.tiempoArribo),numeroDecimales+1),self.identificador, self.tipo,self.estado, self.tamañopkt])
 
