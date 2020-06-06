@@ -8,7 +8,6 @@ def creardispositivos( numeroDispositivos,posiciones, lambdaRegular_Tipo,tipo,ti
     for disp in range(0, numeroDispositivos):  # Generamos la cantidad indicada de dispositivos de cada tipo
         dispositivos.append(
             DeviceMTC(lambdaRegular_Tipo, posiciones[0][disp], posiciones[1][disp], 0,tipo,tiempo,disp,[],0,color,marcador))
-
     return dispositivos
 
 def funDeltaCustom(x,deltaTiempo):

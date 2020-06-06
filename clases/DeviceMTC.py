@@ -17,6 +17,7 @@ class DeviceMTC(object):
         self.listaAlarmas=[] # en esta lista se guardan los eventos de alarma que aun no llegan a la posición del dispositivo, se guarda el tiempo y la posicion donde se origina la alarma
 
 
+
     matriz_Pu = [[1, 1], [0, 0]]  # matriz que describe el comportamiento no unsincronized
     m_Pu = np.array(matriz_Pu)
     matriz_Pc = [[0, 1], [1, 0]]  # matriz que describe el comportamiento sincronized
@@ -84,8 +85,3 @@ class DeviceMTC(object):
 
     def actualizarestadoanormal(self):
         self.estado=0
-
-    def resetvalores(self):
-        self.registroCompletoArribos=[]
-        self.cuentaAlarmas=0
-        self.totalAlarmas=[]

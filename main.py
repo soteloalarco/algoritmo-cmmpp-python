@@ -8,6 +8,8 @@ from funciones.funcionesdispositivos import calcularPnk
 from funciones.miscelaneo import distanciaList
 from decimal import *
 import numpy as np
+from clases.DeviceMTC import DeviceMTC
+
 
 class Application(tk.Frame):
 
@@ -488,7 +490,7 @@ class Application(tk.Frame):
         self.marcador_Tipo3 = '^'
 
         ### Contaminación del aire
-        self.dipositivos_Tipo4 = float(self.numero10.get())  # número de dispositivos de tipo 3
+        self.dipositivos_Tipo4 = float(self.numero10.get())  # número de dispositivos de tipo 4
         self.lambdaRegular_Tipo4 = float(self.tasapaquete10.get())  # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
         self.lambdaAlarma_Tipo4 = float(self.tasaalarma10.get())  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
         self.velPropagacionAlarma_Tipo4 = float(self.veloalarma10.get()) # m/s Velocidad de propagación de alarma
@@ -504,7 +506,7 @@ class Application(tk.Frame):
         self.marcador_Tipo4 = '^'
 
         ### Control de semáforos
-        self.dipositivos_Tipo5 = float(self.numero11.get())  # número de dispositivos de tipo 3
+        self.dipositivos_Tipo5 = float(self.numero11.get())  # número de dispositivos de tipo 5
         self.lambdaRegular_Tipo5 = float(self.tasapaquete11.get())  # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
         self.lambdaAlarma_Tipo5 = float(self.tasaalarma11.get())  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
         self.velPropagacionAlarma_Tipo5 = float(self.veloalarma11.get())  # m/s Velocidad de propagación de alarma
@@ -1181,74 +1183,7 @@ class Application(tk.Frame):
     def rutinaCMMPP(self):
         self.leerentradas()
         ######################################################
-        #TODO Checar por qué se generan cada vez archivos más grandes .cvs
 
-        # # Inicialización de parámetros y variables
-        # self.tiempo = 0  # tiempo inicial
-        # self.iteraciones = int(self.tiempoLimite / self.deltaTiempo)  # las iteraciones  que se producirán recorriendo el tiempo k
-        # self.dispositivos = []  # una lista para guardar las instancias de dipoitivos de distintos tipos
-        # self.generadoresAlarmas = []  # una lista para guardar los genradores de eventos de alarmas, uno para cada tipo de dispositivo
-        # self.nuevaAlarma = [False] * self.tiposDispositivos
-        #
-        #
-        # # Se generan las instancias de cada tipo de dipositivos y sus generadores de alarmas
-        # self.dispositivos.append(
-        #     creardispositivos(self.dipositivos_Tipo1, self.lambdaRegular_Tipo1, 'Control de iluminacion', self.tiempo, self.color_Tipo1,
-        #                       self.marcador_Tipo1))
-        # self.generadoresAlarmas.append(
-        #     GeneradorAlarmas(self.lambdaAlarma_Tipo1, self.velPropagacionAlarma_Tipo1, self.tiempo, self.modeloEspacial_Tipo1,
-        #                      self.constanteEspacial1_Tipo1, self.constanteEspacial2_Tipo1, [0, 0]))
-        # self.dispositivos.append(
-        #     creardispositivos(self.dipositivos_Tipo2, self.lambdaRegular_Tipo2, 'Monitoreo de agua y electricidad', self.tiempo,
-        #                       self.color_Tipo2, self.marcador_Tipo2))
-        # self.generadoresAlarmas.append(
-        #     GeneradorAlarmas(self.lambdaAlarma_Tipo2, self.velPropagacionAlarma_Tipo2, self.tiempo, self.modeloEspacial_Tipo2,
-        #                      self.constanteEspacial1_Tipo2, self.constanteEspacial2_Tipo2, [0, 0]))
-        # self.dispositivos.append(
-        #     creardispositivos(self.dipositivos_Tipo3, self.lambdaRegular_Tipo3, 'Deteccion de terremotos', self.tiempo, self.color_Tipo3,
-        #                       self.marcador_Tipo3))
-        # self.generadoresAlarmas.append(
-        #     GeneradorAlarmas(self.lambdaAlarma_Tipo3, self.velPropagacionAlarma_Tipo3, self.tiempo, self.modeloEspacial_Tipo3,
-        #                      self.constanteEspacial1_Tipo3, self.constanteEspacial2_Tipo3, [0, 0]))
-        #
-        # for self.k in range(0, int(self.iteraciones + 1)):  # Ciclo que avanza el tiempo
-        #
-        #     for self.dispositivosaux, self.generadorAlarma, self.tipoDisp in iter.zip_longest(self.dispositivos, self.generadoresAlarmas,
-        #                                                                        range(0,
-        #                                                                              self.dispositivos.__len__())):  # Ciclo que recorre los distintos tipos de dispositivos y sus geenradores de alarmas
-        #
-        #         if (self.tiempo == 0):
-        #             self.nuevaAlarma[self.tipoDisp] = self.generadorAlarma.generarAlarma(
-        #                 self.tiempo)  # se calcula el primer tiempo de alarma
-        #
-        #         for self.dispositivo in self.dispositivosaux:  # Ciclo que recorre cada uno de los dispositivos del mismo tipo
-        #
-        #             self.dispositivo.registrarAlarma(self.generadorAlarma.idAlarma, self.generadorAlarma.siguienteArribo, (
-        #                         self.generadorAlarma.siguienteArribo + (distanciaList(self.dispositivo.posicion,
-        #                                                                          self.generadorAlarma.posicion) / self.generadorAlarma.velocidad))[
-        #                 0], self.generadorAlarma.posicion, self.nuevaAlarma[self.tipoDisp])
-        #
-        #             [self.listaPnk, self.nuevaListaAlarmas] = calcularPnk(self.tiempo, self.dispositivo.listaAlarmas,
-        #                                                         self.generadorAlarma.velocidad,
-        #                                                         self.generadorAlarma.modeloEspacial,
-        #                                                         self.generadorAlarma.constanteEspacial1,
-        #                                                         self.generadorAlarma.constanteEspacial2, self.dispositivo.m_Pu,
-        #                                                         self.dispositivo.m_Pc,
-        #                                                         self.deltaTiempo)  # parte A del diagrama  /assets/CMMPP_diagrama.jpg
-        #
-        #             # listaAlarmas=[idAlarma,tiempoAparicion,tiempoLLegada,posicionAlarma,self.posicion] esta es la forma de listaAlarmas
-        #             for self.pnk, self.listaAlarmas in iter.zip_longest(self.listaPnk, self.dispositivo.listaAlarmas):
-        #                 self.dispositivo.actualizarestado(self.pnk)  # parte B del diagrama
-        #                 self.dispositivo.generararribo(self.tiempo, self.listaAlarmas[0], self.listaAlarmas[2],
-        #                                           self.numerosDecimalesDeltaTiempo)  # parte C del diagrama
-        #                 self.dispositivo.actualizarestadoanormal()  # por si hay más de un evento que cree estados de alarma, se cambia siempre a estado normal,
-        #
-        #             self.dispositivo.actualizarListaAlarmas(self.nuevaListaAlarmas)
-        #
-        #         self.nuevaAlarma[self.tipoDisp] = self.generadorAlarma.generarAlarma(
-        #             self.tiempo)  # se genera una nueva alarma en una posición aleatoria si la actual ya sucedió
-        #
-        #     self.tiempo = round(self.tiempo + self.deltaTiempo, self.numerosDecimalesDeltaTiempo)  # Función para redondear decimales
         self.areaCelula = np.pi * self.radiocelula ** 2  # area de la célula
         # Iniciamos la creación de dispositivos según la distribución seleccionada
         # Dispositivos tipo 1
@@ -1361,14 +1296,16 @@ class Application(tk.Frame):
         def takeSecond(elem):
             return elem[1]
         self.arriboOrdenado = self.dispositivo.registroCompletoArribos.sort(key=takeSecond) # Ordenamos los arribos por tiempo
-
+        self.ultimodispositivo=self.dispositivo
         # Registro de todos los eventos
         self.ListaEventos = self.dispositivo.registroCompletoArribos
         # Creación de un Dataframe apartir de una lista
         self.df_eventos = pd.DataFrame(self.ListaEventos)
         # Guardado de datos en archivo con extensión .csv
         self.df_eventos.to_csv("ArchivoEventos.csv")
-
+        DeviceMTC.registroCompletoArribos=[]
+        DeviceMTC.cuentaAlarmas = 0
+        DeviceMTC.totalAlarmas = []
         print('Fin de Rutina')
 
 
