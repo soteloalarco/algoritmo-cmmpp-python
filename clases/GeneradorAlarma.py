@@ -15,7 +15,6 @@ class GeneradorAlarmas(object):
         self.idAlarma=0
         self.totalAlarmas=[]
 
-
     def calcularSiguienteAlarma(self,radio): #Calcular en qué momento sucederá la siguiente alarma
         tiempoEspera = np.random.exponential(1 / (self.lambdaEvento), 1)  # el siguiente arribo se producirá segun una varible exponencial
         self.siguienteArribo=self.siguienteArribo + tiempoEspera
@@ -29,7 +28,7 @@ class GeneradorAlarmas(object):
         self.totalAlarmas.append([self.idAlarma,self.siguienteArribo,self.posicion])
         self.idAlarma=self.idAlarma+1
 
-    def generarAlarma(self,tiempoActual,radio):
+    def generarAlarma(self,tiempoActual,radio): # Función que verifica si ya ssucedio la última alarma
 
         if(self.siguienteArribo <= tiempoActual): # Si ya sucedió la última alarma calcular una nueva
             self.calcularSiguienteAlarma(radio)

@@ -21,7 +21,6 @@ class DeviceMTC(object):
     m_Pu = np.array(matriz_Pu)
     matriz_Pc = [[0, 1], [1, 0]]  # matriz que describe el comportamiento sincronized
     m_Pc = np.array(matriz_Pc)
-    #matriz_Pnk = []  # matriz de probabilidad de transición entre estados Pn[k]= Theta_n[k]*Pc + (1-Theta_n[k]*Pu)
     registroCompletoArribos = []  # El conglomerado de arribos del estado normal y del de alarma
     cuentaAlarmas = 0  # Contador que registra las veces que se estuvo en estado de alarma
     totalAlarmas=[]
@@ -85,3 +84,8 @@ class DeviceMTC(object):
 
     def actualizarestadoanormal(self):
         self.estado=0
+
+    def resetvalores(self):
+        self.registroCompletoArribos=[]
+        self.cuentaAlarmas=0
+        self.totalAlarmas=[]

@@ -1182,7 +1182,7 @@ class Application(tk.Frame):
         self.leerentradas()
         ######################################################
         #TODO Checar por qué se generan cada vez archivos más grandes .cvs
-        
+
         # # Inicialización de parámetros y variables
         # self.tiempo = 0  # tiempo inicial
         # self.iteraciones = int(self.tiempoLimite / self.deltaTiempo)  # las iteraciones  que se producirán recorriendo el tiempo k
@@ -1249,125 +1249,125 @@ class Application(tk.Frame):
         #             self.tiempo)  # se genera una nueva alarma en una posición aleatoria si la actual ya sucedió
         #
         #     self.tiempo = round(self.tiempo + self.deltaTiempo, self.numerosDecimalesDeltaTiempo)  # Función para redondear decimales
-        areaCelula = np.pi * self.radiocelula ** 2  # area de la célula
+        self.areaCelula = np.pi * self.radiocelula ** 2  # area de la célula
         # Iniciamos la creación de dispositivos según la distribución seleccionada
         # Dispositivos tipo 1
         if (self.modelodispositivos == 0):
-            cantidad_Tipo1 = np.random.poisson(self.dipositivos_Tipo1 * areaCelula)  # Poisson número de dispoitivos de tipo1
+            self.cantidad_Tipo1 = np.random.poisson(self.dipositivos_Tipo1 * self.areaCelula)  # Poisson número de dispoitivos de tipo1
         else:
-            cantidad_Tipo1 = self.dipositivos_Tipo1  # si no se trata de un PPP se generarán los dispositivos especifiados
-        theta_Tipo1 = 2 * np.pi * np.random.uniform(0, 1, cantidad_Tipo1)
-        rho_Tipo1 = self.radiocelula * np.sqrt(np.random.uniform(0, 1, cantidad_Tipo1))
+            self.cantidad_Tipo1 = int(self.dipositivos_Tipo1)  # si no se trata de un PPP se generarán los dispositivos especifiados
+        self.theta_Tipo1 = 2 * np.pi * np.random.uniform(0, 1, self.cantidad_Tipo1)
+        self.rho_Tipo1 = self.radiocelula * np.sqrt(np.random.uniform(0, 1, self.cantidad_Tipo1))
         # Convertimos las coordenadas polares a cartesianas
-        xx_Tipo1 = rho_Tipo1 * np.cos(theta_Tipo1)
-        yy_Tipo1 = rho_Tipo1 * np.sin(theta_Tipo1)
-        posiciones_Tipo1 = [xx_Tipo1,
-                            yy_Tipo1]  # Esta lista se usará para asignar posiciones a los dispositivos que se crearán
+        self.xx_Tipo1 = self.rho_Tipo1 * np.cos(self.theta_Tipo1)
+        self.yy_Tipo1 = self.rho_Tipo1 * np.sin(self.theta_Tipo1)
+        self.posiciones_Tipo1 = [self.xx_Tipo1,
+                            self.yy_Tipo1]  # Esta lista se usará para asignar posiciones a los dispositivos que se crearán
         # Dispositivos tipo 2
         if (self.modelodispositivos == 0):
-            cantidad_Tipo2 = np.random.poisson(self.dipositivos_Tipo2 * areaCelula)  # Poisson número de dispoitivos de tipo1
+            self.cantidad_Tipo2 = np.random.poisson(self.dipositivos_Tipo2 * self.areaCelula)  # Poisson número de dispoitivos de tipo1
         else:
-            cantidad_Tipo2 = self.dipositivos_Tipo2  # si no se trata de un PPP se generarán los dispositivos especifiados
-        theta_Tipo2 = 2 * np.pi * np.random.uniform(0, 1, cantidad_Tipo2)
-        rho_Tipo2 = self.radiocelula * np.sqrt(np.random.uniform(0, 1, cantidad_Tipo2))
+            self.cantidad_Tipo2 = int(self.dipositivos_Tipo2)  # si no se trata de un PPP se generarán los dispositivos especifiados
+        self.theta_Tipo2 = 2 * np.pi * np.random.uniform(0, 1, self.cantidad_Tipo2)
+        self.rho_Tipo2 = self.radiocelula * np.sqrt(np.random.uniform(0, 1, self.cantidad_Tipo2))
         # Convertimos las coordenadas polares a cartesianas
-        xx_Tipo2 = rho_Tipo2 * np.cos(theta_Tipo2)
-        yy_Tipo2 = rho_Tipo2 * np.sin(theta_Tipo2)
-        posiciones_Tipo2 = [xx_Tipo2,
-                            yy_Tipo2]  # Esta lista se usará para asignar posiciones a los dispositivos que se crearán
+        self.xx_Tipo2 = self.rho_Tipo2 * np.cos(self.theta_Tipo2)
+        self.yy_Tipo2 = self.rho_Tipo2 * np.sin(self.theta_Tipo2)
+        self.posiciones_Tipo2 = [self.xx_Tipo2,
+                            self.yy_Tipo2]  # Esta lista se usará para asignar posiciones a los dispositivos que se crearán
         # Dispositivos tipo 3
         if (self.modelodispositivos == 0):
-            cantidad_Tipo3 = np.random.poisson(self.dipositivos_Tipo3 * areaCelula)  # Poisson número de dispoitivos de tipo1
+            self.cantidad_Tipo3 = np.random.poisson(self.dipositivos_Tipo3 * self.areaCelula)  # Poisson número de dispoitivos de tipo1
         else:
-            cantidad_Tipo3 = self.dipositivos_Tipo3  # si no se trata de un PPP se generarán los dispositivos especifiados
-        theta_Tipo3 = 2 * np.pi * np.random.uniform(0, 1, cantidad_Tipo3)
-        rho_Tipo3 = self.radiocelula * np.sqrt(np.random.uniform(0, 1, cantidad_Tipo3))
+            self.cantidad_Tipo3 = int(self.dipositivos_Tipo3)  # si no se trata de un PPP se generarán los dispositivos especifiados
+        self.theta_Tipo3 = 2 * np.pi * np.random.uniform(0, 1, self.cantidad_Tipo3)
+        self.rho_Tipo3 = self.radiocelula * np.sqrt(np.random.uniform(0, 1, self.cantidad_Tipo3))
         # Convertimos las coordenadas polares a cartesianas
-        xx_Tipo3 = rho_Tipo3 * np.cos(theta_Tipo3)
-        yy_Tipo3 = rho_Tipo3 * np.sin(theta_Tipo3)
-        posiciones_Tipo3 = [xx_Tipo3,
-                            yy_Tipo3]  # Esta lista se usará para asignar posiciones a los dispositivos que se crearán
+        self.xx_Tipo3 = self.rho_Tipo3 * np.cos(self.theta_Tipo3)
+        self.yy_Tipo3 = self.rho_Tipo3 * np.sin(self.theta_Tipo3)
+        self.posiciones_Tipo3 = [self.xx_Tipo3,
+                            self.yy_Tipo3]  # Esta lista se usará para asignar posiciones a los dispositivos que se crearán
 
-        tiempo = 0  # tiempo inicial
-        iteraciones = self.tiempoLimite / self.deltaTiempo  # las iteraciones  que se producirán recorriendo el tiempo k
+        self.tiempo = 0  # tiempo inicial
+        self.iteraciones = self.tiempoLimite / self.deltaTiempo  # las iteraciones  que se producirán recorriendo el tiempo k
         self.dispositivos = []  # una lista para guardar las instancias de dipoitivos de distintos tipos
-        generadoresAlarmas = []  # una lista para guardar los genradores de eventos de alarmas, uno para cada tipo de dispositivo
-        nuevaAlarma = [False] * self.tiposDispositivos
+        self.generadoresAlarmas = []  # una lista para guardar los genradores de eventos de alarmas, uno para cada tipo de dispositivo
+        self.nuevaAlarma = [False] * self.tiposDispositivos
         # animacionTrafico= AnimacionTrafico() # Creamos animación y la dibujamos
         # animacionTrafico.dibujar()
         # animacionTrafico.actualizar()
 
         # Se generan las instancias de cada tipo de dipositivos y sus generadores de alarmas
         self.dispositivos.append(
-            creardispositivos(cantidad_Tipo1, posiciones_Tipo1, self.lambdaRegular_Tipo1, 'Control de iluminacion', tiempo,
+            creardispositivos(self.cantidad_Tipo1, self.posiciones_Tipo1, self.lambdaRegular_Tipo1, 'Control de iluminacion', self.tiempo,
                               self.color_Tipo1, self.marcador_Tipo1))
-        generadoresAlarmas.append(
-            GeneradorAlarmas(self.lambdaAlarma_Tipo1, self.velPropagacionAlarma_Tipo1, tiempo, self.modeloEspacial_Tipo1,
+        self.generadoresAlarmas.append(
+            GeneradorAlarmas(self.lambdaAlarma_Tipo1, self.velPropagacionAlarma_Tipo1, self.tiempo, self.modeloEspacial_Tipo1,
                              self.constanteEspacial1_Tipo1, self.constanteEspacial2_Tipo1, [0, 0]))
         self.dispositivos.append(
-            creardispositivos(cantidad_Tipo2, posiciones_Tipo2, self.lambdaRegular_Tipo2, 'Monitoreo de agua y electricidad',
-                              tiempo, self.color_Tipo2, self.marcador_Tipo2))
-        generadoresAlarmas.append(
-            GeneradorAlarmas(self.lambdaAlarma_Tipo2, self.velPropagacionAlarma_Tipo2, tiempo, self.modeloEspacial_Tipo2,
+            creardispositivos(self.cantidad_Tipo2, self.posiciones_Tipo2, self.lambdaRegular_Tipo2, 'Monitoreo de agua y electricidad',
+                              self.tiempo, self.color_Tipo2, self.marcador_Tipo2))
+        self.generadoresAlarmas.append(
+            GeneradorAlarmas(self.lambdaAlarma_Tipo2, self.velPropagacionAlarma_Tipo2, self.tiempo, self.modeloEspacial_Tipo2,
                              self.constanteEspacial1_Tipo2, self.constanteEspacial2_Tipo2, [0, 0]))
         self.dispositivos.append(
-            creardispositivos(cantidad_Tipo3, posiciones_Tipo3, self.lambdaRegular_Tipo3, 'Deteccion de terremotos', tiempo,
+            creardispositivos(self.cantidad_Tipo3, self.posiciones_Tipo3, self.lambdaRegular_Tipo3, 'Deteccion de terremotos', self.tiempo,
                               self.color_Tipo3, self.marcador_Tipo3))
-        generadoresAlarmas.append(
-            GeneradorAlarmas(self.lambdaAlarma_Tipo3, self.velPropagacionAlarma_Tipo3, tiempo, self.modeloEspacial_Tipo3,
+        self.generadoresAlarmas.append(
+            GeneradorAlarmas(self.lambdaAlarma_Tipo3, self.velPropagacionAlarma_Tipo3, self.tiempo, self.modeloEspacial_Tipo3,
                              self.constanteEspacial1_Tipo3, self.constanteEspacial2_Tipo3, [0, 0]))
 
         ##########  Algoritmo CMMPP  #################
 
-        for k in range(0, int(iteraciones + 1)):  # Ciclo que avanza el tiempo
+        for self.k in range(0, int(self.iteraciones + 1)):  # Ciclo que avanza el tiempo
 
-            for dispositivosaux, generadorAlarma, tipoDisp in iter.zip_longest(self.dispositivos, generadoresAlarmas,
+            for self.dispositivosaux, self.generadorAlarma, self.tipoDisp in iter.zip_longest(self.dispositivos, self.generadoresAlarmas,
                                                                                range(0,
                                                                                      self.dispositivos.__len__())):  # Ciclo que recorre los distintos tipos de dispositivos y sus geenradores de alarmas
 
-                if (tiempo == 0):
-                    nuevaAlarma[tipoDisp] = generadorAlarma.generarAlarma(tiempo,
+                if (self.tiempo == 0):
+                    self.nuevaAlarma[self.tipoDisp] = self.generadorAlarma.generarAlarma(self.tiempo,
                                                                           self.radiocelula)  # se calcula el primer tiempo de alarma
 
-                for dispositivo in dispositivosaux:  # Ciclo que recorre cada uno de los dispositivos del mismo tipo
+                for self.dispositivo in self.dispositivosaux:  # Ciclo que recorre cada uno de los dispositivos del mismo tipo
 
-                    dispositivo.registrarAlarma(generadorAlarma.idAlarma, generadorAlarma.siguienteArribo, (
-                                generadorAlarma.siguienteArribo + (distanciaList(dispositivo.posicion,
-                                                                                 generadorAlarma.posicion) / generadorAlarma.velocidad))[
-                        0], generadorAlarma.posicion, nuevaAlarma[tipoDisp])
+                    self.dispositivo.registrarAlarma(self.generadorAlarma.idAlarma, self.generadorAlarma.siguienteArribo, (
+                                self.generadorAlarma.siguienteArribo + (distanciaList(self.dispositivo.posicion,
+                                                                                 self.generadorAlarma.posicion) / self.generadorAlarma.velocidad))[
+                        0], self.generadorAlarma.posicion, self.nuevaAlarma[self.tipoDisp])
 
-                    [listaPnk, nuevaListaAlarmas] = calcularPnk(tiempo, dispositivo.listaAlarmas,
-                                                                generadorAlarma.velocidad,
-                                                                generadorAlarma.modeloEspacial,
-                                                                generadorAlarma.constanteEspacial1,
-                                                                generadorAlarma.constanteEspacial2, dispositivo.m_Pu,
-                                                                dispositivo.m_Pc,
+                    [self.listaPnk, self.nuevaListaAlarmas] = calcularPnk(self.tiempo, self.dispositivo.listaAlarmas,
+                                                                self.generadorAlarma.velocidad,
+                                                                self.generadorAlarma.modeloEspacial,
+                                                                self.generadorAlarma.constanteEspacial1,
+                                                                self.generadorAlarma.constanteEspacial2, self.dispositivo.m_Pu,
+                                                                self.dispositivo.m_Pc,
                                                                 self.deltaTiempo)  # parte A del diagrama  /assets/CMMPP_diagrama.jpg
 
                     # listaAlarmas=[idAlarma,tiempoAparicion,tiempoLLegada,posicionAlarma,self.posicion] esta es la forma de listaAlarmas
-                    for pnk, listaAlarmas in iter.zip_longest(listaPnk, dispositivo.listaAlarmas):
-                        dispositivo.actualizarestado(pnk)  # parte B del diagrama
-                        dispositivo.generararribo(tiempo, listaAlarmas[0], listaAlarmas[2],
+                    for self.pnk, self.listaAlarmas in iter.zip_longest(self.listaPnk, self.dispositivo.listaAlarmas):
+                        self.dispositivo.actualizarestado(self.pnk)  # parte B del diagrama
+                        self.dispositivo.generararribo(self.tiempo, self.listaAlarmas[0], self.listaAlarmas[2],
                                                   self.numerosDecimalesDeltaTiempo)  # parte C del diagrama
-                        dispositivo.actualizarestadoanormal()  # por si hay más de un evento que cree estados de alarma, se cambia siempre a estado normal,
+                        self.dispositivo.actualizarestadoanormal()  # por si hay más de un evento que cree estados de alarma, se cambia siempre a estado normal,
 
-                    dispositivo.actualizarListaAlarmas(nuevaListaAlarmas)
+                    self.dispositivo.actualizarListaAlarmas(self.nuevaListaAlarmas)
 
-                nuevaAlarma[tipoDisp] = generadorAlarma.generarAlarma(tiempo,
+                self.nuevaAlarma[self.tipoDisp] = self.generadorAlarma.generarAlarma(self.tiempo,
                                                                       self.radiocelula)  # se genera una nueva alarma en una posición aleatoria si la actual ya sucedió
 
-            tiempo = round(tiempo + self.deltaTiempo, self.numerosDecimalesDeltaTiempo)  # Función para redondear decimales
+            self.tiempo = round(self.tiempo + self.deltaTiempo, self.numerosDecimalesDeltaTiempo)  # Función para redondear decimales
 
         def takeSecond(elem):
             return elem[1]
-        arriboOrdenado = dispositivo.registroCompletoArribos.sort(key=takeSecond) # Ordenamos los arribos por tiempo
+        self.arriboOrdenado = self.dispositivo.registroCompletoArribos.sort(key=takeSecond) # Ordenamos los arribos por tiempo
 
         # Registro de todos los eventos
-        self.ListaEventos = dispositivo.registroCompletoArribos
+        self.ListaEventos = self.dispositivo.registroCompletoArribos
         # Creación de un Dataframe apartir de una lista
-        df_eventos = pd.DataFrame(self.ListaEventos)
+        self.df_eventos = pd.DataFrame(self.ListaEventos)
         # Guardado de datos en archivo con extensión .csv
-        df_eventos.to_csv("ArchivoEventos.csv")
+        self.df_eventos.to_csv("ArchivoEventos.csv")
 
         print('Fin de Rutina')
 
