@@ -15,7 +15,7 @@ deltaTiempo = 0.1 #segundos , diferencial de tiempo entre iteración
 numerosDecimalesDeltaTiempo=1 #Si se modifica deltaTiempo modificar también esta veriable
 tiposDispositivos=3 # Cantidad total de dispositivos a caracterizar a continuación
 radiocelula=50 # radio de la célula en metros
-modelodisopsitivos=0 # 0 para PPP y 1 para uniforme
+modelodispositivos=0 # 0 para PPP y 1 para uniforme
 repeticiones=1 # repeticiones de la rutina CCMMPP
 
 ### Control de iluminación
@@ -60,37 +60,37 @@ marcador_Tipo3= '^'
 areaCelula= np.pi * radiocelula ** 2  # area de la célula
 #Iniciamos la creación de dispositivos según la distribución seleccionada
 #Dispositivos tipo 1
-if(modelodisopsitivos==0):
+if(modelodispositivos==0):
     cantidad_Tipo1= np.random.poisson(dipositivos_Tipo1 * areaCelula)  # Poisson número de dispoitivos de tipo1
 else:
     cantidad_Tipo1=dipositivos_Tipo1 # si no se trata de un PPP se generarán los dispositivos especifiados
 theta_Tipo1 = 2 * np.pi * np.random.uniform(0, 1, cantidad_Tipo1)
 rho_Tipo1 = radiocelula * np.sqrt(np.random.uniform(0, 1, cantidad_Tipo1))
 # Convertimos las coordenadas polares a cartesianas
-xx_Tipo1 = theta_Tipo1 * np.cos(theta_Tipo1)
-yy_Tipo1 = theta_Tipo1 * np.sin(theta_Tipo1)
+xx_Tipo1 = rho_Tipo1 * np.cos(theta_Tipo1)
+yy_Tipo1 = rho_Tipo1 * np.sin(theta_Tipo1)
 posiciones_Tipo1=[xx_Tipo1,yy_Tipo1] # Esta lista se usará para asignar posiciones a los dispositivos que se crearán
 #Dispositivos tipo 2
-if(modelodisopsitivos==0):
+if(modelodispositivos==0):
     cantidad_Tipo2= np.random.poisson(dipositivos_Tipo2 * areaCelula)  # Poisson número de dispoitivos de tipo1
 else:
     cantidad_Tipo2=dipositivos_Tipo2 # si no se trata de un PPP se generarán los dispositivos especifiados
 theta_Tipo2 = 2 * np.pi * np.random.uniform(0, 1, cantidad_Tipo2)
 rho_Tipo2 = radiocelula * np.sqrt(np.random.uniform(0, 1, cantidad_Tipo2))
 # Convertimos las coordenadas polares a cartesianas
-xx_Tipo2 = theta_Tipo2 * np.cos(theta_Tipo2)
-yy_Tipo2 = theta_Tipo2 * np.sin(theta_Tipo2)
+xx_Tipo2 = rho_Tipo2 * np.cos(theta_Tipo2)
+yy_Tipo2 = rho_Tipo2 * np.sin(theta_Tipo2)
 posiciones_Tipo2=[xx_Tipo2,yy_Tipo2]# Esta lista se usará para asignar posiciones a los dispositivos que se crearán
 #Dispositivos tipo 3
-if(modelodisopsitivos==0):
+if(modelodispositivos==0):
     cantidad_Tipo3= np.random.poisson(dipositivos_Tipo3 * areaCelula)  # Poisson número de dispoitivos de tipo1
 else:
     cantidad_Tipo3=dipositivos_Tipo3 # si no se trata de un PPP se generarán los dispositivos especifiados
 theta_Tipo3 = 2 * np.pi * np.random.uniform(0, 1, cantidad_Tipo3)
 rho_Tipo3 = radiocelula * np.sqrt(np.random.uniform(0, 1, cantidad_Tipo3))
 # Convertimos las coordenadas polares a cartesianas
-xx_Tipo3 = theta_Tipo3 * np.cos(theta_Tipo3)
-yy_Tipo3 = theta_Tipo3 * np.sin(theta_Tipo3)
+xx_Tipo3 = rho_Tipo3 * np.cos(theta_Tipo3)
+yy_Tipo3 = rho_Tipo3 * np.sin(theta_Tipo3)
 posiciones_Tipo3=[xx_Tipo3,yy_Tipo3]# Esta lista se usará para asignar posiciones a los dispositivos que se crearán
 
 
@@ -110,12 +110,6 @@ dispositivos.append(creardispositivos(cantidad_Tipo2, posiciones_Tipo2,lambdaReg
 generadoresAlarmas.append(GeneradorAlarmas(lambdaAlarma_Tipo2,velPropagacionAlarma_Tipo2,tiempo,modeloEspacial_Tipo2,constanteEspacial1_Tipo2,constanteEspacial2_Tipo2,[0,0]))
 dispositivos.append(creardispositivos(cantidad_Tipo3, posiciones_Tipo3,lambdaRegular_Tipo3,'Deteccion de terremotos',tiempo,color_Tipo3,marcador_Tipo3))
 generadoresAlarmas.append(GeneradorAlarmas(lambdaAlarma_Tipo3,velPropagacionAlarma_Tipo3,tiempo,modeloEspacial_Tipo3,constanteEspacial1_Tipo3,constanteEspacial2_Tipo3,[0,0]))
-
-#Graficamos los dispositivos en la celda
-#for dispositivosaux in dispositivos:
-#    for dispositivo in dispositivosaux: #ciclo para recorrer la lista de dispositivos y dibujar cada uno
-#        animacionTrafico.dibujarDispositivo(dispositivo.posicion,dispositivo.color,dispositivo.marcador)
-#animacionTrafico.actualizar()
 
 ##########  Algoritmo CMMPP  #################
 
