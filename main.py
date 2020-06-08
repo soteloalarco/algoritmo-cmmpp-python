@@ -24,7 +24,8 @@ class Application(tk.Frame):
 
     ### Control de iluminación
     dipositivos_Tipo1 = 0.05  # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución  (modelodispositivos) es uniforme
-    lambdaRegular_Tipo1 = 1 / 40  # la tasa lambda para el estado regular de los dispositivos de tipo 1 (1 paquete cada 60 seg)
+    modeloTrafico_Tipo1 = 0  # Modelo de generación de tráfico, 0 CMMPP 1 Periódico
+    tasaPaquete_Tipo1 = 1 / 40  # si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 1, si modelotrafico==1 tasa de Paquete/seg
     lambdaAlarma_Tipo1 = 1 / 20  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 500 seg)
     velPropagacionAlarma_Tipo1 = 500  # m/s Velocidad de propagación de alarma
     modeloEspacial_Tipo1 = 0  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
@@ -36,7 +37,8 @@ class Application(tk.Frame):
 
     ### Monitoreo de consumo del agua y electricidad
     dipositivos_Tipo2 = 0.1  # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución  (modelodispositivos) es uniforme
-    lambdaRegular_Tipo2 = 1 / 60  # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
+    modeloTrafico_Tipo2 = 0  # Modelo de generación de tráfico, 0 CMMPP 1 Periódico
+    tasaPaquete_Tipo2 = 1 / 60  # si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 2, si modelotrafico==1 tasa de Paquete/seg
     lambdaAlarma_Tipo2 = 1 / 1000  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 200 seg)
     velPropagacionAlarma_Tipo2 = 500  # m/s Velocidad de propagación de alarma
     modeloEspacial_Tipo2 = 1  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
@@ -48,7 +50,8 @@ class Application(tk.Frame):
 
     ### Detección de terremotos
     dipositivos_Tipo3 = 0.08 # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución  (modelodispositivos) es uniforme
-    lambdaRegular_Tipo3 = 1 / 180  # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
+    modeloTrafico_Tipo3 = 0  # Modelo de generación de tráfico, 0 CMMPP 1 Periódico
+    tasaPaquete_Tipo3 = 1 / 180  # si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 3, si modelotrafico==1 tasa de Paquete/seg
     lambdaAlarma_Tipo3 = 1 / 50  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
     velPropagacionAlarma_Tipo3 = 3000  # m/s Velocidad de propagación de alarma
     modeloEspacial_Tipo3 = 0  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
@@ -60,7 +63,8 @@ class Application(tk.Frame):
 
     ### Contaminación del aire
     dipositivos_Tipo4 = 0.01  # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución  (modelodispositivos) es uniforme
-    lambdaRegular_Tipo4 = 1 / 190  # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
+    modeloTrafico_Tipo4 = 0  # Modelo de generación de tráfico, 0 CMMPP 1 Periódico
+    tasaPaquete_Tipo4 = 1 / 190  # si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 4, si modelotrafico==1 tasa de Paquete/seg
     lambdaAlarma_Tipo4 = 1 / 100  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
     velPropagacionAlarma_Tipo4 = 1000  # m/s Velocidad de propagación de alarma
     modeloEspacial_Tipo4 = 0  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
@@ -72,7 +76,8 @@ class Application(tk.Frame):
 
     ### Control de semáforos
     dipositivos_Tipo5 = 0.03  # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución  (modelodispositivos) es uniforme
-    lambdaRegular_Tipo5 = 1 / 170  # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
+    modeloTrafico_Tipo5 = 0  # Modelo de generación de tráfico, 0 CMMPP 1 Periódico
+    tasaPaquete_Tipo5 = 1 / 170  #  si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 5, si modelotrafico==1 tasa de Paquete/seg
     lambdaAlarma_Tipo5 = 1 / 200  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
     velPropagacionAlarma_Tipo5 = 2000  # m/s Velocidad de propagación de alarma
     modeloEspacial_Tipo5 = 1  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
@@ -105,9 +110,18 @@ class Application(tk.Frame):
         # Cantidad de dispositivos
         self.numero01.delete(0,tk.END)
         self.numero01.insert(0,str(self.dipositivos_Tipo1))
+        # modelo tráfico
+        if (self.modeloTrafico_Tipo1 == 0):
+            self.modelotra01.set("CMMPP")
+            self.constante10.set('Tasa Promedio')
+            self.const001['state'] = 'normal'
+        else:
+            self.modelotra01.set("Periódico")
+            self.constante10.set('Tasa de paquetes')
+            self.const001['state'] = 'normal'
         # Tasa de paquete
-        self.tasapaquete01.delete(0,tk.END)
-        self.tasapaquete01.insert(0,str(self.lambdaRegular_Tipo1))
+        self.const001.delete(0, tk.END)
+        self.const001.insert(0, str(self.tasaPaquete_Tipo1))
         # Tasa de alarma
         self.tasaalarma01.delete(0,tk.END)
         self.tasaalarma01.insert(0,str(self.lambdaAlarma_Tipo1))
@@ -137,9 +151,18 @@ class Application(tk.Frame):
         # Cantidad de dispositivos
         self.numero02.delete(0, tk.END)
         self.numero02.insert(0, str(self.dipositivos_Tipo2))
+        # modelo tráfico
+        if (self.modeloTrafico_Tipo2 == 0):
+            self.modelotra02.set("CMMPP")
+            self.constante20.set('Tasa Promedio')
+            self.const002['state'] = 'normal'
+        else:
+            self.modelotra02.set("Periódico")
+            self.constante20.set('Tasa de paquetes')
+            self.const002['state'] = 'normal'
         # Tasa de paquete
-        self.tasapaquete02.delete(0, tk.END)
-        self.tasapaquete02.insert(0, str(self.lambdaRegular_Tipo2))
+        self.const002.delete(0, tk.END)
+        self.const002.insert(0, str(self.tasaPaquete_Tipo2))
         # Tasa de alarma
         self.tasaalarma02.delete(0, tk.END)
         self.tasaalarma02.insert(0, str(self.lambdaAlarma_Tipo2))
@@ -169,9 +192,18 @@ class Application(tk.Frame):
         # Cantidad de dispositivos
         self.numero03.delete(0, tk.END)
         self.numero03.insert(0, str(self.dipositivos_Tipo3))
+        # modelo tráfico
+        if (self.modeloTrafico_Tipo3 == 0):
+            self.modelotra03.set("CMMPP")
+            self.constante30.set('Tasa Promedio')
+            self.const003['state'] = 'normal'
+        else:
+            self.modelotra03.set("Periódico")
+            self.constante30.set('Tasa de paquetes')
+            self.const003['state'] = 'normal'
         # Tasa de paquete
-        self.tasapaquete03.delete(0, tk.END)
-        self.tasapaquete03.insert(0, str(self.lambdaRegular_Tipo3))
+        self.const003.delete(0, tk.END)
+        self.const003.insert(0, str(self.tasaPaquete_Tipo3))
         # Tasa de alarma
         self.tasaalarma03.delete(0, tk.END)
         self.tasaalarma03.insert(0, str(self.lambdaAlarma_Tipo3))
@@ -201,9 +233,18 @@ class Application(tk.Frame):
         # Cantidad de dispositivos
         self.numero10.delete(0, tk.END)
         self.numero10.insert(0, str(self.dipositivos_Tipo4))
+        # modelo tráfico
+        if (self.modeloTrafico_Tipo4 == 0):
+            self.modelotra10.set("CMMPP")
+            self.constante40.set('Tasa Promedio')
+            self.const010['state'] = 'normal'
+        else:
+            self.modelotra10.set("Periódico")
+            self.constante40.set('Tasa de paquetes')
+            self.const010['state'] = 'normal'
         # Tasa de paquete
-        self.tasapaquete10.delete(0, tk.END)
-        self.tasapaquete10.insert(0, str(self.lambdaRegular_Tipo4))
+        self.const010.delete(0, tk.END)
+        self.const010.insert(0, str(self.tasaPaquete_Tipo4))
         # Tasa de alarma
         self.tasaalarma10.delete(0, tk.END)
         self.tasaalarma10.insert(0, str(self.lambdaAlarma_Tipo4))
@@ -233,9 +274,18 @@ class Application(tk.Frame):
         # Cantidad de dispositivos
         self.numero11.delete(0, tk.END)
         self.numero11.insert(0, str(self.dipositivos_Tipo5))
+        # modelo tráfico
+        if (self.modeloTrafico_Tipo5 == 0):
+            self.modelotra11.set("CMMPP")
+            self.constante50.set('Tasa Promedio')
+            self.const011['state'] = 'normal'
+        else:
+            self.modelotra11.set("Periódico")
+            self.constante50.set('Tasa de paquetes')
+            self.const011['state'] = 'normal'
         # Tasa de paquete
-        self.tasapaquete11.delete(0, tk.END)
-        self.tasapaquete11.insert(0, str(self.lambdaRegular_Tipo5))
+        self.const011.delete(0, tk.END)
+        self.const011.insert(0, str(self.tasaPaquete_Tipo5))
         # Tasa de alarma
         self.tasaalarma11.delete(0, tk.END)
         self.tasaalarma11.insert(0, str(self.lambdaAlarma_Tipo5))
@@ -266,9 +316,18 @@ class Application(tk.Frame):
         # Cantidad de dispositivos
         self.numero01.delete(0, tk.END)
         self.numero01.insert(0, str(self.dipositivos_Tipo1))
+        # modelo tráfico
+        if (self.modeloTrafico_Tipo1 == 0):
+            self.modelotra01.set("CMMPP")
+            self.constante10.set('Tasa Promedio')
+            self.const001['state'] = 'normal'
+        else:
+            self.modelotra01.set("Periódico")
+            self.constante10.set('Tasa de paquetes')
+            self.const001['state'] = 'normal'
         # Tasa de paquete
-        self.tasapaquete01.delete(0, tk.END)
-        self.tasapaquete01.insert(0, str(self.lambdaRegular_Tipo1))
+        self.const001.delete(0, tk.END)
+        self.const001.insert(0, str(self.tasaPaquete_Tipo1))
         # Tasa de alarma
         self.tasaalarma01.delete(0, tk.END)
         self.tasaalarma01.insert(0, str(self.lambdaAlarma_Tipo1))
@@ -299,9 +358,18 @@ class Application(tk.Frame):
         # Cantidad de dispositivos
         self.numero02.delete(0, tk.END)
         self.numero02.insert(0, str(self.dipositivos_Tipo2))
+        # modelo tráfico
+        if (self.modeloTrafico_Tipo2 == 0):
+            self.modelotra02.set("CMMPP")
+            self.constante20.set('Tasa Promedio')
+            self.const002['state'] = 'normal'
+        else:
+            self.modelotra02.set("Periódico")
+            self.constante20.set('Tasa de paquetes')
+            self.const002['state'] = 'normal'
         # Tasa de paquete
-        self.tasapaquete02.delete(0, tk.END)
-        self.tasapaquete02.insert(0, str(self.lambdaRegular_Tipo2))
+        self.const002.delete(0, tk.END)
+        self.const002.insert(0, str(self.tasaPaquete_Tipo2))
         # Tasa de alarma
         self.tasaalarma02.delete(0, tk.END)
         self.tasaalarma02.insert(0, str(self.lambdaAlarma_Tipo2))
@@ -332,9 +400,18 @@ class Application(tk.Frame):
         # Cantidad de dispositivos
         self.numero03.delete(0, tk.END)
         self.numero03.insert(0, str(self.dipositivos_Tipo3))
+        # modelo tráfico
+        if (self.modeloTrafico_Tipo3 == 0):
+            self.modelotra03.set("CMMPP")
+            self.constante30.set('Tasa Promedio')
+            self.const003['state'] = 'normal'
+        else:
+            self.modelotra03.set("Periódico")
+            self.constante30.set('Tasa de paquetes')
+            self.const003['state'] = 'normal'
         # Tasa de paquete
-        self.tasapaquete03.delete(0, tk.END)
-        self.tasapaquete03.insert(0, str(self.lambdaRegular_Tipo3))
+        self.const003.delete(0, tk.END)
+        self.const003.insert(0, str(self.tasaPaquete_Tipo3))
         # Tasa de alarma
         self.tasaalarma03.delete(0, tk.END)
         self.tasaalarma03.insert(0, str(self.lambdaAlarma_Tipo3))
@@ -365,9 +442,18 @@ class Application(tk.Frame):
         # Cantidad de dispositivos
         self.numero10.delete(0, tk.END)
         self.numero10.insert(0, str(self.dipositivos_Tipo4))
+        # modelo tráfico
+        if (self.modeloTrafico_Tipo4 == 0):
+            self.modelotra10.set("CMMPP")
+            self.constante40.set('Tasa Promedio')
+            self.const010['state'] = 'normal'
+        else:
+            self.modelotra10.set("Periódico")
+            self.constante40.set('Tasa de paquetes')
+            self.const010['state'] = 'normal'
         # Tasa de paquete
-        self.tasapaquete10.delete(0, tk.END)
-        self.tasapaquete10.insert(0, str(self.lambdaRegular_Tipo4))
+        self.const010.delete(0, tk.END)
+        self.const010.insert(0, str(self.tasaPaquete_Tipo4))
         # Tasa de alarma
         self.tasaalarma10.delete(0, tk.END)
         self.tasaalarma10.insert(0, str(self.lambdaAlarma_Tipo4))
@@ -398,9 +484,18 @@ class Application(tk.Frame):
         # Cantidad de dispositivos
         self.numero11.delete(0, tk.END)
         self.numero11.insert(0, str(self.dipositivos_Tipo5))
+        # modelo tráfico
+        if (self.modeloTrafico_Tipo5 == 0):
+            self.modelotra11.set("CMMPP")
+            self.constante50.set('Tasa Promedio')
+            self.const011['state'] = 'normal'
+        else:
+            self.modelotra11.set("Periódico")
+            self.constante50.set('Tasa de paquetes')
+            self.const011['state'] = 'normal'
         # Tasa de paquete
-        self.tasapaquete11.delete(0, tk.END)
-        self.tasapaquete11.insert(0, str(self.lambdaRegular_Tipo5))
+        self.const011.delete(0, tk.END)
+        self.const011.insert(0, str(self.tasaPaquete_Tipo5))
         # Tasa de alarma
         self.tasaalarma11.delete(0, tk.END)
         self.tasaalarma11.insert(0, str(self.lambdaAlarma_Tipo5))
@@ -443,7 +538,11 @@ class Application(tk.Frame):
 
         ### Control de iluminación
         self.dipositivos_Tipo1 = float(self.numero01.get())  # número de dispositivos de tipo 1,
-        self.lambdaRegular_Tipo1 = float(self.tasapaquete01.get())  # la tasa lambda para el estado regular de los dispositivos de tipo 1 (1 paquete cada 60 seg)
+        if (self.modelotra01.get() == 'CMMPP'):
+            self.modeloTrafico_Tipo1 = 0  # modelo de trafico 0 CMMPP 1 Periódico
+        else:
+            self.modeloTrafico_Tipo1 = 1
+        self.tasaPaquete_Tipo1 = float(self.const001.get())  # la tasa lambda para el estado regular de los dispositivos de tipo 1 (1 paquete cada 60 seg)
         self.lambdaAlarma_Tipo1 = float(self.tasaalarma01.get())  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 500 seg)
         self.velPropagacionAlarma_Tipo1 = float(self.veloalarma01.get())  # m/s Velocidad de propagación de alarma
         if (self.modeloesp01.get() == 'Decaying Exponential'):
@@ -459,7 +558,11 @@ class Application(tk.Frame):
 
         ### Monitoreo de consumo del agua y electricidad
         self.dipositivos_Tipo2 = float(self.numero02.get())  # número de dispositivos de tipo 2
-        self.lambdaRegular_Tipo2 = float(self.tasapaquete02.get())  # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
+        if (self.modelotra02.get() == 'CMMPP'):
+            self.modeloTrafico_Tipo2 = 0  # modelo de trafico 0 CMMPP 1 Periódico
+        else:
+            self.modeloTrafico_Tipo2 = 1
+        self.tasaPaquete_Tipo2 = float(self.const002.get())  # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
         self.lambdaAlarma_Tipo2 = float(self.tasaalarma02.get())  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 200 seg)
         self.velPropagacionAlarma_Tipo2 = float(self.veloalarma02.get())  # m/s Velocidad de propagación de alarma
         if (self.modeloesp02.get() == 'Decaying Exponential'):
@@ -475,7 +578,11 @@ class Application(tk.Frame):
 
         ### Detección de terremotos
         self.dipositivos_Tipo3 = float(self.numero03.get())  # número de dispositivos de tipo 3
-        self.lambdaRegular_Tipo3 = float(self.tasapaquete03.get())  # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
+        if (self.modelotra03.get() == 'CMMPP'):
+            self.modeloTrafico_Tipo3 = 0  # modelo de trafico 0 CMMPP 1 Periódico
+        else:
+            self.modeloTrafico_Tipo3 = 1
+        self.tasaPaquete_Tipo3 = float(self.const003.get())  # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
         self.lambdaAlarma_Tipo3 = float(self.tasaalarma03.get())   # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
         self.velPropagacionAlarma_Tipo3 = float(self.veloalarma03.get())  # m/s Velocidad de propagación de alarma
         if (self.modeloesp03.get() == 'Decaying Exponential'):
@@ -491,7 +598,11 @@ class Application(tk.Frame):
 
         ### Contaminación del aire
         self.dipositivos_Tipo4 = float(self.numero10.get())  # número de dispositivos de tipo 4
-        self.lambdaRegular_Tipo4 = float(self.tasapaquete10.get())  # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
+        if (self.modelotra10.get() == 'CMMPP'):
+            self.modeloTrafico_Tipo4 = 0  # modelo de trafico 0 CMMPP 1 Periódico
+        else:
+            self.modeloTrafico_Tipo4 = 1
+        self.tasaPaquete_Tipo4 = float(self.const010.get())  # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
         self.lambdaAlarma_Tipo4 = float(self.tasaalarma10.get())  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
         self.velPropagacionAlarma_Tipo4 = float(self.veloalarma10.get()) # m/s Velocidad de propagación de alarma
         if (self.modeloesp10.get() == 'Decaying Exponential'):
@@ -507,7 +618,11 @@ class Application(tk.Frame):
 
         ### Control de semáforos
         self.dipositivos_Tipo5 = float(self.numero11.get())  # número de dispositivos de tipo 5
-        self.lambdaRegular_Tipo5 = float(self.tasapaquete11.get())  # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
+        if (self.modelotra11.get() == 'CMMPP'):
+            self.modeloTrafico_Tipo5 = 0  # modelo de trafico 0 CMMPP 1 Periódico
+        else:
+            self.modeloTrafico_Tipo5 = 1
+        self.tasaPaquete_Tipo5 = float(self.const011.get())  # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
         self.lambdaAlarma_Tipo5 = float(self.tasaalarma11.get())  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
         self.velPropagacionAlarma_Tipo5 = float(self.veloalarma11.get())  # m/s Velocidad de propagación de alarma
         if (self.modeloesp11.get() == 'Decaying Exponential'):
@@ -526,13 +641,13 @@ class Application(tk.Frame):
         super().__init__(master)
         self.master = master
         self.master.title("Generación de Tráfico IoT")
-        self.master.geometry("1033x430+100+80")
+        self.master.geometry("1033x480+100+80")
         self.anchocaja1=320
-        self.altocaja1=200
+        self.altocaja1=230
         self.create_widgets()
 
     #--------------funciones para el GUI----------------
-    def cambiomodelo1(self, event):
+    def cambiomodeloesp1(self, event):
         if(self.modeloesp01.get()=='Decaying Exponential'):
             self.constante11.set('Alpha')
             self.constante12.set('----')
@@ -548,6 +663,17 @@ class Application(tk.Frame):
             self.const201['state'] = 'normal'
             self.const101.delete(0, tk.END)
             self.const201.delete(0, tk.END)
+
+    def cambiomodelotra1(self, event):
+        if(self.modelotra01.get()=='CMMPP'):
+            self.constante10.set('Tasa promedio')
+            self.const001['state'] = 'normal'
+            self.const001.delete(0, tk.END)
+
+        elif(self.modelotra01.get()=='Periódico'):
+            self.constante10.set('Tasa de paquete')
+            self.const001['state'] = 'normal'
+            self.const001.delete(0, tk.END)
 
     def cambiomodelo2(self, event):
         if (self.modeloesp02.get() == 'Decaying Exponential'):
@@ -566,6 +692,17 @@ class Application(tk.Frame):
             self.const102.delete(0, tk.END)
             self.const202.delete(0, tk.END)
 
+    def cambiomodelotra2(self, event):
+        if(self.modelotra02.get()=='CMMPP'):
+            self.constante20.set('Tasa promedio')
+            self.const002['state'] = 'normal'
+            self.const002.delete(0, tk.END)
+
+        elif(self.modelotra02.get()=='Periódico'):
+            self.constante20.set('Tasa de paquete')
+            self.const002['state'] = 'normal'
+            self.const002.delete(0, tk.END)
+
     def cambiomodelo3(self, event):
         if (self.modeloesp03.get() == 'Decaying Exponential'):
             self.constante31.set('Alpha')
@@ -583,6 +720,17 @@ class Application(tk.Frame):
             self.const103.delete(0, tk.END)
             self.const203.delete(0, tk.END)
 
+    def cambiomodelotra3(self, event):
+        if(self.modelotra03.get()=='CMMPP'):
+            self.constante30.set('Tasa promedio')
+            self.const003['state'] = 'normal'
+            self.const003.delete(0, tk.END)
+
+        elif(self.modelotra03.get()=='Periódico'):
+            self.constante30.set('Tasa de paquete')
+            self.const003['state'] = 'normal'
+            self.const003.delete(0, tk.END)
+
     def cambiomodelo4(self, event):
         if (self.modeloesp10.get() == 'Decaying Exponential'):
             self.constante41.set('Alpha')
@@ -599,6 +747,16 @@ class Application(tk.Frame):
             self.const110.delete(0, tk.END)
             self.const210.delete(0, tk.END)
 
+    def cambiomodelotra4(self, event):
+        if(self.modelotra10.get()=='CMMPP'):
+            self.constante40.set('Tasa promedio')
+            self.const010['state'] = 'normal'
+            self.const010.delete(0, tk.END)
+
+        elif(self.modelotra10.get()=='Periódico'):
+            self.constante40.set('Tasa de paquete')
+            self.const010['state'] = 'normal'
+            self.const010.delete(0, tk.END)
 
     def cambiomodelo5(self, event):
         if (self.modeloesp11.get() == 'Decaying Exponential'):
@@ -617,7 +775,16 @@ class Application(tk.Frame):
             self.const111.delete(0, tk.END)
             self.const211.delete(0, tk.END)
 
+    def cambiomodelotra5(self, event):
+        if(self.modelotra11.get()=='CMMPP'):
+            self.constante50.set('Tasa promedio')
+            self.const011['state'] = 'normal'
+            self.const011.delete(0, tk.END)
 
+        elif(self.modelotra11.get()=='Periódico'):
+            self.constante50.set('Tasa de paquete')
+            self.const011['state'] = 'normal'
+            self.const011.delete(0, tk.END)
 
     def cambiomodelo6(self, event):
         if (self.modeloesp12.get() == 'Decaying Exponential'):
@@ -629,6 +796,17 @@ class Application(tk.Frame):
             self.constante62.set('dth')
             self.const212['state'] = 'normal'
 
+    def cambiomodelotra6(self, event):
+        if(self.modelotra12.get()=='CMMPP'):
+            self.constante60.set('Tasa promedio')
+            self.const012['state'] = 'normal'
+            self.const012.delete(0, tk.END)
+
+        elif(self.modelotra12.get()=='Periódico'):
+            self.constante60.set('Tasa de paquete')
+            self.const012['state'] = 'normal'
+            self.const012.delete(0, tk.END)
+
     def cambiomodelo7(self, event):
         if (self.modeloesp13.get() == 'Decaying Exponential'):
             self.constante71.set('Alpha')
@@ -638,6 +816,17 @@ class Application(tk.Frame):
             self.constante71.set('W')
             self.constante72.set('dth')
             self.const213['state'] = 'normal'
+
+    def cambiomodelotra7(self, event):
+        if(self.modelotra13.get()=='CMMPP'):
+            self.constante70.set('Tasa promedio')
+            self.const013['state'] = 'normal'
+            self.const013.delete(0, tk.END)
+
+        elif(self.modelotra13.get()=='Periódico'):
+            self.constante70.set('Tasa de paquete')
+            self.const013['state'] = 'normal'
+            self.const013.delete(0, tk.END)
 
     def cambiomodelodisp(self,event):
         if(self.modelodisp00.get()=='PPP'):
@@ -771,31 +960,37 @@ class Application(tk.Frame):
         self.bottomFrame = tk.LabelFrame(self.master,text='Generar Tráfico',heigh=50,width=1000,bg='grey',bd=3)
         self.bottomFrame.grid(row=2, column=0)
 
-
+        self.constante10 = tk.StringVar()
         self.constante11 = tk.StringVar()
         self.constante12 = tk.StringVar()
         self.constante13 = tk.StringVar()
         self.constante14 = tk.StringVar()
+        self.constante20 = tk.StringVar()
         self.constante21 = tk.StringVar()
         self.constante22 = tk.StringVar()
         self.constante23 = tk.StringVar()
         self.constante24 = tk.StringVar()
+        self.constante30 = tk.StringVar()
         self.constante31 = tk.StringVar()
         self.constante32 = tk.StringVar()
         self.constante33 = tk.StringVar()
         self.constante34 = tk.StringVar()
+        self.constante40 = tk.StringVar()
         self.constante41 = tk.StringVar()
         self.constante42 = tk.StringVar()
         self.constante43 = tk.StringVar()
         self.constante44 = tk.StringVar()
+        self.constante50 = tk.StringVar()
         self.constante51 = tk.StringVar()
         self.constante52 = tk.StringVar()
         self.constante53 = tk.StringVar()
         self.constante54 = tk.StringVar()
+        self.constante60 = tk.StringVar()
         self.constante61 = tk.StringVar()
         self.constante62 = tk.StringVar()
         self.constante63 = tk.StringVar()
         self.constante64 = tk.StringVar()
+        self.constante70 = tk.StringVar()
         self.constante71 = tk.StringVar()
         self.constante72 = tk.StringVar()
         self.constante73 = tk.StringVar()
@@ -807,22 +1002,22 @@ class Application(tk.Frame):
                                      width=self.anchocaja1)
         self.frame00.grid(row=0, column=0, sticky='n' + 's')
         # Radio de la célula
-        tk.Label(self.frame00, text='Radio célula:').grid(row=0, column=0, sticky='w' + 'e')
+        tk.Label(self.frame00, text='   Radio célula:  ').grid(row=0, column=0, sticky='w' + 'e')
         self.radio00 = tk.Entry(self.frame00, width=8)
         self.radio00.grid(row=0, column=1)
-        tk.Label(self.frame00, text='metros').grid(row=0, column=2, sticky='w' + 'e')
+        tk.Label(self.frame00, text='metros                   ').grid(row=0, column=2, sticky='w' + 'e')
         # Modelo de distribución de usuarios
-        tk.Label(self.frame00, text='Distribución de usuarios:').grid(row=1, column=0, columnspan=2,sticky='w' + 'e')
+        tk.Label(self.frame00, text='   Distribución de usuarios:  ').grid(row=1, column=0, columnspan=2,sticky='w' + 'e')
         self.modelodisp00 = ttk.Combobox(self.frame00, state="readonly", width=10)
         self.modelodisp00["values"] = ['PPP', 'Uniforme']
         self.modelodisp00.set('Seleccionar')
         self.modelodisp00.bind('<<ComboboxSelected>>', self.cambiomodelodisp)
         self.modelodisp00.grid(row=1, column=2, columnspan=2)
         # Repeticiones
-        tk.Label(self.frame00, text='Repetir:').grid(row=2, column=0, sticky='w' + 'e')
+        tk.Label(self.frame00, text='   Repetir:  ').grid(row=2, column=0, sticky='w' + 'e')
         self.repeticiones00 = tk.Entry(self.frame00, width=8)
         self.repeticiones00.grid(row=2, column=1)
-        tk.Label(self.frame00, text='veces').grid(row=2, column=2, sticky='w' + 'e')
+        tk.Label(self.frame00, text='veces                    ').grid(row=2, column=2, sticky='w' + 'e')
 
 
         #-----------Recuadro de Control de iluminación------------
@@ -830,47 +1025,56 @@ class Application(tk.Frame):
         self.frame01.grid(row=0, column=1,sticky='n' + 's')
         #cantidad de dispositivos
         tk.Label(self.frame01,textvariable=self.constante13).grid(row=0,column=0,sticky='w'+'e')
-        self.numero01 = tk.Entry(self.frame01,width=6)
+        self.numero01 = tk.Entry(self.frame01,width=8)
         self.numero01['state'] = 'disabled'
         self.numero01.grid(row=0,column=1)
         tk.Label(self.frame01, textvariable=self.constante14).grid(row=0, column=2, sticky='w' + 'e')
+        # Modelo de tráfico
+        tk.Label(self.frame01, text='Modelo de tráfico:').grid(row=1, column=0, sticky='w' + 'e')
+        self.modelotra01 = ttk.Combobox(self.frame01, state="readonly", width=18)
+        self.modelotra01["values"] = ["CMMPP", "Periódico"]
+        self.modelotra01.set("Seleccionar modelo")
+        self.modelotra01.bind('<<ComboboxSelected>>', self.cambiomodelotra1)
+        self.modelotra01.grid(row=1, column=1, columnspan=2)
         #tasa de generación de paquetes
-        tk.Label(self.frame01, text='Tasa de paquete:').grid(row=1, column=0,sticky='w'+'e')
-        self.tasapaquete01 = tk.Entry(self.frame01,width=6)
-        self.tasapaquete01.grid(row=1, column=1)
-        tk.Label(self.frame01, text='paquetes/seg').grid(row=1, column=2, sticky='w' + 'e')
+        self.const001label =tk.Label(self.frame01, textvariable=self.constante10)
+        self.const001label.grid(row=2, column=0,sticky='w'+'e')
+        self.const001 = tk.Entry(self.frame01, width=8)
+        self.const001['state'] = 'disabled'
+        self.const001.grid(row=2, column=1)
+        tk.Label(self.frame01, text='paquetes/seg').grid(row=2, column=2, sticky='w' + 'e')
         #tasa de generación de eventos de alarma
-        tk.Label(self.frame01, text='Tasa de alarma:').grid(row=2, column=0,sticky='w'+'e')
-        self.tasaalarma01 = tk.Entry(self.frame01,width=6)
-        self.tasaalarma01.grid(row=2, column=1)
-        tk.Label(self.frame01, text='alarmas/seg').grid(row=2, column=2, sticky='w' + 'e')
+        tk.Label(self.frame01, text='Tasa de alarma:').grid(row=3, column=0,sticky='w'+'e')
+        self.tasaalarma01 = tk.Entry(self.frame01,width=8)
+        self.tasaalarma01.grid(row=3, column=1)
+        tk.Label(self.frame01, text='alarmas/seg').grid(row=3, column=2, sticky='w' + 'e')
         #velocidad de protagación de alarmas
-        tk.Label(self.frame01, text='Velocidad alarma:').grid(row=3, column=0, sticky='w' + 'e')
-        self.veloalarma01 = tk.Entry(self.frame01,width=6)
-        self.veloalarma01.grid(row=3, column=1)
-        tk.Label(self.frame01, text='metros/seg').grid(row=3, column=2, sticky='w' + 'e')
+        tk.Label(self.frame01, text='Velocidad alarma:').grid(row=4, column=0, sticky='w' + 'e')
+        self.veloalarma01 = tk.Entry(self.frame01,width=8)
+        self.veloalarma01.grid(row=4, column=1)
+        tk.Label(self.frame01, text='metros/seg').grid(row=4, column=2, sticky='w' + 'e')
         #Modelo de propagación espacial
-        tk.Label(self.frame01, text='Propagación espacial:').grid(row=4, column=0, sticky='w' + 'e')
+        tk.Label(self.frame01, text='Propagación espacial:').grid(row=5, column=0, sticky='w' + 'e')
         self.modeloesp01 = ttk.Combobox(self.frame01, state="readonly",width=18)
         self.modeloesp01["values"] = ["Decaying Exponential","Raised-Cosine Window"]
         self.modeloesp01.set("Seleccionar modelo")
-        self.modeloesp01.bind('<<ComboboxSelected>>', self.cambiomodelo1)
-        self.modeloesp01.grid(row=4,column=1,columnspan=2)
+        self.modeloesp01.bind('<<ComboboxSelected>>', self.cambiomodeloesp1)
+        self.modeloesp01.grid(row=5,column=1,columnspan=2)
         #Constante modelo 1
         self.const101label = tk.Label(self.frame01, textvariable=self.constante11)
-        self.const101label.grid(row=5, column=0, sticky='w' + 'e')
-        self.const101= tk.Entry(self.frame01,width=6)
+        self.const101label.grid(row=6, column=0, sticky='w' + 'e')
+        self.const101= tk.Entry(self.frame01,width=8)
         self.const101['state'] = 'disabled'
-        self.const101.grid(row=5, column=1)
+        self.const101.grid(row=6, column=1)
         # Constante modelo 2
         self.const201label = tk.Label(self.frame01, textvariable=self.constante12)
-        self.const201label.grid(row=6, column=0, sticky='w' + 'e')
-        self.const201 = tk.Entry(self.frame01, width=6)
+        self.const201label.grid(row=7, column=0, sticky='w' + 'e')
+        self.const201 = tk.Entry(self.frame01, width=8)
         self.const201['state'] = 'disabled'
-        self.const201.grid(row=6, column=1)
+        self.const201.grid(row=7, column=1)
         # Boton para cargar datos
         self.botoncarga01 =tk.Button(self.frame01,text='Reset',command=self.reset1)
-        self.botoncarga01.grid(row=7,column=0,columnspan=3)
+        self.botoncarga01.grid(row=8,column=0,columnspan=3)
 
         #---------Consumo de Agua y electricidad-------------
         self.frame02 = tk.LabelFrame(self.upperFrame, text='Consumo de agua y electricidad', bg='grey', bd=3, heigh=self.altocaja1,
@@ -879,47 +1083,56 @@ class Application(tk.Frame):
 
         # cantidad de dispositivos
         tk.Label(self.frame02, textvariable=self.constante23).grid(row=0, column=0, sticky='w' + 'e')
-        self.numero02 = tk.Entry(self.frame02, width=6)
+        self.numero02 = tk.Entry(self.frame02, width=8)
         self.numero02['state'] = 'disabled'
         self.numero02.grid(row=0, column=1)
         tk.Label(self.frame02, textvariable=self.constante24).grid(row=0, column=2, sticky='w' + 'e')
+        # Modelo de tráfico
+        tk.Label(self.frame02, text='Modelo de tráfico:').grid(row=1, column=0, sticky='w' + 'e')
+        self.modelotra02 = ttk.Combobox(self.frame02, state="readonly", width=18)
+        self.modelotra02["values"] = ["CMMPP", "Periódico"]
+        self.modelotra02.set("Seleccionar modelo")
+        self.modelotra02.bind('<<ComboboxSelected>>', self.cambiomodelotra2)
+        self.modelotra02.grid(row=1, column=1, columnspan=2)
         # tasa de generación de paquetes
-        tk.Label(self.frame02, text='Tasa de paquete:').grid(row=1, column=0, sticky='w' + 'e')
-        self.tasapaquete02 = tk.Entry(self.frame02, width=6)
-        self.tasapaquete02.grid(row=1, column=1)
-        tk.Label(self.frame02, text='paquetes/seg').grid(row=1, column=2, sticky='w' + 'e')
+        self.const002label = tk.Label(self.frame02, textvariable=self.constante20)
+        self.const002label.grid(row=2, column=0, sticky='w' + 'e')
+        self.const002 = tk.Entry(self.frame02, width=8)
+        self.const002['state'] = 'disabled'
+        self.const002.grid(row=2, column=1)
+        tk.Label(self.frame02, text='paquetes/seg').grid(row=2, column=2, sticky='w' + 'e')
         # tasa de generación de eventos de alarma
-        tk.Label(self.frame02, text='Tasa de alarma:').grid(row=2, column=0, sticky='w' + 'e')
-        self.tasaalarma02 = tk.Entry(self.frame02, width=6)
-        self.tasaalarma02.grid(row=2, column=1)
-        tk.Label(self.frame02, text='alarmas/seg').grid(row=2, column=2, sticky='w' + 'e')
+        tk.Label(self.frame02, text='Tasa de alarma:').grid(row=3, column=0, sticky='w' + 'e')
+        self.tasaalarma02 = tk.Entry(self.frame02, width=8)
+        self.tasaalarma02.grid(row=3, column=1)
+        tk.Label(self.frame02, text='alarmas/seg').grid(row=3, column=2, sticky='w' + 'e')
         # velocidad de protagación de alarmas
-        tk.Label(self.frame02, text='Velocidad alarma:').grid(row=3, column=0, sticky='w' + 'e')
-        self.veloalarma02 = tk.Entry(self.frame02, width=6)
-        self.veloalarma02.grid(row=3, column=1)
-        tk.Label(self.frame02, text='metros/seg').grid(row=3, column=2, sticky='w' + 'e')
+        tk.Label(self.frame02, text='Velocidad alarma:').grid(row=4, column=0, sticky='w' + 'e')
+        self.veloalarma02 = tk.Entry(self.frame02, width=8)
+        self.veloalarma02.grid(row=4, column=1)
+        tk.Label(self.frame02, text='metros/seg').grid(row=4, column=2, sticky='w' + 'e')
         # Modelo de propagación espacial
-        tk.Label(self.frame02, text='Propagación espacial:').grid(row=4, column=0, sticky='w' + 'e')
+        tk.Label(self.frame02, text='Propagación espacial:').grid(row=5, column=0, sticky='w' + 'e')
         self.modeloesp02 = ttk.Combobox(self.frame02, state="readonly", width=18)
         self.modeloesp02["values"] = ["Decaying Exponential", "Raised-Cosine Window"]
         self.modeloesp02.set("Seleccionar modelo")
         self.modeloesp02.bind('<<ComboboxSelected>>', self.cambiomodelo2)
-        self.modeloesp02.grid(row=4, column=1, columnspan=2)
+        self.modeloesp02.grid(row=5, column=1, columnspan=2)
         # Constante modelo 1
         self.const102label = tk.Label(self.frame02, textvariable=self.constante21)
-        self.const102label.grid(row=5, column=0, sticky='w' + 'e')
-        self.const102 = tk.Entry(self.frame02, width=6)
+        self.const102label.grid(row=6, column=0, sticky='w' + 'e')
+        self.const102 = tk.Entry(self.frame02, width=8)
         self.const102['state'] = 'disabled'
-        self.const102.grid(row=5, column=1)
+        self.const102.grid(row=6, column=1)
         # Constante modelo 2
         self.const202label = tk.Label(self.frame02, textvariable=self.constante22)
-        self.const202label.grid(row=6, column=0, sticky='w' + 'e')
-        self.const202 = tk.Entry(self.frame02, width=6)
+        self.const202label.grid(row=7, column=0, sticky='w' + 'e')
+        self.const202 = tk.Entry(self.frame02, width=8)
         self.const202['state'] = 'disabled'
-        self.const202.grid(row=6, column=1)
+        self.const202.grid(row=7, column=1)
         # Boton para cargar datos
         self.botoncarga02 = tk.Button(self.frame02, text='Reset',command=self.reset2)
-        self.botoncarga02.grid(row=7, column=0, columnspan=3)
+        self.botoncarga02.grid(row=8, column=0, columnspan=3)
 
         #------- Deteccción de terremotos-------------
         self.frame03 = tk.LabelFrame(self.upperFrame, text='Detección de terremotos', bg='grey', bd=3, heigh=self.altocaja1,
@@ -928,47 +1141,56 @@ class Application(tk.Frame):
 
         # cantidad de dispositivos
         tk.Label(self.frame03, textvariable=self.constante33).grid(row=0, column=0, sticky='w' + 'e')
-        self.numero03 = tk.Entry(self.frame03, width=6)
+        self.numero03 = tk.Entry(self.frame03, width=8)
         self.numero03['state'] = 'disabled'
         self.numero03.grid(row=0, column=1)
         tk.Label(self.frame03, textvariable=self.constante34).grid(row=0, column=2, sticky='w' + 'e')
+        # Modelo de tráfico
+        tk.Label(self.frame03, text='Modelo de tráfico:').grid(row=1, column=0, sticky='w' + 'e')
+        self.modelotra03 = ttk.Combobox(self.frame03, state="readonly", width=18)
+        self.modelotra03["values"] = ["CMMPP", "Periódico"]
+        self.modelotra03.set("Seleccionar modelo")
+        self.modelotra03.bind('<<ComboboxSelected>>', self.cambiomodelotra3)
+        self.modelotra03.grid(row=1, column=1, columnspan=2)
         # tasa de generación de paquetes
-        tk.Label(self.frame03, text='Tasa de paquete:').grid(row=1, column=0, sticky='w' + 'e')
-        self.tasapaquete03 = tk.Entry(self.frame03, width=6)
-        self.tasapaquete03.grid(row=1, column=1)
-        tk.Label(self.frame03, text='paquetes/seg').grid(row=1, column=2, sticky='w' + 'e')
+        self.const003label = tk.Label(self.frame03, textvariable=self.constante30)
+        self.const003label.grid(row=2, column=0, sticky='w' + 'e')
+        self.const003 = tk.Entry(self.frame03, width=8)
+        self.const003['state'] = 'disabled'
+        self.const003.grid(row=2, column=1)
+        tk.Label(self.frame03, text='paquetes/seg').grid(row=2, column=2, sticky='w' + 'e')
         # tasa de generación de eventos de alarma
-        tk.Label(self.frame03, text='Tasa de alarma:').grid(row=2, column=0, sticky='w' + 'e')
-        self.tasaalarma03 = tk.Entry(self.frame03, width=6)
-        self.tasaalarma03.grid(row=2, column=1)
-        tk.Label(self.frame03, text='alarmas/seg').grid(row=2, column=2, sticky='w' + 'e')
+        tk.Label(self.frame03, text='Tasa de alarma:').grid(row=3, column=0, sticky='w' + 'e')
+        self.tasaalarma03 = tk.Entry(self.frame03, width=8)
+        self.tasaalarma03.grid(row=3, column=1)
+        tk.Label(self.frame03, text='alarmas/seg').grid(row=3, column=2, sticky='w' + 'e')
         # velocidad de protagación de alarmas
-        tk.Label(self.frame03, text='Velocidad alarma:').grid(row=3, column=0, sticky='w' + 'e')
-        self.veloalarma03 = tk.Entry(self.frame03, width=6)
-        self.veloalarma03.grid(row=3, column=1)
-        tk.Label(self.frame03, text='metros/seg').grid(row=3, column=2, sticky='w' + 'e')
+        tk.Label(self.frame03, text='Velocidad alarma:').grid(row=4, column=0, sticky='w' + 'e')
+        self.veloalarma03 = tk.Entry(self.frame03, width=8)
+        self.veloalarma03.grid(row=4, column=1)
+        tk.Label(self.frame03, text='metros/seg').grid(row=4, column=2, sticky='w' + 'e')
         # Modelo de propagación espacial
-        tk.Label(self.frame03, text='Propagación espacial:').grid(row=4, column=0, sticky='w' + 'e')
+        tk.Label(self.frame03, text='Propagación espacial:').grid(row=5, column=0, sticky='w' + 'e')
         self.modeloesp03 = ttk.Combobox(self.frame03, state="readonly", width=18)
         self.modeloesp03["values"] = ["Decaying Exponential", "Raised-Cosine Window"]
         self.modeloesp03.set("Seleccionar modelo")
         self.modeloesp03.bind('<<ComboboxSelected>>', self.cambiomodelo3)
-        self.modeloesp03.grid(row=4, column=1, columnspan=2)
+        self.modeloesp03.grid(row=5, column=1, columnspan=2)
         # Constante modelo 1
         self.const103label = tk.Label(self.frame03, textvariable=self.constante31)
-        self.const103label.grid(row=5, column=0, sticky='w' + 'e')
-        self.const103 = tk.Entry(self.frame03, width=6)
+        self.const103label.grid(row=6, column=0, sticky='w' + 'e')
+        self.const103 = tk.Entry(self.frame03, width=8)
         self.const103['state'] = 'disabled'
-        self.const103.grid(row=5, column=1)
+        self.const103.grid(row=6, column=1)
         # Constante modelo 2
         self.const203label = tk.Label(self.frame03, textvariable=self.constante32)
-        self.const203label.grid(row=6, column=0, sticky='w' + 'e')
-        self.const203 = tk.Entry(self.frame03, width=6)
+        self.const203label.grid(row=7, column=0, sticky='w' + 'e')
+        self.const203 = tk.Entry(self.frame03, width=8)
         self.const203['state'] = 'disabled'
-        self.const203.grid(row=6, column=1)
+        self.const203.grid(row=7, column=1)
         # Boton para cargar datos
         self.botoncarga03 = tk.Button(self.frame03, text='Reset',command=self.reset3)
-        self.botoncarga03.grid(row=7, column=0, columnspan=3)
+        self.botoncarga03.grid(row=8, column=0, columnspan=3)
 
         #------------ Contaminación del aire -------------
         self.frame10 = tk.LabelFrame(self.middleFrame, text='Contaminación del aire', bg='grey', bd=3, heigh=self.altocaja1, width=self.anchocaja1)
@@ -976,47 +1198,56 @@ class Application(tk.Frame):
 
         # cantidad de dispositivos
         tk.Label(self.frame10, textvariable=self.constante43).grid(row=0, column=0, sticky='w' + 'e')
-        self.numero10 = tk.Entry(self.frame10, width=6)
+        self.numero10 = tk.Entry(self.frame10, width=8)
         self.numero10['state'] = 'disabled'
         self.numero10.grid(row=0, column=1)
         tk.Label(self.frame10, textvariable=self.constante44).grid(row=0, column=2, sticky='w' + 'e')
+        # Modelo de tráfico
+        tk.Label(self.frame10, text='Modelo de tráfico:').grid(row=1, column=0, sticky='w' + 'e')
+        self.modelotra10 = ttk.Combobox(self.frame10, state="readonly", width=18)
+        self.modelotra10["values"] = ["CMMPP", "Periódico"]
+        self.modelotra10.set("Seleccionar modelo")
+        self.modelotra10.bind('<<ComboboxSelected>>', self.cambiomodelotra4)
+        self.modelotra10.grid(row=1, column=1, columnspan=2)
         # tasa de generación de paquetes
-        tk.Label(self.frame10, text='Tasa de paquete:').grid(row=1, column=0, sticky='w' + 'e')
-        self.tasapaquete10 = tk.Entry(self.frame10, width=6)
-        self.tasapaquete10.grid(row=1, column=1)
-        tk.Label(self.frame10, text='paquetes/seg').grid(row=1, column=2, sticky='w' + 'e')
+        self.const010label = tk.Label(self.frame10, textvariable=self.constante40)
+        self.const010label.grid(row=2, column=0, sticky='w' + 'e')
+        self.const010 = tk.Entry(self.frame10, width=8)
+        self.const010['state'] = 'disabled'
+        self.const010.grid(row=2, column=1)
+        tk.Label(self.frame10, text='paquetes/seg').grid(row=2, column=2, sticky='w' + 'e')
         # tasa de generación de eventos de alarma
-        tk.Label(self.frame10, text='Tasa de alarma:').grid(row=2, column=0, sticky='w' + 'e')
-        self.tasaalarma10 = tk.Entry(self.frame10, width=6)
-        self.tasaalarma10.grid(row=2, column=1)
-        tk.Label(self.frame10, text='alarmas/seg').grid(row=2, column=2, sticky='w' + 'e')
+        tk.Label(self.frame10, text='Tasa de alarma:').grid(row=3, column=0, sticky='w' + 'e')
+        self.tasaalarma10 = tk.Entry(self.frame10, width=8)
+        self.tasaalarma10.grid(row=3, column=1)
+        tk.Label(self.frame10, text='alarmas/seg').grid(row=3, column=2, sticky='w' + 'e')
         # velocidad de protagación de alarmas
-        tk.Label(self.frame10, text='Velocidad alarma:').grid(row=3, column=0, sticky='w' + 'e')
-        self.veloalarma10 = tk.Entry(self.frame10, width=6)
-        self.veloalarma10.grid(row=3, column=1)
-        tk.Label(self.frame10, text='metros/seg').grid(row=3, column=2, sticky='w' + 'e')
+        tk.Label(self.frame10, text='Velocidad alarma:').grid(row=4, column=0, sticky='w' + 'e')
+        self.veloalarma10 = tk.Entry(self.frame10, width=8)
+        self.veloalarma10.grid(row=4, column=1)
+        tk.Label(self.frame10, text='metros/seg').grid(row=4, column=2, sticky='w' + 'e')
         # Modelo de propagación espacial
-        tk.Label(self.frame10, text='Propagación espacial:').grid(row=4, column=0, sticky='w' + 'e')
+        tk.Label(self.frame10, text='Propagación espacial:').grid(row=5, column=0, sticky='w' + 'e')
         self.modeloesp10 = ttk.Combobox(self.frame10, state="readonly", width=18)
         self.modeloesp10["values"] = ["Decaying Exponential", "Raised-Cosine Window"]
         self.modeloesp10.set("Seleccionar modelo")
         self.modeloesp10.bind('<<ComboboxSelected>>', self.cambiomodelo4)
-        self.modeloesp10.grid(row=4, column=1, columnspan=2)
+        self.modeloesp10.grid(row=5, column=1, columnspan=2)
         # Constante modelo 1
         self.const110label = tk.Label(self.frame10, textvariable=self.constante41)
-        self.const110label.grid(row=5, column=0, sticky='w' + 'e')
-        self.const110 = tk.Entry(self.frame10, width=6)
+        self.const110label.grid(row=6, column=0, sticky='w' + 'e')
+        self.const110 = tk.Entry(self.frame10, width=8)
         self.const110['state']='disabled'
-        self.const110.grid(row=5, column=1)
+        self.const110.grid(row=6, column=1)
         # Constante modelo 2
         self.const210label = tk.Label(self.frame10, textvariable=self.constante42)
-        self.const210label.grid(row=6, column=0, sticky='w' + 'e')
-        self.const210 = tk.Entry(self.frame10, width=6)
+        self.const210label.grid(row=7, column=0, sticky='w' + 'e')
+        self.const210 = tk.Entry(self.frame10, width=8)
         self.const210['state']='disabled'
-        self.const210.grid(row=6, column=1)
+        self.const210.grid(row=7, column=1)
         # Boton para cargar datos
         self.botoncarga10 = tk.Button(self.frame10, text='Reset',command=self.reset4)
-        self.botoncarga10.grid(row=7, column=0, columnspan=3)
+        self.botoncarga10.grid(row=8, column=0, columnspan=3)
 
         #------------- Control de Semáforos ----------
         self.frame11 = tk.LabelFrame(self.middleFrame, text='Control de semáforos', bg='grey', bd=3, heigh=self.altocaja1,
@@ -1025,47 +1256,56 @@ class Application(tk.Frame):
 
         # cantidad de dispositivos
         tk.Label(self.frame11, textvariable=self.constante53).grid(row=0, column=0, sticky='w' + 'e')
-        self.numero11 = tk.Entry(self.frame11, width=6)
+        self.numero11 = tk.Entry(self.frame11, width=8)
         self.numero11['state'] = 'disabled'
         self.numero11.grid(row=0, column=1)
         tk.Label(self.frame11, textvariable=self.constante54).grid(row=0, column=2, sticky='w' + 'e')
+        # Modelo de tráfico
+        tk.Label(self.frame11, text='Modelo de tráfico:').grid(row=1, column=0, sticky='w' + 'e')
+        self.modelotra11 = ttk.Combobox(self.frame11, state="readonly", width=18)
+        self.modelotra11["values"] = ["CMMPP", "Periódico"]
+        self.modelotra11.set("Seleccionar modelo")
+        self.modelotra11.bind('<<ComboboxSelected>>', self.cambiomodelotra5)
+        self.modelotra11.grid(row=1, column=1, columnspan=2)
         # tasa de generación de paquetes
-        tk.Label(self.frame11, text='Tasa de paquete:').grid(row=1, column=0, sticky='w' + 'e')
-        self.tasapaquete11 = tk.Entry(self.frame11, width=6)
-        self.tasapaquete11.grid(row=1, column=1)
-        tk.Label(self.frame11, text='paquetes/seg').grid(row=1, column=2, sticky='w' + 'e')
+        self.const011label = tk.Label(self.frame11, textvariable=self.constante50)
+        self.const011label.grid(row=2, column=0, sticky='w' + 'e')
+        self.const011 = tk.Entry(self.frame11, width=8)
+        self.const011['state'] = 'disabled'
+        self.const011.grid(row=2, column=1)
+        tk.Label(self.frame11, text='paquetes/seg').grid(row=2, column=2, sticky='w' + 'e')
         # tasa de generación de eventos de alarma
-        tk.Label(self.frame11, text='Tasa de alarma:').grid(row=2, column=0, sticky='w' + 'e')
-        self.tasaalarma11 = tk.Entry(self.frame11, width=6)
-        self.tasaalarma11.grid(row=2, column=1)
-        tk.Label(self.frame11, text='alarmas/seg').grid(row=2, column=2, sticky='w' + 'e')
+        tk.Label(self.frame11, text='Tasa de alarma:').grid(row=3, column=0, sticky='w' + 'e')
+        self.tasaalarma11 = tk.Entry(self.frame11, width=8)
+        self.tasaalarma11.grid(row=3, column=1)
+        tk.Label(self.frame11, text='alarmas/seg').grid(row=3, column=2, sticky='w' + 'e')
         # velocidad de protagación de alarmas
-        tk.Label(self.frame11, text='Velocidad alarma:').grid(row=3, column=0, sticky='w' + 'e')
-        self.veloalarma11 = tk.Entry(self.frame11, width=6)
-        self.veloalarma11.grid(row=3, column=1)
-        tk.Label(self.frame11, text='metros/seg').grid(row=3, column=2, sticky='w' + 'e')
+        tk.Label(self.frame11, text='Velocidad alarma:').grid(row=4, column=0, sticky='w' + 'e')
+        self.veloalarma11 = tk.Entry(self.frame11, width=8)
+        self.veloalarma11.grid(row=4, column=1)
+        tk.Label(self.frame11, text='metros/seg').grid(row=4, column=2, sticky='w' + 'e')
         # Modelo de propagación espacial
-        tk.Label(self.frame11, text='Propagación espacial:').grid(row=4, column=0, sticky='w' + 'e')
+        tk.Label(self.frame11, text='Propagación espacial:').grid(row=5, column=0, sticky='w' + 'e')
         self.modeloesp11 = ttk.Combobox(self.frame11, state="readonly", width=18)
         self.modeloesp11["values"] = ["Decaying Exponential", "Raised-Cosine Window"]
         self.modeloesp11.set("Seleccionar modelo")
         self.modeloesp11.bind('<<ComboboxSelected>>', self.cambiomodelo5)
-        self.modeloesp11.grid(row=4, column=1, columnspan=2)
+        self.modeloesp11.grid(row=5, column=1, columnspan=2)
         # Constante modelo 1
         self.const111label = tk.Label(self.frame11, textvariable=self.constante51)
-        self.const111label.grid(row=5, column=0, sticky='w' + 'e')
-        self.const111 = tk.Entry(self.frame11, width=6)
+        self.const111label.grid(row=6, column=0, sticky='w' + 'e')
+        self.const111 = tk.Entry(self.frame11, width=8)
         self.const111['state']='disabled'
-        self.const111.grid(row=5, column=1)
+        self.const111.grid(row=6, column=1)
         # Constante modelo 2
         self.const211label = tk.Label(self.frame11, textvariable=self.constante52)
-        self.const211label.grid(row=6, column=0, sticky='w' + 'e')
-        self.const211 = tk.Entry(self.frame11, width=6)
+        self.const211label.grid(row=7, column=0, sticky='w' + 'e')
+        self.const211 = tk.Entry(self.frame11, width=8)
         self.const211['state'] = 'disabled'
-        self.const211.grid(row=6, column=1)
+        self.const211.grid(row=7, column=1)
         # Boton para cargar datos
         self.botoncarga11 = tk.Button(self.frame11, text='Reset',command=self.reset5)
-        self.botoncarga11.grid(row=7, column=0, columnspan=3)
+        self.botoncarga11.grid(row=8, column=0, columnspan=3)
 
         #---------Otros dispositivos mMTC
         self.frame12 = tk.LabelFrame(self.middleFrame, text='Otros dispositivos mMTC', bg='grey', bd=3, heigh=self.altocaja1,
@@ -1074,45 +1314,54 @@ class Application(tk.Frame):
 
         # cantidad de dispositivos
         tk.Label(self.frame12, textvariable=self.constante63).grid(row=0, column=0, sticky='w' + 'e')
-        self.numero12 = tk.Entry(self.frame12, width=6)
+        self.numero12 = tk.Entry(self.frame12, width=8)
         self.numero12['state'] = 'disabled'
         self.numero12.grid(row=0, column=1)
         tk.Label(self.frame12, textvariable=self.constante64).grid(row=0, column=2, sticky='w' + 'e')
+        # Modelo de tráfico
+        tk.Label(self.frame12, text='Modelo de tráfico:').grid(row=1, column=0, sticky='w' + 'e')
+        self.modelotra12 = ttk.Combobox(self.frame12, state="readonly", width=18)
+        self.modelotra12["values"] = ["CMMPP", "Periódico"]
+        self.modelotra12.set("Seleccionar modelo")
+        self.modelotra12.bind('<<ComboboxSelected>>', self.cambiomodelotra6)
+        self.modelotra12.grid(row=1, column=1, columnspan=2)
         # tasa de generación de paquetes
-        tk.Label(self.frame12, text='Tasa de paquete:').grid(row=1, column=0, sticky='w' + 'e')
-        self.tasapaquete12 = tk.Entry(self.frame12, width=6)
-        self.tasapaquete12.grid(row=1, column=1)
-        tk.Label(self.frame12, text='paquetes/seg').grid(row=1, column=2, sticky='w' + 'e')
+        self.const012label = tk.Label(self.frame12, textvariable=self.constante60)
+        self.const012label.grid(row=2, column=0, sticky='w' + 'e')
+        self.const012 = tk.Entry(self.frame12, width=8)
+        self.const012['state'] = 'disabled'
+        self.const012.grid(row=2, column=1)
+        tk.Label(self.frame12, text='paquetes/seg').grid(row=2, column=2, sticky='w' + 'e')
         # tasa de generación de eventos de alarma
-        tk.Label(self.frame12, text='Tasa de alarma:').grid(row=2, column=0, sticky='w' + 'e')
-        self.tasaalarma12 = tk.Entry(self.frame12, width=6)
-        self.tasaalarma12.grid(row=2, column=1)
-        tk.Label(self.frame12, text='alarmas/seg').grid(row=2, column=2, sticky='w' + 'e')
+        tk.Label(self.frame12, text='Tasa de alarma:').grid(row=3, column=0, sticky='w' + 'e')
+        self.tasaalarma12 = tk.Entry(self.frame12, width=8)
+        self.tasaalarma12.grid(row=3, column=1)
+        tk.Label(self.frame12, text='alarmas/seg').grid(row=3, column=2, sticky='w' + 'e')
         # velocidad de protagación de alarmas
-        tk.Label(self.frame12, text='Velocidad alarma:').grid(row=3, column=0, sticky='w' + 'e')
-        self.veloalarma12 = tk.Entry(self.frame12, width=6)
-        self.veloalarma12.grid(row=3, column=1)
-        tk.Label(self.frame12, text='metros/seg').grid(row=3, column=2, sticky='w' + 'e')
+        tk.Label(self.frame12, text='Velocidad alarma:').grid(row=4, column=0, sticky='w' + 'e')
+        self.veloalarma12 = tk.Entry(self.frame12, width=8)
+        self.veloalarma12.grid(row=4, column=1)
+        tk.Label(self.frame12, text='metros/seg').grid(row=4, column=2, sticky='w' + 'e')
         # Modelo de propagación espacial
-        tk.Label(self.frame12, text='Propagación espacial:').grid(row=4, column=0, sticky='w' + 'e')
+        tk.Label(self.frame12, text='Propagación espacial:').grid(row=5, column=0, sticky='w' + 'e')
         self.modeloesp12 = ttk.Combobox(self.frame12, state="readonly", width=18)
         self.modeloesp12["values"] = ["Decaying Exponential", "Raised-Cosine Window"]
         self.modeloesp12.set("Decaying Exponential")
         self.modeloesp12.bind('<<ComboboxSelected>>', self.cambiomodelo6)
-        self.modeloesp12.grid(row=4, column=1, columnspan=2)
+        self.modeloesp12.grid(row=5, column=1, columnspan=2)
         # Constante modelo 1
         self.const112label = tk.Label(self.frame12, textvariable=self.constante61)
-        self.const112label.grid(row=5, column=0, sticky='w' + 'e')
-        self.const112 = tk.Entry(self.frame12, width=6)
-        self.const112.grid(row=5, column=1)
+        self.const112label.grid(row=6, column=0, sticky='w' + 'e')
+        self.const112 = tk.Entry(self.frame12, width=8)
+        self.const112.grid(row=6, column=1)
         # Constante modelo 2
         self.const212label = tk.Label(self.frame12, textvariable=self.constante62)
-        self.const212label.grid(row=6, column=0, sticky='w' + 'e')
-        self.const212 = tk.Entry(self.frame12, width=6)
-        self.const212.grid(row=6, column=1)
+        self.const212label.grid(row=7, column=0, sticky='w' + 'e')
+        self.const212 = tk.Entry(self.frame12, width=8)
+        self.const212.grid(row=7, column=1)
         # Boton para cargar datos
         self.botoncarga12 = tk.Button(self.frame12, text='Reset')
-        self.botoncarga12.grid(row=7, column=0, columnspan=3)
+        self.botoncarga12.grid(row=8, column=0, columnspan=3)
 
         #----------Dispositivos URLLC-------------
         self.frame13 = tk.LabelFrame(self.middleFrame, text='Dispositivos URLLC', bg='grey', bd=3, heigh=self.altocaja1,
@@ -1121,45 +1370,54 @@ class Application(tk.Frame):
 
         # cantidad de dispositivos
         tk.Label(self.frame13, textvariable=self.constante73).grid(row=0, column=0, sticky='w' + 'e')
-        self.numero13 = tk.Entry(self.frame13, width=6)
+        self.numero13 = tk.Entry(self.frame13, width=8)
         self.numero13['state'] = 'disabled'
         self.numero13.grid(row=0, column=1)
         tk.Label(self.frame13, textvariable=self.constante74).grid(row=0, column=2, sticky='w' + 'e')
+        # Modelo de tráfico
+        tk.Label(self.frame13, text='Modelo de tráfico:').grid(row=1, column=0, sticky='w' + 'e')
+        self.modelotra13 = ttk.Combobox(self.frame13, state="readonly", width=18)
+        self.modelotra13["values"] = ["CMMPP", "Periódico"]
+        self.modelotra13.set("Seleccionar modelo")
+        self.modelotra13.bind('<<ComboboxSelected>>', self.cambiomodelotra7)
+        self.modelotra13.grid(row=1, column=1, columnspan=2)
         # tasa de generación de paquetes
-        tk.Label(self.frame13, text='Tasa de paquete:').grid(row=1, column=0, sticky='w' + 'e')
-        self.tasapaquete13 = tk.Entry(self.frame13, width=6)
-        self.tasapaquete13.grid(row=1, column=1)
-        tk.Label(self.frame13, text='paquetes/seg').grid(row=1, column=2, sticky='w' + 'e')
+        self.const013label = tk.Label(self.frame13, textvariable=self.constante70)
+        self.const013label.grid(row=2, column=0, sticky='w' + 'e')
+        self.const013 = tk.Entry(self.frame13, width=8)
+        self.const013['state'] = 'disabled'
+        self.const013.grid(row=2, column=1)
+        tk.Label(self.frame13, text='paquetes/seg').grid(row=2, column=2, sticky='w' + 'e')
         # tasa de generación de eventos de alarma
-        tk.Label(self.frame13, text='Tasa de alarma:').grid(row=2, column=0, sticky='w' + 'e')
-        self.tasaalarma13 = tk.Entry(self.frame13, width=6)
-        self.tasaalarma13.grid(row=2, column=1)
-        tk.Label(self.frame13, text='alarmas/seg').grid(row=2, column=2, sticky='w' + 'e')
+        tk.Label(self.frame13, text='Tasa de alarma:').grid(row=3, column=0, sticky='w' + 'e')
+        self.tasaalarma13 = tk.Entry(self.frame13, width=8)
+        self.tasaalarma13.grid(row=3, column=1)
+        tk.Label(self.frame13, text='alarmas/seg').grid(row=3, column=2, sticky='w' + 'e')
         # velocidad de protagación de alarmas
-        tk.Label(self.frame13, text='Velocidad alarma:').grid(row=3, column=0, sticky='w' + 'e')
-        self.veloalarma13 = tk.Entry(self.frame13, width=6)
-        self.veloalarma13.grid(row=3, column=1)
-        tk.Label(self.frame13, text='metros/seg').grid(row=3, column=2, sticky='w' + 'e')
+        tk.Label(self.frame13, text='Velocidad alarma:').grid(row=4, column=0, sticky='w' + 'e')
+        self.veloalarma13 = tk.Entry(self.frame13, width=8)
+        self.veloalarma13.grid(row=4, column=1)
+        tk.Label(self.frame13, text='metros/seg').grid(row=4, column=2, sticky='w' + 'e')
         # Modelo de propagación espacial
-        tk.Label(self.frame13, text='Propagación espacial:').grid(row=4, column=0, sticky='w' + 'e')
+        tk.Label(self.frame13, text='Propagación espacial:').grid(row=5, column=0, sticky='w' + 'e')
         self.modeloesp13 = ttk.Combobox(self.frame13, state="readonly", width=18)
         self.modeloesp13["values"] = ["Decaying Exponential", "Raised-Cosine Window"]
         self.modeloesp13.set("Decaying Exponential")
         self.modeloesp13.bind('<<ComboboxSelected>>', self.cambiomodelo7)
-        self.modeloesp13.grid(row=4, column=1, columnspan=2)
+        self.modeloesp13.grid(row=5, column=1, columnspan=2)
         # Constante modelo 1
         self.const113label = tk.Label(self.frame13, textvariable=self.constante71)
-        self.const113label.grid(row=5, column=0, sticky='w' + 'e')
-        self.const113 = tk.Entry(self.frame13, width=6)
-        self.const113.grid(row=5, column=1)
+        self.const113label.grid(row=6, column=0, sticky='w' + 'e')
+        self.const113 = tk.Entry(self.frame13, width=8)
+        self.const113.grid(row=6, column=1)
         # Constante modelo 2
         self.const213label = tk.Label(self.frame13, textvariable=self.constante72)
-        self.const213label.grid(row=6, column=0, sticky='w' + 'e')
-        self.const213 = tk.Entry(self.frame13, width=6)
-        self.const213.grid(row=6, column=1)
+        self.const213label.grid(row=7, column=0, sticky='w' + 'e')
+        self.const213 = tk.Entry(self.frame13, width=8)
+        self.const213.grid(row=7, column=1)
         # Boton para cargar datos
         self.botoncarga13 = tk.Button(self.frame13, text='Reset')
-        self.botoncarga13.grid(row=7, column=0, columnspan=3)
+        self.botoncarga13.grid(row=8, column=0, columnspan=3)
 
         # ----------Iniciar Script-------------
         # tiempo de simulación
@@ -1234,19 +1492,19 @@ class Application(tk.Frame):
 
         # Se generan las instancias de cada tipo de dipositivos y sus generadores de alarmas
         self.dispositivos.append(
-            creardispositivos(self.cantidad_Tipo1, self.posiciones_Tipo1, self.lambdaRegular_Tipo1, 'Control de iluminacion', self.tiempo,
+            creardispositivos(self.cantidad_Tipo1, self.posiciones_Tipo1, self.tasaPaquete_Tipo1, 'Control de iluminacion', self.tiempo,
                               self.color_Tipo1, self.marcador_Tipo1))
         self.generadoresAlarmas.append(
             GeneradorAlarmas(self.lambdaAlarma_Tipo1, self.velPropagacionAlarma_Tipo1, self.tiempo, self.modeloEspacial_Tipo1,
                              self.constanteEspacial1_Tipo1, self.constanteEspacial2_Tipo1, [0, 0]))
         self.dispositivos.append(
-            creardispositivos(self.cantidad_Tipo2, self.posiciones_Tipo2, self.lambdaRegular_Tipo2, 'Monitoreo de agua y electricidad',
+            creardispositivos(self.cantidad_Tipo2, self.posiciones_Tipo2, self.tasaPaquete_Tipo2, 'Monitoreo de agua y electricidad',
                               self.tiempo, self.color_Tipo2, self.marcador_Tipo2))
         self.generadoresAlarmas.append(
             GeneradorAlarmas(self.lambdaAlarma_Tipo2, self.velPropagacionAlarma_Tipo2, self.tiempo, self.modeloEspacial_Tipo2,
                              self.constanteEspacial1_Tipo2, self.constanteEspacial2_Tipo2, [0, 0]))
         self.dispositivos.append(
-            creardispositivos(self.cantidad_Tipo3, self.posiciones_Tipo3, self.lambdaRegular_Tipo3, 'Deteccion de terremotos', self.tiempo,
+            creardispositivos(self.cantidad_Tipo3, self.posiciones_Tipo3, self.tasaPaquete_Tipo3, 'Deteccion de terremotos', self.tiempo,
                               self.color_Tipo3, self.marcador_Tipo3))
         self.generadoresAlarmas.append(
             GeneradorAlarmas(self.lambdaAlarma_Tipo3, self.velPropagacionAlarma_Tipo3, self.tiempo, self.modeloEspacial_Tipo3,
