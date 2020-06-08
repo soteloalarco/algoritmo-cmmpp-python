@@ -3,12 +3,13 @@ import numpy as np  # NumPy package for arrays, random number generation, etc
 
 class DeviceMTC(object):
     # Definición de constructor
-    def __init__(self, lambdareg, Xpos, Ypos, estado, tipo,tiempoInicial,identificador, registroArribos, tamañopkt,color,marcador):
+    def __init__(self, modelotrafico,lambdareg, Xpos, Ypos, estado, tipo,tiempoInicial,identificador, registroArribos, tamañopkt,color,marcador):
+        self.modeloTrafico= modelotrafico # 0 para tráfico CMMPP y 1 para periodico
         self.lambdareg = lambdareg # tasa de generación de paquetes
         self.posicion = [Xpos, Ypos]  # la posición espacial dentro de la celula
         self.estado = estado  # estado regular o de alarma (0 es regular y 1 alarma)
         self.tipo = tipo  # tipo de dispositivo
-        self.tiempoArribo = tiempoInicial # siguiente instante en el que se realizará una petición, debe iniciarse con el tiempo inicial
+        self.tiempoArribo = self.calculartiempoinicial(tiempoInicial,modelotrafico,lambdareg) # siguiente instante en el que se realizará una petición, debe iniciarse con el tiempo inicial
         self.identificador = identificador # un id de cada dispositivo, se puede repetir en distintos tipos de dispositivo
         self.registroArribos = registroArribos # lista de los arribos calendarizados a partir de este dispositivo
         self.tamañopkt = tamañopkt # tamaño de paquete del evento actual calculado
@@ -16,7 +17,11 @@ class DeviceMTC(object):
         self.marcador=marcador # marcador del dispositivo en la animacion
         self.listaAlarmas=[] # en esta lista se guardan los eventos de alarma que aun no llegan a la posición del dispositivo, se guarda el tiempo y la posicion donde se origina la alarma
 
-
+    def calculartiempoinicial(self,tiempoInicial,modelotrafico,lambdareg): # se calcula el tiempo inicial, apartir del cual se generan paquetes, si el modelo es periodico se calcula aleatoriamenten en un valor menor a un periodo
+        if(modelotrafico==0):
+            return tiempoInicial
+        else:
+            return tiempoInicial + np.random.uniform(0,1/lambdareg,1)
 
     matriz_Pu = [[1, 1], [0, 0]]  # matriz que describe el comportamiento no unsincronized
     m_Pu = np.array(matriz_Pu)
@@ -25,6 +30,7 @@ class DeviceMTC(object):
     registroCompletoArribos = []  # El conglomerado de arribos del estado normal y del de alarma
     cuentaAlarmas = 0  # Contador que registra las veces que se estuvo en estado de alarma
     totalAlarmas=[]
+    tiempoLitime=0
 
     def actualizarestado(self, pnk):
         auxUniforme = np.random.uniform(0, 1, 1)
@@ -44,7 +50,7 @@ class DeviceMTC(object):
 
     def generararriboalarma(self, tiempo,identificadorEvento,numeroDecimales):
         self.registroArribos.append([identificadorEvento, round(tiempo,numeroDecimales+1),self.identificador,self.tipo,self.estado,self.tamañopkt])  # se registra el arribo en la lista
-        self.registroCompletoArribos.append([identificadorEvento, round(tiempo,numeroDecimales+1),self.identificador,self.tipo,self.estado,self.tamañopkt])
+        self.registroCompletoArribos.append([identificadorEvento, round(tiempo,numeroDecimales+1),self.identificador,self.tipo,self.estado,self.tamañopkt,self.modeloTrafico])
         self.cuentaAlarmas = self.cuentaAlarmas + 1 #¿QUE FUNCION TIENE ESTE CONTADOR?, sólo es para ver si los valores que produce el programa tienen sentido.
         self.totalAlarmas.append([self.identificador,self.tipo,tiempo])
 
@@ -52,8 +58,22 @@ class DeviceMTC(object):
         tiempoEspera = np.random.exponential(1 / (self.lambdareg), 1)  # el siguiente arribo se producirá segun una varible exponencial
         self.tiempoArribo = self.tiempoArribo + tiempoEspera
         #TODO dar flexibilidad a la cantidad de decimales que se pueden evaluar
-        self.registroArribos.append([0,round(float(self.tiempoArribo),numeroDecimales+1),self.identificador, self.tipo,self.estado,self.tamañopkt])  # se registra el arribo en la lista
-        self.registroCompletoArribos.append([0,round(float(self.tiempoArribo),numeroDecimales+1),self.identificador, self.tipo,self.estado, self.tamañopkt])
+        if(self.tiempoArribo<=self.tiempoLitime): # Sólo registrar el evento si ocurriría antes que el tiempo límite de la simulación
+            self.registroArribos.append([0,round(float(self.tiempoArribo),numeroDecimales+1),self.identificador, self.tipo,self.estado,self.tamañopkt])  # se registra el arribo en la lista
+            self.registroCompletoArribos.append([0,round(float(self.tiempoArribo),numeroDecimales+1),self.identificador, self.tipo,self.estado, self.tamañopkt,self.modeloTrafico])
+
+    def generararriboperiodico(self,tiempo,numeroDecimales):
+        if self.tiempoArribo <= tiempo:
+            self.generarpaquetenormal()
+            self.registroArribos.append(
+                [0, round(float(self.tiempoArribo), numeroDecimales + 1), self.identificador, self.tipo, self.estado,
+                 self.tamañopkt])  # se registra el arribo en la lista
+            self.registroCompletoArribos.append(
+                [0, round(float(self.tiempoArribo), numeroDecimales + 1), self.identificador, self.tipo, self.estado,
+                 self.tamañopkt,self.modeloTrafico])
+
+            self.tiempoArribo=self.tiempoArribo+(1/self.lambdareg) # se agrega un arribo en el siguiente periodo
+
 
 
     def generarpaquetenormal(self): # Generar paquete con distribución de Pareto
