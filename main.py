@@ -117,6 +117,8 @@ class Application(tk.Frame):
             self.const001['state'] = 'normal'
             self.constante15.set('Tasa alarma')
             self.tasaalarma01['state'] = 'normal'
+            self.constante16.set('Veolcidad alarma')
+            self.veloalarma01['state'] = 'normal'
         else:
             self.modelotra01.set("Periódico")
             self.constante10.set('Tasa de paquetes')
@@ -124,6 +126,9 @@ class Application(tk.Frame):
             self.constante15.set('---')
             self.tasaalarma01.delete(0, tk.END)
             self.tasaalarma01['state'] = 'disabled'
+            self.constante16.set('---')
+            self.veloalarma01.delete(0, tk.END)
+            self.veloalarma01['state'] = 'disabled'
         # Tasa de paquete
         self.const001.delete(0, tk.END)
         self.const001.insert(0, str(self.tasaPaquete_Tipo1))
@@ -163,6 +168,8 @@ class Application(tk.Frame):
             self.const002['state'] = 'normal'
             self.constante25.set('Tasa alarma')
             self.tasaalarma02['state'] = 'normal'
+            self.constante26.set('Veolcidad alarma')
+            self.veloalarma02['state'] = 'normal'
         else:
             self.modelotra02.set("Periódico")
             self.constante20.set('Tasa de paquetes')
@@ -170,6 +177,9 @@ class Application(tk.Frame):
             self.constante25.set('---')
             self.tasaalarma02.delete(0, tk.END)
             self.tasaalarma02['state'] = 'disabled'
+            self.constante26.set('---')
+            self.veloalarma02.delete(0, tk.END)
+            self.veloalarma02['state'] = 'disabled'
         # Tasa de paquete
         self.const002.delete(0, tk.END)
         self.const002.insert(0, str(self.tasaPaquete_Tipo2))
@@ -209,6 +219,8 @@ class Application(tk.Frame):
             self.const003['state'] = 'normal'
             self.constante35.set('Tasa alarma')
             self.tasaalarma03['state'] = 'normal'
+            self.constante36.set('Velocidad alarma')
+            self.veloalarma03['state'] = 'normal'
         else:
             self.modelotra03.set("Periódico")
             self.constante30.set('Tasa de paquetes')
@@ -216,6 +228,9 @@ class Application(tk.Frame):
             self.constante35.set('---')
             self.tasaalarma03.delete(0, tk.END)
             self.tasaalarma03['state'] = 'disabled'
+            self.constante36.set('---')
+            self.veloalarma03.delete(0, tk.END)
+            self.veloalarma03['state'] = 'disabled'
         # Tasa de paquete
         self.const003.delete(0, tk.END)
         self.const003.insert(0, str(self.tasaPaquete_Tipo3))
@@ -255,6 +270,8 @@ class Application(tk.Frame):
             self.const010['state'] = 'normal'
             self.constante45.set('Tasa alarma')
             self.tasaalarma10['state'] = 'normal'
+            self.constante46.set('Velocidad alarma')
+            self.veloalarma10['state'] = 'normal'
         else:
             self.modelotra10.set("Periódico")
             self.constante40.set('Tasa de paquetes')
@@ -262,6 +279,9 @@ class Application(tk.Frame):
             self.constante45.set('---')
             self.tasaalarma10.delete(0, tk.END)
             self.tasaalarma10['state'] = 'disabled'
+            self.constante46.set('---')
+            self.veloalarma10.delete(0, tk.END)
+            self.veloalarma10['state'] = 'disabled'
         # Tasa de paquete
         self.const010.delete(0, tk.END)
         self.const010.insert(0, str(self.tasaPaquete_Tipo4))
@@ -301,6 +321,8 @@ class Application(tk.Frame):
             self.const011['state'] = 'normal'
             self.constante55.set('Tasa alarma')
             self.tasaalarma11['state'] = 'normal'
+            self.constante56.set('Velocidad alarma')
+            self.veloalarma11['state'] = 'normal'
         else:
             self.modelotra11.set("Periódico")
             self.constante50.set('Tasa de paquetes')
@@ -308,6 +330,9 @@ class Application(tk.Frame):
             self.constante55.set('---')
             self.tasaalarma11.delete(0, tk.END)
             self.tasaalarma11['state'] = 'disabled'
+            self.constante56.set('---')
+            self.veloalarma11.delete(0, tk.END)
+            self.veloalarma11['state'] = 'disabled'
         # Tasa de paquete
         self.const011.delete(0, tk.END)
         self.const011.insert(0, str(self.tasaPaquete_Tipo5))
@@ -348,6 +373,8 @@ class Application(tk.Frame):
             self.const001['state'] = 'normal'
             self.constante15.set('Tasa alarma')
             self.tasaalarma01['state'] = 'normal'
+            self.constante16.set('Velocidad alarma')
+            self.veloalarma01['state'] = 'normal'
         else:
             self.modelotra01.set("Periódico")
             self.constante10.set('Tasa de paquetes')
@@ -355,6 +382,9 @@ class Application(tk.Frame):
             self.constante15.set('---')
             self.tasaalarma01.delete(0, tk.END)
             self.tasaalarma01['state'] = 'disabled'
+            self.constante16.set('---')
+            self.veloalarma01.delete(0, tk.END)
+            self.veloalarma01['state'] = 'disabled'
         # Tasa de paquete
         self.const001.delete(0, tk.END)
         self.const001.insert(0, str(self.tasaPaquete_Tipo1))
@@ -395,6 +425,8 @@ class Application(tk.Frame):
             self.const002['state'] = 'normal'
             self.constante25.set('Tasa alarma')
             self.tasaalarma02['state'] = 'normal'
+            self.constante26.set('Velocidad alarma')
+            self.veloalarma02['state'] = 'normal'
         else:
             self.modelotra02.set("Periódico")
             self.constante20.set('Tasa de paquetes')
@@ -402,6 +434,9 @@ class Application(tk.Frame):
             self.constante25.set('---')
             self.tasaalarma02.delete(0, tk.END)
             self.tasaalarma02['state'] = 'disabled'
+            self.constante26.set('---')
+            self.veloalarma02.delete(0, tk.END)
+            self.veloalarma02['state'] = 'disabled'
         # Tasa de paquete
         self.const002.delete(0, tk.END)
         self.const002.insert(0, str(self.tasaPaquete_Tipo2))
@@ -442,6 +477,8 @@ class Application(tk.Frame):
             self.const003['state'] = 'normal'
             self.constante35.set('Tasa alarma')
             self.tasaalarma03['state'] = 'normal'
+            self.constante36.set('Velocidad alarma')
+            self.veloalarma03['state'] = 'normal'
         else:
             self.modelotra03.set("Periódico")
             self.constante30.set('Tasa de paquetes')
@@ -449,6 +486,9 @@ class Application(tk.Frame):
             self.constante35.set('---')
             self.tasaalarma03.delete(0, tk.END)
             self.tasaalarma03['state'] = 'disabled'
+            self.constante36.set('---')
+            self.veloalarma03.delete(0, tk.END)
+            self.veloalarma03['state'] = 'disabled'
         # Tasa de paquete
         self.const003.delete(0, tk.END)
         self.const003.insert(0, str(self.tasaPaquete_Tipo3))
@@ -489,6 +529,8 @@ class Application(tk.Frame):
             self.const010['state'] = 'normal'
             self.constante45.set('Tasa alarma')
             self.tasaalarma10['state'] = 'normal'
+            self.constante46.set('Velocidad alarma')
+            self.veloalarma10['state'] = 'normal'
         else:
             self.modelotra10.set("Periódico")
             self.constante40.set('Tasa de paquetes')
@@ -496,6 +538,9 @@ class Application(tk.Frame):
             self.constante45.set('---')
             self.tasaalarma10.delete(0, tk.END)
             self.tasaalarma10['state'] = 'disabled'
+            self.constante46.set('---')
+            self.veloalarma10.delete(0, tk.END)
+            self.veloalarma10['state'] = 'disabled'
         # Tasa de paquete
         self.const010.delete(0, tk.END)
         self.const010.insert(0, str(self.tasaPaquete_Tipo4))
@@ -536,6 +581,8 @@ class Application(tk.Frame):
             self.const011['state'] = 'normal'
             self.constante55.set('Tasa alarma')
             self.tasaalarma11['state'] = 'normal'
+            self.constante56.set('Velocidad alarma')
+            self.veloalarma11['state'] = 'normal'
         else:
             self.modelotra11.set("Periódico")
             self.constante50.set('Tasa de paquetes')
@@ -543,6 +590,9 @@ class Application(tk.Frame):
             self.constante55.set('---')
             self.tasaalarma11.delete(0, tk.END)
             self.tasaalarma11['state'] = 'disabled'
+            self.constante56.set('---')
+            self.veloalarma11.delete(0, tk.END)
+            self.veloalarma11['state'] = 'disabled'
         # Tasa de paquete
         self.const011.delete(0, tk.END)
         self.const011.insert(0, str(self.tasaPaquete_Tipo5))
@@ -722,6 +772,9 @@ class Application(tk.Frame):
             self.constante15.set('Tasa alarma')
             self.tasaalarma01['state'] = 'normal'
             self.tasaalarma01.delete(0, tk.END)
+            self.constante16.set('Velocidad alarma')
+            self.veloalarma01['state'] = 'normal'
+            self.veloalarma01.delete(0, tk.END)
 
         elif(self.modelotra01.get()=='Periódico'):
             self.constante10.set('Tasa de paquete')
@@ -730,6 +783,9 @@ class Application(tk.Frame):
             self.constante15.set('---')
             self.tasaalarma01.delete(0, tk.END)
             self.tasaalarma01['state'] = 'disabled'
+            self.constante16.set('---')
+            self.veloalarma01.delete(0, tk.END)
+            self.veloalarma01['state'] = 'disabled'
 
     def cambiomodelo2(self, event):
         if (self.modeloesp02.get() == 'Decaying Exponential'):
@@ -756,6 +812,9 @@ class Application(tk.Frame):
             self.constante25.set('Tasa alarma')
             self.tasaalarma02['state'] = 'normal'
             self.tasaalarma02.delete(0, tk.END)
+            self.constante26.set('Velocidad alarma')
+            self.veloalarma02['state'] = 'normal'
+            self.veloalarma02.delete(0, tk.END)
 
         elif(self.modelotra02.get()=='Periódico'):
             self.constante20.set('Tasa de paquete')
@@ -764,6 +823,9 @@ class Application(tk.Frame):
             self.constante25.set('---')
             self.tasaalarma02.delete(0, tk.END)
             self.tasaalarma02['state'] = 'disabled'
+            self.constante26.set('---')
+            self.veloalarma02.delete(0, tk.END)
+            self.veloalarma02['state'] = 'disabled'
 
     def cambiomodelo3(self, event):
         if (self.modeloesp03.get() == 'Decaying Exponential'):
@@ -790,6 +852,9 @@ class Application(tk.Frame):
             self.constante35.set('Tasa alarma')
             self.tasaalarma03['state'] = 'normal'
             self.tasaalarma03.delete(0, tk.END)
+            self.constante36.set('Velocidad alarma')
+            self.veloalarma03['state'] = 'normal'
+            self.veloalarma03.delete(0, tk.END)
 
         elif(self.modelotra03.get()=='Periódico'):
             self.constante30.set('Tasa de paquete')
@@ -798,6 +863,9 @@ class Application(tk.Frame):
             self.constante35.set('---')
             self.tasaalarma03.delete(0, tk.END)
             self.tasaalarma03['state'] = 'disabled'
+            self.constante36.set('---')
+            self.veloalarma03.delete(0, tk.END)
+            self.veloalarma03['state'] = 'disabled'
 
     def cambiomodelo4(self, event):
         if (self.modeloesp10.get() == 'Decaying Exponential'):
@@ -823,6 +891,9 @@ class Application(tk.Frame):
             self.constante45.set('Tasa alarma')
             self.tasaalarma10['state'] = 'normal'
             self.tasaalarma10.delete(0, tk.END)
+            self.constante46.set('Velocidad alarma')
+            self.veloalarma10['state'] = 'normal'
+            self.veloalarma10.delete(0, tk.END)
 
         elif(self.modelotra10.get()=='Periódico'):
             self.constante40.set('Tasa de paquete')
@@ -831,6 +902,9 @@ class Application(tk.Frame):
             self.constante45.set('---')
             self.tasaalarma10.delete(0, tk.END)
             self.tasaalarma10['state'] = 'disabled'
+            self.constante46.set('---')
+            self.veloalarma10.delete(0, tk.END)
+            self.veloalarma10['state'] = 'disabled'
 
     def cambiomodelo5(self, event):
         if (self.modeloesp11.get() == 'Decaying Exponential'):
@@ -857,6 +931,9 @@ class Application(tk.Frame):
             self.constante55.set('Tasa alarma')
             self.tasaalarma11['state'] = 'normal'
             self.tasaalarma11.delete(0, tk.END)
+            self.constante56.set('Velocidad alarma')
+            self.veloalarma11['state'] = 'normal'
+            self.veloalarma11.delete(0, tk.END)
 
         elif(self.modelotra11.get()=='Periódico'):
             self.constante50.set('Tasa de paquete')
@@ -865,6 +942,9 @@ class Application(tk.Frame):
             self.constante55.set('---')
             self.tasaalarma11.delete(0, tk.END)
             self.tasaalarma11['state'] = 'disabled'
+            self.constante56.set('---')
+            self.veloalarma11.delete(0, tk.END)
+            self.veloalarma11['state'] = 'disabled'
 
     def cambiomodelo6(self, event):
         if (self.modeloesp12.get() == 'Decaying Exponential'):
@@ -884,6 +964,9 @@ class Application(tk.Frame):
             self.constante65.set('Tasa alarma')
             self.tasaalarma12['state'] = 'normal'
             self.tasaalarma12.delete(0, tk.END)
+            self.constante66.set('Velocidad alarma')
+            self.veloalarma12['state'] = 'normal'
+            self.veloalarma12.delete(0, tk.END)
 
         elif(self.modelotra12.get()=='Periódico'):
             self.constante60.set('Tasa de paquete')
@@ -892,6 +975,9 @@ class Application(tk.Frame):
             self.constante65.set('---')
             self.tasaalarma12.delete(0, tk.END)
             self.tasaalarma12['state'] = 'disabled'
+            self.constante66.set('---')
+            self.veloalarma12.delete(0, tk.END)
+            self.veloalarma12['state'] = 'disabled'
 
     def cambiomodelo7(self, event):
         if (self.modeloesp13.get() == 'Decaying Exponential'):
@@ -911,6 +997,9 @@ class Application(tk.Frame):
             self.constante75.set('Tasa alarma')
             self.tasaalarma13['state'] = 'normal'
             self.tasaalarma13.delete(0, tk.END)
+            self.constante76.set('Velocidad alarma')
+            self.veloalarma13['state'] = 'normal'
+            self.veloalarma13.delete(0, tk.END)
 
         elif(self.modelotra13.get()=='Periódico'):
             self.constante70.set('Tasa de paquete')
@@ -919,6 +1008,9 @@ class Application(tk.Frame):
             self.constante75.set('---')
             self.tasaalarma13.delete(0, tk.END)
             self.tasaalarma13['state'] = 'disabled'
+            self.constante76.set('---')
+            self.veloalarma13.delete(0, tk.END)
+            self.veloalarma13['state'] = 'disabled'
 
     def cambiomodelodisp(self,event):
         if(self.modelodisp00.get()=='PPP'):
@@ -1058,42 +1150,49 @@ class Application(tk.Frame):
         self.constante13 = tk.StringVar()
         self.constante14 = tk.StringVar()
         self.constante15 = tk.StringVar()
+        self.constante16 = tk.StringVar()
         self.constante20 = tk.StringVar()
         self.constante21 = tk.StringVar()
         self.constante22 = tk.StringVar()
         self.constante23 = tk.StringVar()
         self.constante24 = tk.StringVar()
         self.constante25 = tk.StringVar()
+        self.constante26 = tk.StringVar()
         self.constante30 = tk.StringVar()
         self.constante31 = tk.StringVar()
         self.constante32 = tk.StringVar()
         self.constante33 = tk.StringVar()
         self.constante34 = tk.StringVar()
         self.constante35 = tk.StringVar()
+        self.constante36 = tk.StringVar()
         self.constante40 = tk.StringVar()
         self.constante41 = tk.StringVar()
         self.constante42 = tk.StringVar()
         self.constante43 = tk.StringVar()
         self.constante44 = tk.StringVar()
         self.constante45 = tk.StringVar()
+        self.constante46 = tk.StringVar()
         self.constante50 = tk.StringVar()
         self.constante51 = tk.StringVar()
         self.constante52 = tk.StringVar()
         self.constante53 = tk.StringVar()
         self.constante54 = tk.StringVar()
         self.constante55 = tk.StringVar()
+        self.constante56 = tk.StringVar()
         self.constante60 = tk.StringVar()
         self.constante61 = tk.StringVar()
         self.constante62 = tk.StringVar()
         self.constante63 = tk.StringVar()
         self.constante64 = tk.StringVar()
         self.constante65 = tk.StringVar()
+        self.constante66 = tk.StringVar()
         self.constante70 = tk.StringVar()
         self.constante71 = tk.StringVar()
         self.constante72 = tk.StringVar()
         self.constante73 = tk.StringVar()
         self.constante74 = tk.StringVar()
         self.constante75 = tk.StringVar()
+        self.constante76 = tk.StringVar()
 
 
         #----------Opciones Celula---------
@@ -1149,8 +1248,9 @@ class Application(tk.Frame):
         self.tasaalarma01.grid(row=3, column=1)
         tk.Label(self.frame01, text='alarmas/seg').grid(row=3, column=2, sticky='w' + 'e')
         #velocidad de protagación de alarmas
-        tk.Label(self.frame01, text='Velocidad alarma:').grid(row=4, column=0, sticky='w' + 'e')
+        tk.Label(self.frame01, textvariable=self.constante16).grid(row=4, column=0, sticky='w' + 'e')
         self.veloalarma01 = tk.Entry(self.frame01,width=8)
+        self.veloalarma01['state'] = 'disabled'
         self.veloalarma01.grid(row=4, column=1)
         tk.Label(self.frame01, text='metros/seg').grid(row=4, column=2, sticky='w' + 'e')
         #Modelo de propagación espacial
@@ -1208,8 +1308,9 @@ class Application(tk.Frame):
         self.tasaalarma02.grid(row=3, column=1)
         tk.Label(self.frame02, text='alarmas/seg').grid(row=3, column=2, sticky='w' + 'e')
         # velocidad de protagación de alarmas
-        tk.Label(self.frame02, text='Velocidad alarma:').grid(row=4, column=0, sticky='w' + 'e')
+        tk.Label(self.frame02, textvariable=self.constante26).grid(row=4, column=0, sticky='w' + 'e')
         self.veloalarma02 = tk.Entry(self.frame02, width=8)
+        self.veloalarma02['state'] = 'disabled'
         self.veloalarma02.grid(row=4, column=1)
         tk.Label(self.frame02, text='metros/seg').grid(row=4, column=2, sticky='w' + 'e')
         # Modelo de propagación espacial
@@ -1267,8 +1368,9 @@ class Application(tk.Frame):
         self.tasaalarma03.grid(row=3, column=1)
         tk.Label(self.frame03, text='alarmas/seg').grid(row=3, column=2, sticky='w' + 'e')
         # velocidad de protagación de alarmas
-        tk.Label(self.frame03, text='Velocidad alarma:').grid(row=4, column=0, sticky='w' + 'e')
+        tk.Label(self.frame03, textvariable=self.constante36).grid(row=4, column=0, sticky='w' + 'e')
         self.veloalarma03 = tk.Entry(self.frame03, width=8)
+        self.veloalarma03['state'] = 'disabled'
         self.veloalarma03.grid(row=4, column=1)
         tk.Label(self.frame03, text='metros/seg').grid(row=4, column=2, sticky='w' + 'e')
         # Modelo de propagación espacial
@@ -1325,8 +1427,9 @@ class Application(tk.Frame):
         self.tasaalarma10.grid(row=3, column=1)
         tk.Label(self.frame10, text='alarmas/seg').grid(row=3, column=2, sticky='w' + 'e')
         # velocidad de protagación de alarmas
-        tk.Label(self.frame10, text='Velocidad alarma:').grid(row=4, column=0, sticky='w' + 'e')
+        tk.Label(self.frame10, textvariable=self.constante46).grid(row=4, column=0, sticky='w' + 'e')
         self.veloalarma10 = tk.Entry(self.frame10, width=8)
+        self.veloalarma10['state'] = 'disabled'
         self.veloalarma10.grid(row=4, column=1)
         tk.Label(self.frame10, text='metros/seg').grid(row=4, column=2, sticky='w' + 'e')
         # Modelo de propagación espacial
@@ -1384,8 +1487,9 @@ class Application(tk.Frame):
         self.tasaalarma11.grid(row=3, column=1)
         tk.Label(self.frame11, text='alarmas/seg').grid(row=3, column=2, sticky='w' + 'e')
         # velocidad de protagación de alarmas
-        tk.Label(self.frame11, text='Velocidad alarma:').grid(row=4, column=0, sticky='w' + 'e')
+        tk.Label(self.frame11, textvariable=self.constante56).grid(row=4, column=0, sticky='w' + 'e')
         self.veloalarma11 = tk.Entry(self.frame11, width=8)
+        self.veloalarma11['state'] = 'disabled'
         self.veloalarma11.grid(row=4, column=1)
         tk.Label(self.frame11, text='metros/seg').grid(row=4, column=2, sticky='w' + 'e')
         # Modelo de propagación espacial
@@ -1443,8 +1547,9 @@ class Application(tk.Frame):
         self.tasaalarma12.grid(row=3, column=1)
         tk.Label(self.frame12, text='alarmas/seg').grid(row=3, column=2, sticky='w' + 'e')
         # velocidad de protagación de alarmas
-        tk.Label(self.frame12, text='Velocidad alarma:').grid(row=4, column=0, sticky='w' + 'e')
+        tk.Label(self.frame12, textvariable=self.constante66).grid(row=4, column=0, sticky='w' + 'e')
         self.veloalarma12 = tk.Entry(self.frame12, width=8)
+        self.veloalarma12['state'] = 'disabled'
         self.veloalarma12.grid(row=4, column=1)
         tk.Label(self.frame12, text='metros/seg').grid(row=4, column=2, sticky='w' + 'e')
         # Modelo de propagación espacial
@@ -1500,8 +1605,9 @@ class Application(tk.Frame):
         self.tasaalarma13.grid(row=3, column=1)
         tk.Label(self.frame13, text='alarmas/seg').grid(row=3, column=2, sticky='w' + 'e')
         # velocidad de protagación de alarmas
-        tk.Label(self.frame13, text='Velocidad alarma:').grid(row=4, column=0, sticky='w' + 'e')
+        tk.Label(self.frame13, textvariable=self.constante76).grid(row=4, column=0, sticky='w' + 'e')
         self.veloalarma13 = tk.Entry(self.frame13, width=8)
+        self.veloalarma13['state'] = 'disabled'
         self.veloalarma13.grid(row=4, column=1)
         tk.Label(self.frame13, text='metros/seg').grid(row=4, column=2, sticky='w' + 'e')
         # Modelo de propagación espacial
