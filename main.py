@@ -26,7 +26,7 @@ class Application(tk.Frame):
     dipositivos_Tipo1 = 0.05  # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución  (modelodispositivos) es uniforme
     modeloTrafico_Tipo1 = 0  # Modelo de generación de tráfico, 0 CMMPP 1 Periódico
     tasaPaquete_Tipo1 = 1 / 40  # si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 1, si modelotrafico==1 tasa de Paquete/seg
-    lambdaAlarma_Tipo1 = 1 / 20  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 500 seg)
+    lambdaAlarma_Tipo1 = 1 / 40  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 500 seg)
     velPropagacionAlarma_Tipo1 = 500  # m/s Velocidad de propagación de alarma
     modeloEspacial_Tipo1 = 0  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
     constanteEspacial1_Tipo1 = 0.007  # alpha para Decaying exponential, W para raised-cosine Window
@@ -36,9 +36,9 @@ class Application(tk.Frame):
     marcador_Tipo1 = 'd'
 
     ### Monitoreo de consumo del agua y electricidad
-    dipositivos_Tipo2 = 0.1  # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución  (modelodispositivos) es uniforme
-    modeloTrafico_Tipo2 = 0  # Modelo de generación de tráfico, 0 CMMPP 1 Periódico
-    tasaPaquete_Tipo2 = 1 / 60  # si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 2, si modelotrafico==1 tasa de Paquete/seg
+    dipositivos_Tipo2 = 0.03  # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución  (modelodispositivos) es uniforme
+    modeloTrafico_Tipo2 = 1  # Modelo de generación de tráfico, 0 CMMPP 1 Periódico
+    tasaPaquete_Tipo2 = 1 / 15  # si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 2, si modelotrafico==1 tasa de Paquete/seg
     lambdaAlarma_Tipo2 = 1 / 1000  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 200 seg)
     velPropagacionAlarma_Tipo2 = 500  # m/s Velocidad de propagación de alarma
     modeloEspacial_Tipo2 = 1  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
@@ -52,7 +52,7 @@ class Application(tk.Frame):
     dipositivos_Tipo3 = 0.08 # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución  (modelodispositivos) es uniforme
     modeloTrafico_Tipo3 = 0  # Modelo de generación de tráfico, 0 CMMPP 1 Periódico
     tasaPaquete_Tipo3 = 1 / 180  # si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 3, si modelotrafico==1 tasa de Paquete/seg
-    lambdaAlarma_Tipo3 = 1 / 50  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
+    lambdaAlarma_Tipo3 = 1 / 100  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
     velPropagacionAlarma_Tipo3 = 3000  # m/s Velocidad de propagación de alarma
     modeloEspacial_Tipo3 = 0  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
     constanteEspacial1_Tipo3 = 0.007  # alpha para Decaying exponential, W para raised-cosine Window
@@ -653,8 +653,14 @@ class Application(tk.Frame):
         else:
             self.modeloTrafico_Tipo1 = 1
         self.tasaPaquete_Tipo1 = float(self.const001.get())  # la tasa lambda para el estado regular de los dispositivos de tipo 1 (1 paquete cada 60 seg)
-        self.lambdaAlarma_Tipo1 = float(self.tasaalarma01.get())  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 500 seg)
-        self.velPropagacionAlarma_Tipo1 = float(self.veloalarma01.get())  # m/s Velocidad de propagación de alarma
+        if(self.tasaalarma01.get()==''):
+            self.lambdaAlarma_Tipo1=0
+        else:
+            self.lambdaAlarma_Tipo1 = float(self.tasaalarma01.get())  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 500 seg)
+        if(self.veloalarma01.get()==''):
+            self.velPropagacionAlarma_Tipo1 =0
+        else:
+            self.velPropagacionAlarma_Tipo1 = float(self.veloalarma01.get())  # m/s Velocidad de propagación de alarma
         if (self.modeloesp01.get() == 'Decaying Exponential'):
             self.modeloEspacial_Tipo1 = 0  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
         else:
@@ -672,9 +678,21 @@ class Application(tk.Frame):
             self.modeloTrafico_Tipo2 = 0  # modelo de trafico 0 CMMPP 1 Periódico
         else:
             self.modeloTrafico_Tipo2 = 1
+
+
         self.tasaPaquete_Tipo2 = float(self.const002.get())  # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
-        self.lambdaAlarma_Tipo2 = float(self.tasaalarma02.get())  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 200 seg)
-        self.velPropagacionAlarma_Tipo2 = float(self.veloalarma02.get())  # m/s Velocidad de propagación de alarma
+
+        if (self.tasaalarma02.get() == ''):
+            self.lambdaAlarma_Tipo2 = 0
+        else:
+            self.lambdaAlarma_Tipo2 = float(
+                self.tasaalarma02.get())  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 500 seg)
+        if (self.veloalarma02.get() == ''):
+            self.velPropagacionAlarma_Tipo2 = 0
+        else:
+            self.velPropagacionAlarma_Tipo2 = float(self.veloalarma02.get())  # m/s Velocidad de propagación de alarma
+        #self.lambdaAlarma_Tipo2 = float(self.tasaalarma02.get())  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 200 seg)
+        #self.velPropagacionAlarma_Tipo2 = float(self.veloalarma02.get())  # m/s Velocidad de propagación de alarma
         if (self.modeloesp02.get() == 'Decaying Exponential'):
             self.modeloEspacial_Tipo2 = 0  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
         else:
@@ -693,8 +711,19 @@ class Application(tk.Frame):
         else:
             self.modeloTrafico_Tipo3 = 1
         self.tasaPaquete_Tipo3 = float(self.const003.get())  # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
-        self.lambdaAlarma_Tipo3 = float(self.tasaalarma03.get())   # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
-        self.velPropagacionAlarma_Tipo3 = float(self.veloalarma03.get())  # m/s Velocidad de propagación de alarma
+
+        if (self.tasaalarma03.get() == ''):
+            self.lambdaAlarma_Tipo3 = 0
+        else:
+            self.lambdaAlarma_Tipo3 = float(
+                self.tasaalarma03.get())  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 500 seg)
+        if (self.veloalarma03.get() == ''):
+            self.velPropagacionAlarma_Tipo3 = 0
+        else:
+            self.velPropagacionAlarma_Tipo3 = float(self.veloalarma03.get())  # m/s Velocidad de propagación de alarma
+
+        #self.lambdaAlarma_Tipo3 = float(self.tasaalarma03.get())   # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
+        #self.velPropagacionAlarma_Tipo3 = float(self.veloalarma03.get())  # m/s Velocidad de propagación de alarma
         if (self.modeloesp03.get() == 'Decaying Exponential'):
             self.modeloEspacial_Tipo3 = 0  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
         else:
