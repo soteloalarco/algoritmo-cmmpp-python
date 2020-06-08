@@ -2,6 +2,7 @@
 import pandas as pd
 import itertools as iter
 from clases.GeneradorAlarma import GeneradorAlarmas
+from clases.DeviceMTC import DeviceMTC
 from funciones.funcionesdispositivos import creardispositivos
 from funciones.funcionesdispositivos import calcularPnk
 from funciones.miscelaneo import distanciaList
@@ -10,17 +11,18 @@ import numpy as np
 
 ######################################################
 #Variables a modificar
-tiempoLimite = 1 # segundos, tiempo de paro del algoritmo
+tiempoLimite = 3 # segundos, tiempo de paro del algoritmo
 deltaTiempo = 0.1 #segundos , diferencial de tiempo entre iteración
-numerosDecimalesDeltaTiempo=1 #Si se modifica deltaTiempo modificar también esta veriable
+numerosDecimalesDeltaTiempo=1 #Si se modifica deltaTiempo modificar también esta variable
 tiposDispositivos=3 # Cantidad total de dispositivos a caracterizar a continuación
 radiocelula=50 # radio de la célula en metros
-modelodispositivos=0 # 0 para PPP y 1 para uniforme
+modelodispositivos=1 # 0 para PPP y 1 para uniforme
 repeticiones=1 # repeticiones de la rutina CCMMPP
 
 ### Control de iluminación
-dipositivos_Tipo1 = 0.5 # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución  (modelodispositivos) es uniforme
-lambdaRegular_Tipo1=1/40 # la tasa lambda para el estado regular de los dispositivos de tipo 1 (1 paquete cada 60 seg)
+dipositivos_Tipo1 = 2 # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución  (modelodispositivos) es uniforme
+modeloTrafico_Tipo1=1 # 0 para CMMPP y 1 para Periódico
+lambdaRegular_Tipo1=1/1 # la tasa lambda para el estado regular si modeloTrafico==0, tasa de paquete si modeloTrafico==1
 lambdaAlarma_Tipo1=1/20 # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 500 seg)
 velPropagacionAlarma_Tipo1= 500 # m/s Velocidad de propagación de alarma
 modeloEspacial_Tipo1=0 # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
@@ -31,8 +33,9 @@ color_Tipo1= 'b'
 marcador_Tipo1= 'd'
 
 ### Monitoreo de consumo del agua y electricidad
-dipositivos_Tipo2 = 0.2 # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución es uniforme
-lambdaRegular_Tipo2=1/60 # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
+dipositivos_Tipo2 = 3 # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución es uniforme
+modeloTrafico_Tipo2=0 # 0 para CMMPP y 1 para Periódico
+lambdaRegular_Tipo2=1/60 # la tasa lambda para el estado regular si modeloTrafico==0, tasa de paquete si modeloTrafico==1
 lambdaAlarma_Tipo2=1/1000 # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 200 seg)
 velPropagacionAlarma_Tipo2= 500 # m/s Velocidad de propagación de alarma
 modeloEspacial_Tipo2=1 # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
@@ -43,8 +46,9 @@ color_Tipo2= 'r'
 marcador_Tipo2= '*'
 
 ### Detección de terremotos
-dipositivos_Tipo3 = 30 # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución es uniforme
-lambdaRegular_Tipo3=1/180 # la tasa lambda para el estado regular de los dispositivos de tipo 2 (0.5 paquete cada 60 seg)
+dipositivos_Tipo3 = 1 # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución es uniforme
+modeloTrafico_Tipo3=1 # 0 para CMMPP y 1 para Periódico
+lambdaRegular_Tipo3=1/2 # la tasa lambda para el estado regular si modeloTrafico==0, tasa de paquete si modeloTrafico==1
 lambdaAlarma_Tipo3=1/50 # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
 velPropagacionAlarma_Tipo3= 3000 # m/s Velocidad de propagación de alarma
 modeloEspacial_Tipo3=0 # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
@@ -99,17 +103,16 @@ iteraciones=tiempoLimite/deltaTiempo # las iteraciones  que se producirán recor
 dispositivos= [] # una lista para guardar las instancias de dipoitivos de distintos tipos
 generadoresAlarmas=[] # una lista para guardar los genradores de eventos de alarmas, uno para cada tipo de dispositivo
 nuevaAlarma= [False] * tiposDispositivos
-#animacionTrafico= AnimacionTrafico() # Creamos animación y la dibujamos
-#animacionTrafico.dibujar()
-#animacionTrafico.actualizar()
+DeviceMTC.tiempoLitime=tiempoLimite
+
 
 #Se generan las instancias de cada tipo de dipositivos y sus generadores de alarmas
-dispositivos.append(creardispositivos(cantidad_Tipo1,posiciones_Tipo1, lambdaRegular_Tipo1,'Control de iluminacion',tiempo,color_Tipo1,marcador_Tipo1))
-generadoresAlarmas.append(GeneradorAlarmas(lambdaAlarma_Tipo1,velPropagacionAlarma_Tipo1,tiempo,modeloEspacial_Tipo1,constanteEspacial1_Tipo1,constanteEspacial2_Tipo1,[0,0]))
-dispositivos.append(creardispositivos(cantidad_Tipo2, posiciones_Tipo2,lambdaRegular_Tipo2,'Monitoreo de agua y electricidad',tiempo,color_Tipo2,marcador_Tipo2))
-generadoresAlarmas.append(GeneradorAlarmas(lambdaAlarma_Tipo2,velPropagacionAlarma_Tipo2,tiempo,modeloEspacial_Tipo2,constanteEspacial1_Tipo2,constanteEspacial2_Tipo2,[0,0]))
-dispositivos.append(creardispositivos(cantidad_Tipo3, posiciones_Tipo3,lambdaRegular_Tipo3,'Deteccion de terremotos',tiempo,color_Tipo3,marcador_Tipo3))
-generadoresAlarmas.append(GeneradorAlarmas(lambdaAlarma_Tipo3,velPropagacionAlarma_Tipo3,tiempo,modeloEspacial_Tipo3,constanteEspacial1_Tipo3,constanteEspacial2_Tipo3,[0,0]))
+dispositivos.append(creardispositivos(modeloTrafico_Tipo1,cantidad_Tipo1,posiciones_Tipo1, lambdaRegular_Tipo1,'Control de iluminacion',tiempo,color_Tipo1,marcador_Tipo1))
+generadoresAlarmas.append(GeneradorAlarmas(modeloTrafico_Tipo1, lambdaAlarma_Tipo1,velPropagacionAlarma_Tipo1,tiempo,modeloEspacial_Tipo1,constanteEspacial1_Tipo1,constanteEspacial2_Tipo1,[0,0]))
+dispositivos.append(creardispositivos(modeloTrafico_Tipo2, cantidad_Tipo2, posiciones_Tipo2,lambdaRegular_Tipo2,'Monitoreo de agua y electricidad',tiempo,color_Tipo2,marcador_Tipo2))
+generadoresAlarmas.append(GeneradorAlarmas(modeloTrafico_Tipo2, lambdaAlarma_Tipo2,velPropagacionAlarma_Tipo2,tiempo,modeloEspacial_Tipo2,constanteEspacial1_Tipo2,constanteEspacial2_Tipo2,[0,0]))
+dispositivos.append(creardispositivos(modeloTrafico_Tipo3, cantidad_Tipo3, posiciones_Tipo3,lambdaRegular_Tipo3,'Deteccion de terremotos',tiempo,color_Tipo3,marcador_Tipo3))
+generadoresAlarmas.append(GeneradorAlarmas(modeloTrafico_Tipo3, lambdaAlarma_Tipo3,velPropagacionAlarma_Tipo3,tiempo,modeloEspacial_Tipo3,constanteEspacial1_Tipo3,constanteEspacial2_Tipo3,[0,0]))
 
 ##########  Algoritmo CMMPP  #################
 
@@ -122,17 +125,22 @@ for k in range(0,int(iteraciones + 1)): # Ciclo que avanza el tiempo
 
         for dispositivo in dispositivosaux: # Ciclo que recorre cada uno de los dispositivos del mismo tipo
 
-            dispositivo.registrarAlarma(generadorAlarma.idAlarma,generadorAlarma.siguienteArribo,(generadorAlarma.siguienteArribo+(distanciaList(dispositivo.posicion,generadorAlarma.posicion)/generadorAlarma.velocidad))[0],generadorAlarma.posicion,nuevaAlarma[tipoDisp])
+            ##### Esto sólo compete a los dispositivos con modelo CMMPP
+            if(dispositivo.modeloTrafico==0): # Si se trata del algoritmo CMMPP se registra la nueva alarma en caso de haberla
+                dispositivo.registrarAlarma(generadorAlarma.idAlarma,generadorAlarma.siguienteArribo,(generadorAlarma.siguienteArribo+(distanciaList(dispositivo.posicion,generadorAlarma.posicion)/generadorAlarma.velocidad))[0],generadorAlarma.posicion,nuevaAlarma[tipoDisp])
 
-            [listaPnk, nuevaListaAlarmas]= calcularPnk(tiempo,dispositivo.listaAlarmas,generadorAlarma.velocidad,generadorAlarma.modeloEspacial,generadorAlarma.constanteEspacial1,generadorAlarma.constanteEspacial2,dispositivo.m_Pu,dispositivo.m_Pc,deltaTiempo) # parte A del diagrama  /assets/CMMPP_diagrama.jpg
+                [listaPnk, nuevaListaAlarmas]= calcularPnk(tiempo,dispositivo.listaAlarmas,generadorAlarma.velocidad,generadorAlarma.modeloEspacial,generadorAlarma.constanteEspacial1,generadorAlarma.constanteEspacial2,dispositivo.m_Pu,dispositivo.m_Pc,deltaTiempo) # parte A del diagrama  /assets/CMMPP_diagrama.jpg, regresará [],[] si se trata de tráfico periódico
 
-            # listaAlarmas=[idAlarma,tiempoAparicion,tiempoLLegada,posicionAlarma,self.posicion] esta es la forma de listaAlarmas
-            for pnk,listaAlarmas in iter.zip_longest(listaPnk,dispositivo.listaAlarmas):
-                dispositivo.actualizarestado(pnk) # parte B del diagrama
-                dispositivo.generararribo(tiempo,listaAlarmas[0],listaAlarmas[2],numerosDecimalesDeltaTiempo) # parte C del diagrama
-                dispositivo.actualizarestadoanormal() # por si hay más de un evento que cree estados de alarma, se cambia siempre a estado normal,
+                # listaAlarmas=[idAlarma,tiempoAparicion,tiempoLLegada,posicionAlarma,self.posicion] esta es la forma de listaAlarmas
+                for pnk,listaAlarmas in iter.zip_longest(listaPnk,dispositivo.listaAlarmas):
+                    dispositivo.actualizarestado(pnk) # parte B del diagrama
+                    dispositivo.generararribo(tiempo,listaAlarmas[0],listaAlarmas[2],numerosDecimalesDeltaTiempo) # parte C del diagrama
+                    dispositivo.actualizarestadoanormal() # por si hay más de un evento que cree estados de alarma, se cambia siempre a estado normal,
 
-            dispositivo.actualizarListaAlarmas(nuevaListaAlarmas)
+                dispositivo.actualizarListaAlarmas(nuevaListaAlarmas)
+            ##### Esto sólo compete a los dispositivos con modelo Periódico
+            if(dispositivo.modeloTrafico==1):
+                dispositivo.generararriboperiodico(tiempo,numerosDecimalesDeltaTiempo)
 
 
         nuevaAlarma[tipoDisp]= generadorAlarma.generarAlarma(tiempo,radiocelula)  # se genera una nueva alarma en una posición aleatoria si la actual ya sucedió

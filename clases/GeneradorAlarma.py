@@ -4,7 +4,7 @@ import numpy as np  # NumPy package for arrays, random number generation, etc
 class GeneradorAlarmas(object):
 
     # Definición de constructor
-    def __init__(self, lambdaEvento,velocidad,tiempoInicial, modeloEspacial,constanteEspacial1,constanteEspacial2,posicion):
+    def __init__(self, modelotrafico,lambdaEvento,velocidad,tiempoInicial, modeloEspacial,constanteEspacial1,constanteEspacial2,posicion):
         self.lambdaEvento=lambdaEvento # tasa de generacion de eventos de alarma
         self.velocidad=velocidad #velocidad de propagación de los eventos de alarma
         self.siguienteArribo=tiempoInicial #debe ser inicializado al tiempo inicial de la simulación
@@ -14,6 +14,8 @@ class GeneradorAlarmas(object):
         self.posicion = posicion  # la posición espacial dentro de la celula
         self.idAlarma=0
         self.totalAlarmas=[]
+        self.modeloTrafico=modelotrafico
+
 
     def calcularSiguienteAlarma(self,radio): #Calcular en qué momento sucederá la siguiente alarma
         tiempoEspera = np.random.exponential(1 / (self.lambdaEvento), 1)  # el siguiente arribo se producirá segun una varible exponencial
@@ -28,9 +30,9 @@ class GeneradorAlarmas(object):
         self.totalAlarmas.append([self.idAlarma,self.siguienteArribo,self.posicion])
         self.idAlarma=self.idAlarma+1
 
-    def generarAlarma(self,tiempoActual,radio): # Función que verifica si ya ssucedio la última alarma
+    def generarAlarma(self,tiempoActual,radio): # Función que verifica si ya sucedio la última alarma
 
-        if(self.siguienteArribo <= tiempoActual): # Si ya sucedió la última alarma calcular una nueva
+        if(self.siguienteArribo <= tiempoActual and self.modeloTrafico==0): # Si ya sucedió la última alarma calcular una nueva, sólo en caso de modelo CMMPP
             self.calcularSiguienteAlarma(radio)
             return True
         else:
