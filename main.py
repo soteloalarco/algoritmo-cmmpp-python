@@ -144,6 +144,7 @@ class Application(tk.Frame):
             self.constante11.set('Alpha')
             self.constante12.set('----')
             self.const101['state'] = 'normal'
+            self.const201.delete(0, tk.END)
             self.const201['state'] = 'disabled'
         else:
             self.modeloesp01.set("Raised-Cosine Window")
@@ -195,6 +196,7 @@ class Application(tk.Frame):
             self.constante21.set('Alpha')
             self.constante22.set('----')
             self.const102['state'] = 'normal'
+            self.const202.delete(0, tk.END)
             self.const202['state'] = 'disabled'
         else:
             self.modeloesp02.set("Raised-Cosine Window")
@@ -246,6 +248,7 @@ class Application(tk.Frame):
             self.constante31.set('Alpha')
             self.constante32.set('----')
             self.const103['state'] = 'normal'
+            self.const203.delete(0, tk.END)
             self.const203['state'] = 'disabled'
         else:
             self.modeloesp03.set("Raised-Cosine Window")
@@ -297,6 +300,7 @@ class Application(tk.Frame):
             self.constante41.set('Alpha')
             self.constante42.set('----')
             self.const110['state'] = 'normal'
+            self.const210.delete(0, tk.END)
             self.const210['state'] = 'disabled'
         else:
             self.modeloesp10.set("Raised-Cosine Window")
@@ -348,6 +352,7 @@ class Application(tk.Frame):
             self.constante51.set('Alpha')
             self.constante52.set('----')
             self.const111['state'] = 'normal'
+            self.const211.delete(0, tk.END)
             self.const211['state'] = 'disabled'
         else:
             self.modeloesp11.set("Raised-Cosine Window")
@@ -400,6 +405,7 @@ class Application(tk.Frame):
             self.constante11.set('Alpha')
             self.constante12.set('----')
             self.const101['state'] = 'normal'
+            self.const201.delete(0, tk.END)
             self.const201['state'] = 'disabled'
         else:
             self.modeloesp01.set("Raised-Cosine Window")
@@ -452,6 +458,7 @@ class Application(tk.Frame):
             self.constante21.set('Alpha')
             self.constante22.set('----')
             self.const102['state'] = 'normal'
+            self.const202.delete(0, tk.END)
             self.const202['state'] = 'disabled'
         else:
             self.modeloesp02.set("Raised-Cosine Window")
@@ -504,6 +511,7 @@ class Application(tk.Frame):
             self.constante31.set('Alpha')
             self.constante32.set('----')
             self.const103['state'] = 'normal'
+            self.const203.delete(0, tk.END)
             self.const203['state'] = 'disabled'
         else:
             self.modeloesp03.set("Raised-Cosine Window")
@@ -556,6 +564,7 @@ class Application(tk.Frame):
             self.constante41.set('Alpha')
             self.constante42.set('----')
             self.const110['state'] = 'normal'
+            self.const210.delete(0, tk.END)
             self.const210['state'] = 'disabled'
         else:
             self.modeloesp10.set("Raised-Cosine Window")
@@ -614,6 +623,7 @@ class Application(tk.Frame):
             self.constante51.set('W')
             self.constante52.set('dth')
             self.const111['state'] = 'normal'
+            self.const211.delete(0, tk.END)
             self.const211['state'] = 'normal'
         # Constantes de propagación espacial alpha,W,dth
         self.const111.delete(0, tk.END)
@@ -1194,6 +1204,13 @@ class Application(tk.Frame):
         self.constante75 = tk.StringVar()
         self.constante76 = tk.StringVar()
 
+        def test_Val(inStr, acttyp):
+            if acttyp == '1':  # insert
+                if (not inStr[len(inStr) - 1].isdigit() and not inStr[len(inStr) - 1] == '.'):
+                    return False
+
+            return True
+
 
         #----------Opciones Celula---------
         self.frame00 = tk.LabelFrame(self.upperFrame, text='Opciones de Célula', bg='grey', bd=3, heigh=self.altocaja1,
@@ -1201,7 +1218,7 @@ class Application(tk.Frame):
         self.frame00.grid(row=0, column=0, sticky='n' + 's')
         # Radio de la célula
         tk.Label(self.frame00, text='   Radio célula:  ').grid(row=0, column=0, sticky='w' + 'e')
-        self.radio00 = tk.Entry(self.frame00, width=8)
+        self.radio00 = tk.Entry(self.frame00, width=8, validate='key')
         self.radio00.grid(row=0, column=1)
         tk.Label(self.frame00, text='metros                   ').grid(row=0, column=2, sticky='w' + 'e')
         # Modelo de distribución de usuarios
@@ -1213,7 +1230,7 @@ class Application(tk.Frame):
         self.modelodisp00.grid(row=1, column=2, columnspan=2)
         # Repeticiones
         tk.Label(self.frame00, text='   Repetir:  ').grid(row=2, column=0, sticky='w' + 'e')
-        self.repeticiones00 = tk.Entry(self.frame00, width=8)
+        self.repeticiones00 = tk.Entry(self.frame00, width=8, validate='key')
         self.repeticiones00.grid(row=2, column=1)
         tk.Label(self.frame00, text='veces                    ').grid(row=2, column=2, sticky='w' + 'e')
 
@@ -1223,7 +1240,8 @@ class Application(tk.Frame):
         self.frame01.grid(row=0, column=1,sticky='n' + 's')
         #cantidad de dispositivos
         tk.Label(self.frame01,textvariable=self.constante13).grid(row=0,column=0,sticky='w'+'e')
-        self.numero01 = tk.Entry(self.frame01,width=8)
+        self.numero01 = tk.Entry(self.frame01,width=8, validate='key')
+        self.numero01['validatecommand'] = (self.numero01.register(test_Val), '%P', '%d')
         self.numero01['state'] = 'disabled'
         self.numero01.grid(row=0,column=1)
         tk.Label(self.frame01, textvariable=self.constante14).grid(row=0, column=2, sticky='w' + 'e')
@@ -1237,19 +1255,22 @@ class Application(tk.Frame):
         #tasa de generación de paquetes
         self.const001label =tk.Label(self.frame01, textvariable=self.constante10)
         self.const001label.grid(row=2, column=0,sticky='w'+'e')
-        self.const001 = tk.Entry(self.frame01, width=8)
+        self.const001 = tk.Entry(self.frame01, width=8, validate='key')
+        self.const001['validatecommand'] = (self.const001.register(test_Val), '%P', '%d')
         self.const001['state'] = 'disabled'
         self.const001.grid(row=2, column=1)
         tk.Label(self.frame01, text='paquetes/seg').grid(row=2, column=2, sticky='w' + 'e')
         #tasa de generación de eventos de alarma
         tk.Label(self.frame01, textvariable=self.constante15).grid(row=3, column=0,sticky='w'+'e')
-        self.tasaalarma01 = tk.Entry(self.frame01,width=8)
+        self.tasaalarma01 = tk.Entry(self.frame01,width=8, validate='key')
+        self.tasaalarma01['validatecommand'] = (self.tasaalarma01.register(test_Val), '%P', '%d')
         self.tasaalarma01['state'] = 'disabled'
         self.tasaalarma01.grid(row=3, column=1)
         tk.Label(self.frame01, text='alarmas/seg').grid(row=3, column=2, sticky='w' + 'e')
         #velocidad de protagación de alarmas
         tk.Label(self.frame01, textvariable=self.constante16).grid(row=4, column=0, sticky='w' + 'e')
-        self.veloalarma01 = tk.Entry(self.frame01,width=8)
+        self.veloalarma01 = tk.Entry(self.frame01,width=8, validate='key')
+        self.veloalarma01['validatecommand'] = (self.veloalarma01.register(test_Val), '%P', '%d')
         self.veloalarma01['state'] = 'disabled'
         self.veloalarma01.grid(row=4, column=1)
         tk.Label(self.frame01, text='metros/seg').grid(row=4, column=2, sticky='w' + 'e')
@@ -1263,13 +1284,15 @@ class Application(tk.Frame):
         #Constante modelo 1
         self.const101label = tk.Label(self.frame01, textvariable=self.constante11)
         self.const101label.grid(row=6, column=0, sticky='w' + 'e')
-        self.const101= tk.Entry(self.frame01,width=8)
+        self.const101= tk.Entry(self.frame01,width=8, validate='key')
+        self.const101['validatecommand'] = (self.const101.register(test_Val), '%P', '%d')
         self.const101['state'] = 'disabled'
         self.const101.grid(row=6, column=1)
         # Constante modelo 2
         self.const201label = tk.Label(self.frame01, textvariable=self.constante12)
         self.const201label.grid(row=7, column=0, sticky='w' + 'e')
-        self.const201 = tk.Entry(self.frame01, width=8)
+        self.const201 = tk.Entry(self.frame01, width=8, validate='key')
+        self.const201['validatecommand'] = (self.const201.register(test_Val), '%P', '%d')
         self.const201['state'] = 'disabled'
         self.const201.grid(row=7, column=1)
         # Boton para cargar datos
@@ -1283,7 +1306,8 @@ class Application(tk.Frame):
 
         # cantidad de dispositivos
         tk.Label(self.frame02, textvariable=self.constante23).grid(row=0, column=0, sticky='w' + 'e')
-        self.numero02 = tk.Entry(self.frame02, width=8)
+        self.numero02 = tk.Entry(self.frame02, width=8, validate='key')
+        self.numero02['validatecommand'] = (self.numero02.register(test_Val), '%P', '%d')
         self.numero02['state'] = 'disabled'
         self.numero02.grid(row=0, column=1)
         tk.Label(self.frame02, textvariable=self.constante24).grid(row=0, column=2, sticky='w' + 'e')
@@ -1297,19 +1321,22 @@ class Application(tk.Frame):
         # tasa de generación de paquetes
         self.const002label = tk.Label(self.frame02, textvariable=self.constante20)
         self.const002label.grid(row=2, column=0, sticky='w' + 'e')
-        self.const002 = tk.Entry(self.frame02, width=8)
+        self.const002 = tk.Entry(self.frame02, width=8, validate='key')
+        self.const002['validatecommand'] = (self.const002.register(test_Val), '%P', '%d')
         self.const002['state'] = 'disabled'
         self.const002.grid(row=2, column=1)
         tk.Label(self.frame02, text='paquetes/seg').grid(row=2, column=2, sticky='w' + 'e')
         # tasa de generación de eventos de alarma
         tk.Label(self.frame02, textvariable=self.constante25).grid(row=3, column=0, sticky='w' + 'e')
-        self.tasaalarma02 = tk.Entry(self.frame02, width=8)
+        self.tasaalarma02 = tk.Entry(self.frame02, width=8, validate='key')
+        self.tasaalarma02['validatecommand'] = (self.tasaalarma02.register(test_Val), '%P', '%d')
         self.tasaalarma02['state'] = 'disabled'
         self.tasaalarma02.grid(row=3, column=1)
         tk.Label(self.frame02, text='alarmas/seg').grid(row=3, column=2, sticky='w' + 'e')
         # velocidad de protagación de alarmas
         tk.Label(self.frame02, textvariable=self.constante26).grid(row=4, column=0, sticky='w' + 'e')
-        self.veloalarma02 = tk.Entry(self.frame02, width=8)
+        self.veloalarma02 = tk.Entry(self.frame02, width=8, validate='key')
+        self.veloalarma02['validatecommand'] = (self.veloalarma02.register(test_Val), '%P', '%d')
         self.veloalarma02['state'] = 'disabled'
         self.veloalarma02.grid(row=4, column=1)
         tk.Label(self.frame02, text='metros/seg').grid(row=4, column=2, sticky='w' + 'e')
@@ -1323,13 +1350,15 @@ class Application(tk.Frame):
         # Constante modelo 1
         self.const102label = tk.Label(self.frame02, textvariable=self.constante21)
         self.const102label.grid(row=6, column=0, sticky='w' + 'e')
-        self.const102 = tk.Entry(self.frame02, width=8)
+        self.const102 = tk.Entry(self.frame02, width=8, validate='key')
+        self.const102['validatecommand'] = (self.const102.register(test_Val), '%P', '%d')
         self.const102['state'] = 'disabled'
         self.const102.grid(row=6, column=1)
         # Constante modelo 2
         self.const202label = tk.Label(self.frame02, textvariable=self.constante22)
         self.const202label.grid(row=7, column=0, sticky='w' + 'e')
-        self.const202 = tk.Entry(self.frame02, width=8)
+        self.const202 = tk.Entry(self.frame02, width=8, validate='key')
+        self.const202['validatecommand'] = (self.const202.register(test_Val), '%P', '%d')
         self.const202['state'] = 'disabled'
         self.const202.grid(row=7, column=1)
         # Boton para cargar datos
@@ -1343,7 +1372,8 @@ class Application(tk.Frame):
 
         # cantidad de dispositivos
         tk.Label(self.frame03, textvariable=self.constante33).grid(row=0, column=0, sticky='w' + 'e')
-        self.numero03 = tk.Entry(self.frame03, width=8)
+        self.numero03 = tk.Entry(self.frame03, width=8, validate='key')
+        self.numero03['validatecommand'] = (self.numero03.register(test_Val), '%P', '%d')
         self.numero03['state'] = 'disabled'
         self.numero03.grid(row=0, column=1)
         tk.Label(self.frame03, textvariable=self.constante34).grid(row=0, column=2, sticky='w' + 'e')
@@ -1357,19 +1387,22 @@ class Application(tk.Frame):
         # tasa de generación de paquetes
         self.const003label = tk.Label(self.frame03, textvariable=self.constante30)
         self.const003label.grid(row=2, column=0, sticky='w' + 'e')
-        self.const003 = tk.Entry(self.frame03, width=8)
+        self.const003 = tk.Entry(self.frame03, width=8, validate='key')
+        self.const003['validatecommand'] = (self.const003.register(test_Val), '%P', '%d')
         self.const003['state'] = 'disabled'
         self.const003.grid(row=2, column=1)
         tk.Label(self.frame03, text='paquetes/seg').grid(row=2, column=2, sticky='w' + 'e')
         # tasa de generación de eventos de alarma
         tk.Label(self.frame03, textvariable=self.constante35).grid(row=3, column=0, sticky='w' + 'e')
-        self.tasaalarma03 = tk.Entry(self.frame03, width=8)
+        self.tasaalarma03 = tk.Entry(self.frame03, width=8, validate='key')
+        self.tasaalarma03['validatecommand'] = (self.tasaalarma03.register(test_Val), '%P', '%d')
         self.tasaalarma03['state'] = 'disabled'
         self.tasaalarma03.grid(row=3, column=1)
         tk.Label(self.frame03, text='alarmas/seg').grid(row=3, column=2, sticky='w' + 'e')
         # velocidad de protagación de alarmas
         tk.Label(self.frame03, textvariable=self.constante36).grid(row=4, column=0, sticky='w' + 'e')
-        self.veloalarma03 = tk.Entry(self.frame03, width=8)
+        self.veloalarma03 = tk.Entry(self.frame03, width=8, validate='key')
+        self.veloalarma03['validatecommand'] = (self.veloalarma03.register(test_Val), '%P', '%d')
         self.veloalarma03['state'] = 'disabled'
         self.veloalarma03.grid(row=4, column=1)
         tk.Label(self.frame03, text='metros/seg').grid(row=4, column=2, sticky='w' + 'e')
@@ -1383,13 +1416,15 @@ class Application(tk.Frame):
         # Constante modelo 1
         self.const103label = tk.Label(self.frame03, textvariable=self.constante31)
         self.const103label.grid(row=6, column=0, sticky='w' + 'e')
-        self.const103 = tk.Entry(self.frame03, width=8)
+        self.const103 = tk.Entry(self.frame03, width=8, validate='key')
+        self.const103['validatecommand'] = (self.const103.register(test_Val), '%P', '%d')
         self.const103['state'] = 'disabled'
         self.const103.grid(row=6, column=1)
         # Constante modelo 2
         self.const203label = tk.Label(self.frame03, textvariable=self.constante32)
         self.const203label.grid(row=7, column=0, sticky='w' + 'e')
-        self.const203 = tk.Entry(self.frame03, width=8)
+        self.const203 = tk.Entry(self.frame03, width=8, validate='key')
+        self.const203['validatecommand'] = (self.const203.register(test_Val), '%P', '%d')
         self.const203['state'] = 'disabled'
         self.const203.grid(row=7, column=1)
         # Boton para cargar datos
@@ -1402,7 +1437,8 @@ class Application(tk.Frame):
 
         # cantidad de dispositivos
         tk.Label(self.frame10, textvariable=self.constante43).grid(row=0, column=0, sticky='w' + 'e')
-        self.numero10 = tk.Entry(self.frame10, width=8)
+        self.numero10 = tk.Entry(self.frame10, width=8, validate='key')
+        self.numero10['validatecommand'] = (self.numero10.register(test_Val), '%P', '%d')
         self.numero10['state'] = 'disabled'
         self.numero10.grid(row=0, column=1)
         tk.Label(self.frame10, textvariable=self.constante44).grid(row=0, column=2, sticky='w' + 'e')
@@ -1416,19 +1452,22 @@ class Application(tk.Frame):
         # tasa de generación de paquetes
         self.const010label = tk.Label(self.frame10, textvariable=self.constante40)
         self.const010label.grid(row=2, column=0, sticky='w' + 'e')
-        self.const010 = tk.Entry(self.frame10, width=8)
+        self.const010 = tk.Entry(self.frame10, width=8, validate='key')
+        self.const010['validatecommand'] = (self.const010.register(test_Val), '%P', '%d')
         self.const010['state'] = 'disabled'
         self.const010.grid(row=2, column=1)
         tk.Label(self.frame10, text='paquetes/seg').grid(row=2, column=2, sticky='w' + 'e')
         # tasa de generación de eventos de alarma
         tk.Label(self.frame10, textvariable=self.constante45).grid(row=3, column=0, sticky='w' + 'e')
-        self.tasaalarma10 = tk.Entry(self.frame10, width=8)
+        self.tasaalarma10 = tk.Entry(self.frame10, width=8, validate='key')
+        self.tasaalarma10['validatecommand'] = (self.tasaalarma10.register(test_Val), '%P', '%d')
         self.tasaalarma10['state'] = 'disabled'
         self.tasaalarma10.grid(row=3, column=1)
         tk.Label(self.frame10, text='alarmas/seg').grid(row=3, column=2, sticky='w' + 'e')
         # velocidad de protagación de alarmas
         tk.Label(self.frame10, textvariable=self.constante46).grid(row=4, column=0, sticky='w' + 'e')
-        self.veloalarma10 = tk.Entry(self.frame10, width=8)
+        self.veloalarma10 = tk.Entry(self.frame10, width=8, validate='key')
+        self.veloalarma10['validatecommand'] = (self.veloalarma10.register(test_Val), '%P', '%d')
         self.veloalarma10['state'] = 'disabled'
         self.veloalarma10.grid(row=4, column=1)
         tk.Label(self.frame10, text='metros/seg').grid(row=4, column=2, sticky='w' + 'e')
@@ -1442,13 +1481,15 @@ class Application(tk.Frame):
         # Constante modelo 1
         self.const110label = tk.Label(self.frame10, textvariable=self.constante41)
         self.const110label.grid(row=6, column=0, sticky='w' + 'e')
-        self.const110 = tk.Entry(self.frame10, width=8)
+        self.const110 = tk.Entry(self.frame10, width=8, validate='key')
+        self.const110['validatecommand'] = (self.const110.register(test_Val), '%P', '%d')
         self.const110['state']='disabled'
         self.const110.grid(row=6, column=1)
         # Constante modelo 2
         self.const210label = tk.Label(self.frame10, textvariable=self.constante42)
         self.const210label.grid(row=7, column=0, sticky='w' + 'e')
-        self.const210 = tk.Entry(self.frame10, width=8)
+        self.const210 = tk.Entry(self.frame10, width=8, validate='key')
+        self.const210['validatecommand'] = (self.const210.register(test_Val), '%P', '%d')
         self.const210['state']='disabled'
         self.const210.grid(row=7, column=1)
         # Boton para cargar datos
@@ -1462,7 +1503,8 @@ class Application(tk.Frame):
 
         # cantidad de dispositivos
         tk.Label(self.frame11, textvariable=self.constante53).grid(row=0, column=0, sticky='w' + 'e')
-        self.numero11 = tk.Entry(self.frame11, width=8)
+        self.numero11 = tk.Entry(self.frame11, width=8, validate='key')
+        self.numero11['validatecommand'] = (self.numero11.register(test_Val), '%P', '%d')
         self.numero11['state'] = 'disabled'
         self.numero11.grid(row=0, column=1)
         tk.Label(self.frame11, textvariable=self.constante54).grid(row=0, column=2, sticky='w' + 'e')
@@ -1476,19 +1518,22 @@ class Application(tk.Frame):
         # tasa de generación de paquetes
         self.const011label = tk.Label(self.frame11, textvariable=self.constante50)
         self.const011label.grid(row=2, column=0, sticky='w' + 'e')
-        self.const011 = tk.Entry(self.frame11, width=8)
+        self.const011 = tk.Entry(self.frame11, width=8, validate='key')
+        self.const011['validatecommand'] = (self.const011.register(test_Val), '%P', '%d')
         self.const011['state'] = 'disabled'
         self.const011.grid(row=2, column=1)
         tk.Label(self.frame11, text='paquetes/seg').grid(row=2, column=2, sticky='w' + 'e')
         # tasa de generación de eventos de alarma
         tk.Label(self.frame11, textvariable=self.constante55).grid(row=3, column=0, sticky='w' + 'e')
-        self.tasaalarma11 = tk.Entry(self.frame11, width=8)
+        self.tasaalarma11 = tk.Entry(self.frame11, width=8, validate='key')
+        self.tasaalarma11['validatecommand'] = (self.tasaalarma11.register(test_Val), '%P', '%d')
         self.tasaalarma11['state'] = 'disabled'
         self.tasaalarma11.grid(row=3, column=1)
         tk.Label(self.frame11, text='alarmas/seg').grid(row=3, column=2, sticky='w' + 'e')
         # velocidad de protagación de alarmas
         tk.Label(self.frame11, textvariable=self.constante56).grid(row=4, column=0, sticky='w' + 'e')
-        self.veloalarma11 = tk.Entry(self.frame11, width=8)
+        self.veloalarma11 = tk.Entry(self.frame11, width=8, validate='key')
+        self.veloalarma11['validatecommand'] = (self.veloalarma11.register(test_Val), '%P', '%d')
         self.veloalarma11['state'] = 'disabled'
         self.veloalarma11.grid(row=4, column=1)
         tk.Label(self.frame11, text='metros/seg').grid(row=4, column=2, sticky='w' + 'e')
@@ -1502,13 +1547,15 @@ class Application(tk.Frame):
         # Constante modelo 1
         self.const111label = tk.Label(self.frame11, textvariable=self.constante51)
         self.const111label.grid(row=6, column=0, sticky='w' + 'e')
-        self.const111 = tk.Entry(self.frame11, width=8)
+        self.const111 = tk.Entry(self.frame11, width=8, validate='key')
+        self.const111['validatecommand'] = (self.const111.register(test_Val), '%P', '%d')
         self.const111['state']='disabled'
         self.const111.grid(row=6, column=1)
         # Constante modelo 2
         self.const211label = tk.Label(self.frame11, textvariable=self.constante52)
         self.const211label.grid(row=7, column=0, sticky='w' + 'e')
-        self.const211 = tk.Entry(self.frame11, width=8)
+        self.const211 = tk.Entry(self.frame11, width=8, validate='key')
+        self.const211['validatecommand'] = (self.const211.register(test_Val), '%P', '%d')
         self.const211['state'] = 'disabled'
         self.const211.grid(row=7, column=1)
         # Boton para cargar datos
@@ -1522,7 +1569,8 @@ class Application(tk.Frame):
 
         # cantidad de dispositivos
         tk.Label(self.frame12, textvariable=self.constante63).grid(row=0, column=0, sticky='w' + 'e')
-        self.numero12 = tk.Entry(self.frame12, width=8)
+        self.numero12 = tk.Entry(self.frame12, width=8, validate='key')
+        self.numero12['validatecommand'] = (self.numero12.register(test_Val), '%P', '%d')
         self.numero12['state'] = 'disabled'
         self.numero12.grid(row=0, column=1)
         tk.Label(self.frame12, textvariable=self.constante64).grid(row=0, column=2, sticky='w' + 'e')
@@ -1536,19 +1584,22 @@ class Application(tk.Frame):
         # tasa de generación de paquetes
         self.const012label = tk.Label(self.frame12, textvariable=self.constante60)
         self.const012label.grid(row=2, column=0, sticky='w' + 'e')
-        self.const012 = tk.Entry(self.frame12, width=8)
+        self.const012 = tk.Entry(self.frame12, width=8, validate='key')
+        self.const012['validatecommand'] = (self.const012.register(test_Val), '%P', '%d')
         self.const012['state'] = 'disabled'
         self.const012.grid(row=2, column=1)
         tk.Label(self.frame12, text='paquetes/seg').grid(row=2, column=2, sticky='w' + 'e')
         # tasa de generación de eventos de alarma
         tk.Label(self.frame12, textvariable=self.constante65).grid(row=3, column=0, sticky='w' + 'e')
-        self.tasaalarma12 = tk.Entry(self.frame12, width=8)
+        self.tasaalarma12 = tk.Entry(self.frame12, width=8, validate='key')
+        self.tasaalarma12['validatecommand'] = (self.tasaalarma12.register(test_Val), '%P', '%d')
         self.tasaalarma12['state'] = 'disabled'
         self.tasaalarma12.grid(row=3, column=1)
         tk.Label(self.frame12, text='alarmas/seg').grid(row=3, column=2, sticky='w' + 'e')
         # velocidad de protagación de alarmas
         tk.Label(self.frame12, textvariable=self.constante66).grid(row=4, column=0, sticky='w' + 'e')
-        self.veloalarma12 = tk.Entry(self.frame12, width=8)
+        self.veloalarma12 = tk.Entry(self.frame12, width=8, validate='key')
+        self.veloalarma12['validatecommand'] = (self.veloalarma12.register(test_Val), '%P', '%d')
         self.veloalarma12['state'] = 'disabled'
         self.veloalarma12.grid(row=4, column=1)
         tk.Label(self.frame12, text='metros/seg').grid(row=4, column=2, sticky='w' + 'e')
@@ -1562,12 +1613,14 @@ class Application(tk.Frame):
         # Constante modelo 1
         self.const112label = tk.Label(self.frame12, textvariable=self.constante61)
         self.const112label.grid(row=6, column=0, sticky='w' + 'e')
-        self.const112 = tk.Entry(self.frame12, width=8)
+        self.const112 = tk.Entry(self.frame12, width=8, validate='key')
+        self.const112['validatecommand'] = (self.const112.register(test_Val), '%P', '%d')
         self.const112.grid(row=6, column=1)
         # Constante modelo 2
         self.const212label = tk.Label(self.frame12, textvariable=self.constante62)
         self.const212label.grid(row=7, column=0, sticky='w' + 'e')
-        self.const212 = tk.Entry(self.frame12, width=8)
+        self.const212 = tk.Entry(self.frame12, width=8, validate='key')
+        self.const212['validatecommand'] = (self.const212.register(test_Val), '%P', '%d')
         self.const212.grid(row=7, column=1)
         # Boton para cargar datos
         self.botoncarga12 = tk.Button(self.frame12, text='Reset')
@@ -1580,7 +1633,8 @@ class Application(tk.Frame):
 
         # cantidad de dispositivos
         tk.Label(self.frame13, textvariable=self.constante73).grid(row=0, column=0, sticky='w' + 'e')
-        self.numero13 = tk.Entry(self.frame13, width=8)
+        self.numero13 = tk.Entry(self.frame13, width=8, validate='key')
+        self.numero13['validatecommand'] = (self.numero13.register(test_Val), '%P', '%d')
         self.numero13['state'] = 'disabled'
         self.numero13.grid(row=0, column=1)
         tk.Label(self.frame13, textvariable=self.constante74).grid(row=0, column=2, sticky='w' + 'e')
@@ -1594,19 +1648,22 @@ class Application(tk.Frame):
         # tasa de generación de paquetes
         self.const013label = tk.Label(self.frame13, textvariable=self.constante70)
         self.const013label.grid(row=2, column=0, sticky='w' + 'e')
-        self.const013 = tk.Entry(self.frame13, width=8)
+        self.const013 = tk.Entry(self.frame13, width=8, validate='key')
+        self.const013['validatecommand'] = (self.const013.register(test_Val), '%P', '%d')
         self.const013['state'] = 'disabled'
         self.const013.grid(row=2, column=1)
         tk.Label(self.frame13, text='paquetes/seg').grid(row=2, column=2, sticky='w' + 'e')
         # tasa de generación de eventos de alarma
         tk.Label(self.frame13, textvariable=self.constante75).grid(row=3, column=0, sticky='w' + 'e')
-        self.tasaalarma13 = tk.Entry(self.frame13, width=8)
+        self.tasaalarma13 = tk.Entry(self.frame13, width=8, validate='key')
+        self.tasaalarma13['validatecommand'] = (self.tasaalarma13.register(test_Val), '%P', '%d')
         self.tasaalarma13['state'] = 'disabled'
         self.tasaalarma13.grid(row=3, column=1)
         tk.Label(self.frame13, text='alarmas/seg').grid(row=3, column=2, sticky='w' + 'e')
         # velocidad de protagación de alarmas
         tk.Label(self.frame13, textvariable=self.constante76).grid(row=4, column=0, sticky='w' + 'e')
-        self.veloalarma13 = tk.Entry(self.frame13, width=8)
+        self.veloalarma13 = tk.Entry(self.frame13, width=8, validate='key')
+        self.veloalarma13['validatecommand'] = (self.veloalarma13.register(test_Val), '%P', '%d')
         self.veloalarma13['state'] = 'disabled'
         self.veloalarma13.grid(row=4, column=1)
         tk.Label(self.frame13, text='metros/seg').grid(row=4, column=2, sticky='w' + 'e')
@@ -1620,12 +1677,14 @@ class Application(tk.Frame):
         # Constante modelo 1
         self.const113label = tk.Label(self.frame13, textvariable=self.constante71)
         self.const113label.grid(row=6, column=0, sticky='w' + 'e')
-        self.const113 = tk.Entry(self.frame13, width=8)
+        self.const113 = tk.Entry(self.frame13, width=8, validate='key')
+        self.const113['validatecommand'] = (self.const113.register(test_Val), '%P', '%d')
         self.const113.grid(row=6, column=1)
         # Constante modelo 2
         self.const213label = tk.Label(self.frame13, textvariable=self.constante72)
         self.const213label.grid(row=7, column=0, sticky='w' + 'e')
-        self.const213 = tk.Entry(self.frame13, width=8)
+        self.const213 = tk.Entry(self.frame13, width=8, validate='key')
+        self.const213['validatecommand'] = (self.const213.register(test_Val), '%P', '%d')
         self.const213.grid(row=7, column=1)
         # Boton para cargar datos
         self.botoncarga13 = tk.Button(self.frame13, text='Reset')
