@@ -119,6 +119,7 @@ class Application(tk.Frame):
             self.tasaalarma01['state'] = 'normal'
             self.constante16.set('Veolcidad alarma')
             self.veloalarma01['state'] = 'normal'
+            self.modeloesp01['state'] = 'readonly'
         else:
             self.modelotra01.set("Periódico")
             self.constante10.set('Tasa de paquetes')
@@ -129,6 +130,14 @@ class Application(tk.Frame):
             self.constante16.set('---')
             self.veloalarma01.delete(0, tk.END)
             self.veloalarma01['state'] = 'disabled'
+            self.constante11.set('')
+            self.constante12.set('')
+            self.const101.delete(0, tk.END)
+            self.const201.delete(0, tk.END)
+            self.const101['state'] = 'disabled'
+            self.const201['state'] = 'disabled'
+            self.modeloesp01.set('Seleccionar modelo')
+            self.modeloesp01['state'] = 'disabled'
         # Tasa de paquete
         self.const001.delete(0, tk.END)
         self.const001.insert(0, str(self.tasaPaquete_Tipo1))
@@ -139,14 +148,14 @@ class Application(tk.Frame):
         self.veloalarma01.delete(0,tk.END)
         self.veloalarma01.insert(0,str(self.velPropagacionAlarma_Tipo1))
         # Propagación espacial
-        if(self.modeloEspacial_Tipo1==0):
+        if(self.modeloEspacial_Tipo1==0 and self.modeloTrafico_Tipo1 == 0):
             self.modeloesp01.set("Decaying Exponential")
             self.constante11.set('Alpha')
             self.constante12.set('----')
             self.const101['state'] = 'normal'
             self.const201.delete(0, tk.END)
             self.const201['state'] = 'disabled'
-        else:
+        elif(self.modeloEspacial_Tipo1==1 and self.modeloTrafico_Tipo1 == 0):
             self.modeloesp01.set("Raised-Cosine Window")
             self.constante11.set('W')
             self.constante12.set('dth')
@@ -171,6 +180,7 @@ class Application(tk.Frame):
             self.tasaalarma02['state'] = 'normal'
             self.constante26.set('Veolcidad alarma')
             self.veloalarma02['state'] = 'normal'
+            self.modeloesp02['state'] = 'readonly'
         else:
             self.modelotra02.set("Periódico")
             self.constante20.set('Tasa de paquetes')
@@ -181,6 +191,14 @@ class Application(tk.Frame):
             self.constante26.set('---')
             self.veloalarma02.delete(0, tk.END)
             self.veloalarma02['state'] = 'disabled'
+            self.constante21.set('')
+            self.constante22.set('')
+            self.const102.delete(0, tk.END)
+            self.const202.delete(0, tk.END)
+            self.const102['state'] = 'disabled'
+            self.const202['state'] = 'disabled'
+            self.modeloesp02.set('Seleccionar modelo')
+            self.modeloesp02['state'] = 'disabled'
         # Tasa de paquete
         self.const002.delete(0, tk.END)
         self.const002.insert(0, str(self.tasaPaquete_Tipo2))
@@ -191,14 +209,14 @@ class Application(tk.Frame):
         self.veloalarma02.delete(0, tk.END)
         self.veloalarma02.insert(0, str(self.velPropagacionAlarma_Tipo2))
         # Propagación espacial
-        if (self.modeloEspacial_Tipo2 == 0):
+        if (self.modeloEspacial_Tipo2 == 0 and self.modeloTrafico_Tipo2 == 0):
             self.modeloesp02.set("Decaying Exponential")
             self.constante21.set('Alpha')
             self.constante22.set('----')
             self.const102['state'] = 'normal'
             self.const202.delete(0, tk.END)
             self.const202['state'] = 'disabled'
-        else:
+        elif(self.modeloEspacial_Tipo2 == 1 and self.modeloTrafico_Tipo2 == 0):
             self.modeloesp02.set("Raised-Cosine Window")
             self.constante21.set('W')
             self.constante22.set('dth')
@@ -223,6 +241,7 @@ class Application(tk.Frame):
             self.tasaalarma03['state'] = 'normal'
             self.constante36.set('Velocidad alarma')
             self.veloalarma03['state'] = 'normal'
+            self.modeloesp03['state'] = 'readonly'
         else:
             self.modelotra03.set("Periódico")
             self.constante30.set('Tasa de paquetes')
@@ -233,6 +252,14 @@ class Application(tk.Frame):
             self.constante36.set('---')
             self.veloalarma03.delete(0, tk.END)
             self.veloalarma03['state'] = 'disabled'
+            self.constante31.set('')
+            self.constante32.set('')
+            self.const103.delete(0, tk.END)
+            self.const203.delete(0, tk.END)
+            self.const103['state'] = 'disabled'
+            self.const203['state'] = 'disabled'
+            self.modeloesp03.set('Seleccionar modelo')
+            self.modeloesp03['state'] = 'disabled'
         # Tasa de paquete
         self.const003.delete(0, tk.END)
         self.const003.insert(0, str(self.tasaPaquete_Tipo3))
@@ -243,14 +270,14 @@ class Application(tk.Frame):
         self.veloalarma03.delete(0, tk.END)
         self.veloalarma03.insert(0, str(self.velPropagacionAlarma_Tipo3))
         # Propagación espacial
-        if (self.modeloEspacial_Tipo3 == 0):
+        if (self.modeloEspacial_Tipo3 == 0 and self.modeloTrafico_Tipo3 == 0):
             self.modeloesp03.set("Decaying Exponential")
             self.constante31.set('Alpha')
             self.constante32.set('----')
             self.const103['state'] = 'normal'
             self.const203.delete(0, tk.END)
             self.const203['state'] = 'disabled'
-        else:
+        elif(self.modeloEspacial_Tipo3 == 1 and self.modeloTrafico_Tipo3 == 0):
             self.modeloesp03.set("Raised-Cosine Window")
             self.constante31.set('W')
             self.constante32.set('dth')
@@ -275,6 +302,7 @@ class Application(tk.Frame):
             self.tasaalarma10['state'] = 'normal'
             self.constante46.set('Velocidad alarma')
             self.veloalarma10['state'] = 'normal'
+            self.modeloesp10['state'] = 'readonly'
         else:
             self.modelotra10.set("Periódico")
             self.constante40.set('Tasa de paquetes')
@@ -285,6 +313,14 @@ class Application(tk.Frame):
             self.constante46.set('---')
             self.veloalarma10.delete(0, tk.END)
             self.veloalarma10['state'] = 'disabled'
+            self.constante41.set('')
+            self.constante42.set('')
+            self.const110.delete(0, tk.END)
+            self.const210.delete(0, tk.END)
+            self.const110['state'] = 'disabled'
+            self.const210['state'] = 'disabled'
+            self.modeloesp10.set('Seleccionar modelo')
+            self.modeloesp10['state'] = 'disabled'
         # Tasa de paquete
         self.const010.delete(0, tk.END)
         self.const010.insert(0, str(self.tasaPaquete_Tipo4))
@@ -295,14 +331,14 @@ class Application(tk.Frame):
         self.veloalarma10.delete(0, tk.END)
         self.veloalarma10.insert(0, str(self.velPropagacionAlarma_Tipo4))
         # Propagación espacial
-        if (self.modeloEspacial_Tipo4 == 0):
+        if (self.modeloEspacial_Tipo4 == 0 and self.modeloTrafico_Tipo4 == 0):
             self.modeloesp10.set("Decaying Exponential")
             self.constante41.set('Alpha')
             self.constante42.set('----')
             self.const110['state'] = 'normal'
             self.const210.delete(0, tk.END)
             self.const210['state'] = 'disabled'
-        else:
+        elif(self.modeloEspacial_Tipo4 == 1 and self.modeloTrafico_Tipo4 == 0):
             self.modeloesp10.set("Raised-Cosine Window")
             self.constante41.set('W')
             self.constante42.set('dth')
@@ -327,6 +363,7 @@ class Application(tk.Frame):
             self.tasaalarma11['state'] = 'normal'
             self.constante56.set('Velocidad alarma')
             self.veloalarma11['state'] = 'normal'
+            self.modeloesp11['state'] = 'readonly'
         else:
             self.modelotra11.set("Periódico")
             self.constante50.set('Tasa de paquetes')
@@ -337,6 +374,14 @@ class Application(tk.Frame):
             self.constante56.set('---')
             self.veloalarma11.delete(0, tk.END)
             self.veloalarma11['state'] = 'disabled'
+            self.constante51.set('')
+            self.constante52.set('')
+            self.const111.delete(0, tk.END)
+            self.const211.delete(0, tk.END)
+            self.const111['state'] = 'disabled'
+            self.const211['state'] = 'disabled'
+            self.modeloesp11.set('Seleccionar modelo')
+            self.modeloesp11['state'] = 'disabled'
         # Tasa de paquete
         self.const011.delete(0, tk.END)
         self.const011.insert(0, str(self.tasaPaquete_Tipo5))
@@ -347,14 +392,14 @@ class Application(tk.Frame):
         self.veloalarma11.delete(0, tk.END)
         self.veloalarma11.insert(0, str(self.velPropagacionAlarma_Tipo5))
         # Propagación espacial
-        if (self.modeloEspacial_Tipo5 == 0):
+        if (self.modeloEspacial_Tipo5 == 0 and self.modeloTrafico_Tipo5 == 0):
             self.modeloesp11.set("Decaying Exponential")
             self.constante51.set('Alpha')
             self.constante52.set('----')
             self.const111['state'] = 'normal'
             self.const211.delete(0, tk.END)
             self.const211['state'] = 'disabled'
-        else:
+        elif(self.modeloEspacial_Tipo5 == 1 and self.modeloTrafico_Tipo5 == 0):
             self.modeloesp11.set("Raised-Cosine Window")
             self.constante51.set('W')
             self.constante52.set('dth')
@@ -380,6 +425,7 @@ class Application(tk.Frame):
             self.tasaalarma01['state'] = 'normal'
             self.constante16.set('Velocidad alarma')
             self.veloalarma01['state'] = 'normal'
+            self.modeloesp01['state'] = 'readonly'
         else:
             self.modelotra01.set("Periódico")
             self.constante10.set('Tasa de paquetes')
@@ -390,6 +436,14 @@ class Application(tk.Frame):
             self.constante16.set('---')
             self.veloalarma01.delete(0, tk.END)
             self.veloalarma01['state'] = 'disabled'
+            self.constante11.set('')
+            self.constante12.set('')
+            self.const101.delete(0, tk.END)
+            self.const201.delete(0, tk.END)
+            self.const101['state'] = 'disabled'
+            self.const201['state'] = 'disabled'
+            self.modeloesp01.set('Seleccionar modelo')
+            self.modeloesp01['state'] = 'disabled'
         # Tasa de paquete
         self.const001.delete(0, tk.END)
         self.const001.insert(0, str(self.tasaPaquete_Tipo1))
@@ -400,14 +454,14 @@ class Application(tk.Frame):
         self.veloalarma01.delete(0, tk.END)
         self.veloalarma01.insert(0, str(self.velPropagacionAlarma_Tipo1))
         # Propagación espacial
-        if (self.modeloEspacial_Tipo1 == 0):
+        if (self.modeloEspacial_Tipo1 == 0 and self.modeloTrafico_Tipo1 == 0):
             self.modeloesp01.set("Decaying Exponential")
             self.constante11.set('Alpha')
             self.constante12.set('----')
             self.const101['state'] = 'normal'
             self.const201.delete(0, tk.END)
             self.const201['state'] = 'disabled'
-        else:
+        elif(self.modeloEspacial_Tipo1 == 1 and self.modeloTrafico_Tipo1 == 0):
             self.modeloesp01.set("Raised-Cosine Window")
             self.constante11.set('W')
             self.constante12.set('dth')
@@ -433,6 +487,7 @@ class Application(tk.Frame):
             self.tasaalarma02['state'] = 'normal'
             self.constante26.set('Velocidad alarma')
             self.veloalarma02['state'] = 'normal'
+            self.modeloesp02['state'] = 'readonly'
         else:
             self.modelotra02.set("Periódico")
             self.constante20.set('Tasa de paquetes')
@@ -443,6 +498,14 @@ class Application(tk.Frame):
             self.constante26.set('---')
             self.veloalarma02.delete(0, tk.END)
             self.veloalarma02['state'] = 'disabled'
+            self.constante21.set('')
+            self.constante22.set('')
+            self.const102.delete(0, tk.END)
+            self.const202.delete(0, tk.END)
+            self.const102['state'] = 'disabled'
+            self.const202['state'] = 'disabled'
+            self.modeloesp02.set('Seleccionar modelo')
+            self.modeloesp02['state'] = 'disabled'
         # Tasa de paquete
         self.const002.delete(0, tk.END)
         self.const002.insert(0, str(self.tasaPaquete_Tipo2))
@@ -453,14 +516,14 @@ class Application(tk.Frame):
         self.veloalarma02.delete(0, tk.END)
         self.veloalarma02.insert(0, str(self.velPropagacionAlarma_Tipo2))
         # Propagación espacial
-        if (self.modeloEspacial_Tipo2 == 0):
+        if (self.modeloEspacial_Tipo2 == 0 and self.modeloTrafico_Tipo2 == 0):
             self.modeloesp02.set("Decaying Exponential")
             self.constante21.set('Alpha')
             self.constante22.set('----')
             self.const102['state'] = 'normal'
             self.const202.delete(0, tk.END)
             self.const202['state'] = 'disabled'
-        else:
+        elif(self.modeloEspacial_Tipo2 == 1 and self.modeloTrafico_Tipo2 == 0):
             self.modeloesp02.set("Raised-Cosine Window")
             self.constante21.set('W')
             self.constante22.set('dth')
@@ -486,6 +549,7 @@ class Application(tk.Frame):
             self.tasaalarma03['state'] = 'normal'
             self.constante36.set('Velocidad alarma')
             self.veloalarma03['state'] = 'normal'
+            self.modeloesp03['state'] = 'readonly'
         else:
             self.modelotra03.set("Periódico")
             self.constante30.set('Tasa de paquetes')
@@ -496,6 +560,14 @@ class Application(tk.Frame):
             self.constante36.set('---')
             self.veloalarma03.delete(0, tk.END)
             self.veloalarma03['state'] = 'disabled'
+            self.constante31.set('')
+            self.constante32.set('')
+            self.const103.delete(0, tk.END)
+            self.const203.delete(0, tk.END)
+            self.const103['state'] = 'disabled'
+            self.const203['state'] = 'disabled'
+            self.modeloesp03.set('Seleccionar modelo')
+            self.modeloesp03['state'] = 'disabled'
         # Tasa de paquete
         self.const003.delete(0, tk.END)
         self.const003.insert(0, str(self.tasaPaquete_Tipo3))
@@ -506,14 +578,14 @@ class Application(tk.Frame):
         self.veloalarma03.delete(0, tk.END)
         self.veloalarma03.insert(0, str(self.velPropagacionAlarma_Tipo3))
         # Propagación espacial
-        if (self.modeloEspacial_Tipo3 == 0):
+        if (self.modeloEspacial_Tipo3 == 0 and self.modeloTrafico_Tipo3 == 0):
             self.modeloesp03.set("Decaying Exponential")
             self.constante31.set('Alpha')
             self.constante32.set('----')
             self.const103['state'] = 'normal'
             self.const203.delete(0, tk.END)
             self.const203['state'] = 'disabled'
-        else:
+        elif(self.modeloEspacial_Tipo3 == 1 and self.modeloTrafico_Tipo3 == 0):
             self.modeloesp03.set("Raised-Cosine Window")
             self.constante31.set('W')
             self.constante32.set('dth')
@@ -539,6 +611,7 @@ class Application(tk.Frame):
             self.tasaalarma10['state'] = 'normal'
             self.constante46.set('Velocidad alarma')
             self.veloalarma10['state'] = 'normal'
+            self.modeloesp10['state'] = 'readonly'
         else:
             self.modelotra10.set("Periódico")
             self.constante40.set('Tasa de paquetes')
@@ -549,6 +622,14 @@ class Application(tk.Frame):
             self.constante46.set('---')
             self.veloalarma10.delete(0, tk.END)
             self.veloalarma10['state'] = 'disabled'
+            self.constante41.set('')
+            self.constante42.set('')
+            self.const110.delete(0, tk.END)
+            self.const210.delete(0, tk.END)
+            self.const110['state'] = 'disabled'
+            self.const210['state'] = 'disabled'
+            self.modeloesp10.set('Seleccionar modelo')
+            self.modeloesp10['state'] = 'disabled'
         # Tasa de paquete
         self.const010.delete(0, tk.END)
         self.const010.insert(0, str(self.tasaPaquete_Tipo4))
@@ -559,14 +640,14 @@ class Application(tk.Frame):
         self.veloalarma10.delete(0, tk.END)
         self.veloalarma10.insert(0, str(self.velPropagacionAlarma_Tipo4))
         # Propagación espacial
-        if (self.modeloEspacial_Tipo4 == 0):
+        if (self.modeloEspacial_Tipo4 == 0 and self.modeloTrafico_Tipo4 == 0):
             self.modeloesp10.set("Decaying Exponential")
             self.constante41.set('Alpha')
             self.constante42.set('----')
             self.const110['state'] = 'normal'
             self.const210.delete(0, tk.END)
             self.const210['state'] = 'disabled'
-        else:
+        elif(self.modeloEspacial_Tipo4 == 1 and self.modeloTrafico_Tipo4 == 0):
             self.modeloesp10.set("Raised-Cosine Window")
             self.constante41.set('W')
             self.constante42.set('dth')
@@ -592,6 +673,7 @@ class Application(tk.Frame):
             self.tasaalarma11['state'] = 'normal'
             self.constante56.set('Velocidad alarma')
             self.veloalarma11['state'] = 'normal'
+            self.modeloesp11['state'] = 'readonly'
         else:
             self.modelotra11.set("Periódico")
             self.constante50.set('Tasa de paquetes')
@@ -602,6 +684,14 @@ class Application(tk.Frame):
             self.constante56.set('---')
             self.veloalarma11.delete(0, tk.END)
             self.veloalarma11['state'] = 'disabled'
+            self.constante51.set('')
+            self.constante52.set('')
+            self.const111.delete(0, tk.END)
+            self.const211.delete(0, tk.END)
+            self.const111['state'] = 'disabled'
+            self.const211['state'] = 'disabled'
+            self.modeloesp11.set('Seleccionar modelo')
+            self.modeloesp11['state'] = 'disabled'
         # Tasa de paquete
         self.const011.delete(0, tk.END)
         self.const011.insert(0, str(self.tasaPaquete_Tipo5))
@@ -612,13 +702,13 @@ class Application(tk.Frame):
         self.veloalarma11.delete(0, tk.END)
         self.veloalarma11.insert(0, str(self.velPropagacionAlarma_Tipo5))
         # Propagación espacial
-        if (self.modeloEspacial_Tipo5 == 0):
+        if (self.modeloEspacial_Tipo5 == 0 and self.modeloTrafico_Tipo5 == 0):
             self.modeloesp11.set("Decaying Exponential")
             self.constante51.set('Alpha')
             self.constante52.set('----')
             self.const111['state'] = 'normal'
             self.const211['state'] = 'disabled'
-        else:
+        elif(self.modeloEspacial_Tipo5 == 1 and self.modeloTrafico_Tipo5 == 0):
             self.modeloesp11.set("Raised-Cosine Window")
             self.constante51.set('W')
             self.constante52.set('dth')
@@ -665,7 +755,11 @@ class Application(tk.Frame):
             self.modeloEspacial_Tipo1 = 0  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
         else:
             self.modeloEspacial_Tipo1 = 1
-        self.constanteEspacial1_Tipo1 = float(self.const101.get())  # alpha para Decaying exponential, W para raised-cosine Window
+        if (self.const101.get() == ''):
+            self.constanteEspacial1_Tipo1 = 0
+        else:
+            self.constanteEspacial1_Tipo1 = float(self.const101.get())  # alpha para Decaying exponential, W para raised-cosine Window
+
         if (self.modeloesp01.get() == 'Raised-Cosine Window'):
             self.constanteEspacial2_Tipo1 = float(self.const201.get())  # ignorar para Decaying exponential, dth para raised-cosine Window
         # animacion
@@ -697,7 +791,12 @@ class Application(tk.Frame):
             self.modeloEspacial_Tipo2 = 0  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
         else:
             self.modeloEspacial_Tipo2 = 1
-        self.constanteEspacial1_Tipo2 = float(self.const102.get())  # alpha para Decaying exponential, W para raised-cosine Window
+
+        if (self.const102.get() == ''):
+            self.constanteEspacial1_Tipo2 = 0
+        else:
+            self.constanteEspacial1_Tipo2 = float(self.const102.get())  # alpha para Decaying exponential, W para raised-cosine Window
+
         if (self.modeloesp02.get() == 'Raised-Cosine Window'):
             self.constanteEspacial2_Tipo2 = float(self.const202.get())  # ignorar para Decaying exponential, dth para raised-cosine Window
         # animacion
@@ -728,7 +827,10 @@ class Application(tk.Frame):
             self.modeloEspacial_Tipo3 = 0  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
         else:
             self.modeloEspacial_Tipo3 = 1
-        self.constanteEspacial1_Tipo3 = float(self.const103.get())  # alpha para Decaying exponential, W para raised-cosine Window
+        if (self.const103.get() == ''):
+            self.constanteEspacial1_Tipo3 = 0
+        else:
+            self.constanteEspacial1_Tipo3 = float(self.const103.get())  # alpha para Decaying exponential, W para raised-cosine Window
         if (self.modeloesp03.get() == 'Raised-Cosine Window'):
             self.constanteEspacial2_Tipo3 = float(self.const203.get())  # ignorar para Decaying exponential, dth para raised-cosine Window
         # animacion
@@ -748,7 +850,10 @@ class Application(tk.Frame):
             self.modeloEspacial_Tipo4 = 0  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
         else:
             self.modeloEspacial_Tipo4 = 1
-        self.constanteEspacial1_Tipo4 = float(self.const110.get())   # alpha para Decaying exponential, W para raised-cosine Window
+        if (self.const110.get() == ''):
+            self.constanteEspacial1_Tipo4 = 0
+        else:
+            self.constanteEspacial1_Tipo4 = float(self.const110.get())   # alpha para Decaying exponential, W para raised-cosine Window
         if (self.modeloesp10.get() == 'Raised-Cosine Window'):
             self.constanteEspacial2_Tipo4 = float(self.const210.get())  # ignorar para Decaying exponential, dth para raised-cosine Window
         # animacion
@@ -768,7 +873,10 @@ class Application(tk.Frame):
             self.modeloEspacial_Tipo5 = 0  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
         else:
             self.modeloEspacial_Tipo5 = 1
-        self.constanteEspacial1_Tipo5 = float(self.const111.get())   # alpha para Decaying exponential, W para raised-cosine Window
+        if (self.const111.get() == ''):
+            self.constanteEspacial1_Tipo5 = 0
+        else:
+            self.constanteEspacial1_Tipo5 = float(self.const111.get())   # alpha para Decaying exponential, W para raised-cosine Window
         if (self.modeloesp11.get() == 'Raised-Cosine Window'):
             self.constanteEspacial2_Tipo5 = float(self.const211.get())  # ignorar para Decaying exponential, dth para raised-cosine Window
         # animacion
@@ -814,6 +922,7 @@ class Application(tk.Frame):
             self.constante16.set('Velocidad alarma')
             self.veloalarma01['state'] = 'normal'
             self.veloalarma01.delete(0, tk.END)
+            self.modeloesp01['state'] = 'readonly'
 
         elif(self.modelotra01.get()=='Periódico'):
             self.constante10.set('Tasa de paquete')
@@ -825,6 +934,14 @@ class Application(tk.Frame):
             self.constante16.set('---')
             self.veloalarma01.delete(0, tk.END)
             self.veloalarma01['state'] = 'disabled'
+            self.constante11.set('')
+            self.constante12.set('')
+            self.const101.delete(0, tk.END)
+            self.const201.delete(0, tk.END)
+            self.const101['state'] = 'disabled'
+            self.const201['state'] = 'disabled'
+            self.modeloesp01.set('Seleccionar modelo')
+            self.modeloesp01['state'] = 'disabled'
 
     def cambiomodelo2(self, event):
         if (self.modeloesp02.get() == 'Decaying Exponential'):
@@ -854,6 +971,7 @@ class Application(tk.Frame):
             self.constante26.set('Velocidad alarma')
             self.veloalarma02['state'] = 'normal'
             self.veloalarma02.delete(0, tk.END)
+            self.modeloesp02['state'] = 'readonly'
 
         elif(self.modelotra02.get()=='Periódico'):
             self.constante20.set('Tasa de paquete')
@@ -865,6 +983,14 @@ class Application(tk.Frame):
             self.constante26.set('---')
             self.veloalarma02.delete(0, tk.END)
             self.veloalarma02['state'] = 'disabled'
+            self.constante21.set('')
+            self.constante22.set('')
+            self.const102.delete(0, tk.END)
+            self.const202.delete(0, tk.END)
+            self.const102['state'] = 'disabled'
+            self.const202['state'] = 'disabled'
+            self.modeloesp02.set('Seleccionar modelo')
+            self.modeloesp02['state'] = 'disabled'
 
     def cambiomodelo3(self, event):
         if (self.modeloesp03.get() == 'Decaying Exponential'):
@@ -894,6 +1020,7 @@ class Application(tk.Frame):
             self.constante36.set('Velocidad alarma')
             self.veloalarma03['state'] = 'normal'
             self.veloalarma03.delete(0, tk.END)
+            self.modeloesp03['state'] = 'readonly'
 
         elif(self.modelotra03.get()=='Periódico'):
             self.constante30.set('Tasa de paquete')
@@ -905,6 +1032,14 @@ class Application(tk.Frame):
             self.constante36.set('---')
             self.veloalarma03.delete(0, tk.END)
             self.veloalarma03['state'] = 'disabled'
+            self.constante31.set('')
+            self.constante32.set('')
+            self.const103.delete(0, tk.END)
+            self.const203.delete(0, tk.END)
+            self.const103['state'] = 'disabled'
+            self.const203['state'] = 'disabled'
+            self.modeloesp03.set('Seleccionar modelo')
+            self.modeloesp03['state'] = 'disabled'
 
     def cambiomodelo4(self, event):
         if (self.modeloesp10.get() == 'Decaying Exponential'):
@@ -933,6 +1068,7 @@ class Application(tk.Frame):
             self.constante46.set('Velocidad alarma')
             self.veloalarma10['state'] = 'normal'
             self.veloalarma10.delete(0, tk.END)
+            self.modeloesp10['state'] = 'readonly'
 
         elif(self.modelotra10.get()=='Periódico'):
             self.constante40.set('Tasa de paquete')
@@ -944,6 +1080,14 @@ class Application(tk.Frame):
             self.constante46.set('---')
             self.veloalarma10.delete(0, tk.END)
             self.veloalarma10['state'] = 'disabled'
+            self.constante41.set('')
+            self.constante42.set('')
+            self.const110.delete(0, tk.END)
+            self.const210.delete(0, tk.END)
+            self.const110['state'] = 'disabled'
+            self.const210['state'] = 'disabled'
+            self.modeloesp10.set('Seleccionar modelo')
+            self.modeloesp10['state'] = 'disabled'
 
     def cambiomodelo5(self, event):
         if (self.modeloesp11.get() == 'Decaying Exponential'):
@@ -973,6 +1117,7 @@ class Application(tk.Frame):
             self.constante56.set('Velocidad alarma')
             self.veloalarma11['state'] = 'normal'
             self.veloalarma11.delete(0, tk.END)
+            self.modeloesp11['state'] = 'readonly'
 
         elif(self.modelotra11.get()=='Periódico'):
             self.constante50.set('Tasa de paquete')
@@ -984,6 +1129,14 @@ class Application(tk.Frame):
             self.constante56.set('---')
             self.veloalarma11.delete(0, tk.END)
             self.veloalarma11['state'] = 'disabled'
+            self.constante51.set('')
+            self.constante52.set('')
+            self.const111.delete(0, tk.END)
+            self.const211.delete(0, tk.END)
+            self.const111['state'] = 'disabled'
+            self.const211['state'] = 'disabled'
+            self.modeloesp11.set('Seleccionar modelo')
+            self.modeloesp11['state'] = 'disabled'
 
     def cambiomodelo6(self, event):
         if (self.modeloesp12.get() == 'Decaying Exponential'):
@@ -1006,6 +1159,7 @@ class Application(tk.Frame):
             self.constante66.set('Velocidad alarma')
             self.veloalarma12['state'] = 'normal'
             self.veloalarma12.delete(0, tk.END)
+            self.modeloesp12['state'] = 'readonly'
 
         elif(self.modelotra12.get()=='Periódico'):
             self.constante60.set('Tasa de paquete')
@@ -1017,6 +1171,14 @@ class Application(tk.Frame):
             self.constante66.set('---')
             self.veloalarma12.delete(0, tk.END)
             self.veloalarma12['state'] = 'disabled'
+            self.constante61.set('')
+            self.constante62.set('')
+            self.const112.delete(0, tk.END)
+            self.const212.delete(0, tk.END)
+            self.const112['state'] = 'disabled'
+            self.const212['state'] = 'disabled'
+            self.modeloesp12.set('Seleccionar modelo')
+            self.modeloesp12['state'] = 'disabled'
 
     def cambiomodelo7(self, event):
         if (self.modeloesp13.get() == 'Decaying Exponential'):
@@ -1039,6 +1201,7 @@ class Application(tk.Frame):
             self.constante76.set('Velocidad alarma')
             self.veloalarma13['state'] = 'normal'
             self.veloalarma13.delete(0, tk.END)
+            self.modeloesp13['state'] = 'readonly'
 
         elif(self.modelotra13.get()=='Periódico'):
             self.constante70.set('Tasa de paquete')
@@ -1050,6 +1213,14 @@ class Application(tk.Frame):
             self.constante76.set('---')
             self.veloalarma13.delete(0, tk.END)
             self.veloalarma13['state'] = 'disabled'
+            self.constante71.set('')
+            self.constante72.set('')
+            self.const113.delete(0, tk.END)
+            self.const213.delete(0, tk.END)
+            self.const113['state'] = 'disabled'
+            self.const213['state'] = 'disabled'
+            self.modeloesp13.set('Seleccionar modelo')
+            self.modeloesp13['state'] = 'disabled'
 
     def cambiomodelodisp(self,event):
         if(self.modelodisp00.get()=='PPP'):
@@ -1309,6 +1480,7 @@ class Application(tk.Frame):
         self.modeloesp01["values"] = ["Decaying Exponential","Raised-Cosine Window"]
         self.modeloesp01.set("Seleccionar modelo")
         self.modeloesp01.bind('<<ComboboxSelected>>', self.cambiomodeloesp1)
+        self.modeloesp01['state']='disabled'
         self.modeloesp01.grid(row=5,column=1,columnspan=2)
         #Constante modelo 1
         self.const101label = tk.Label(self.frame01, textvariable=self.constante11)
@@ -1375,6 +1547,7 @@ class Application(tk.Frame):
         self.modeloesp02["values"] = ["Decaying Exponential", "Raised-Cosine Window"]
         self.modeloesp02.set("Seleccionar modelo")
         self.modeloesp02.bind('<<ComboboxSelected>>', self.cambiomodelo2)
+        self.modeloesp02['state']='disabled'
         self.modeloesp02.grid(row=5, column=1, columnspan=2)
         # Constante modelo 1
         self.const102label = tk.Label(self.frame02, textvariable=self.constante21)
@@ -1441,6 +1614,7 @@ class Application(tk.Frame):
         self.modeloesp03["values"] = ["Decaying Exponential", "Raised-Cosine Window"]
         self.modeloesp03.set("Seleccionar modelo")
         self.modeloesp03.bind('<<ComboboxSelected>>', self.cambiomodelo3)
+        self.modeloesp03['state'] = 'disabled'
         self.modeloesp03.grid(row=5, column=1, columnspan=2)
         # Constante modelo 1
         self.const103label = tk.Label(self.frame03, textvariable=self.constante31)
@@ -1506,6 +1680,7 @@ class Application(tk.Frame):
         self.modeloesp10["values"] = ["Decaying Exponential", "Raised-Cosine Window"]
         self.modeloesp10.set("Seleccionar modelo")
         self.modeloesp10.bind('<<ComboboxSelected>>', self.cambiomodelo4)
+        self.modeloesp10['state'] = 'disabled'
         self.modeloesp10.grid(row=5, column=1, columnspan=2)
         # Constante modelo 1
         self.const110label = tk.Label(self.frame10, textvariable=self.constante41)
@@ -1572,6 +1747,7 @@ class Application(tk.Frame):
         self.modeloesp11["values"] = ["Decaying Exponential", "Raised-Cosine Window"]
         self.modeloesp11.set("Seleccionar modelo")
         self.modeloesp11.bind('<<ComboboxSelected>>', self.cambiomodelo5)
+        self.modeloesp11['state'] = 'disabled'
         self.modeloesp11.grid(row=5, column=1, columnspan=2)
         # Constante modelo 1
         self.const111label = tk.Label(self.frame11, textvariable=self.constante51)
@@ -1638,6 +1814,7 @@ class Application(tk.Frame):
         self.modeloesp12["values"] = ["Decaying Exponential", "Raised-Cosine Window"]
         self.modeloesp12.set("Decaying Exponential")
         self.modeloesp12.bind('<<ComboboxSelected>>', self.cambiomodelo6)
+        self.modeloesp12['state'] = 'disabled'
         self.modeloesp12.grid(row=5, column=1, columnspan=2)
         # Constante modelo 1
         self.const112label = tk.Label(self.frame12, textvariable=self.constante61)
@@ -1702,6 +1879,7 @@ class Application(tk.Frame):
         self.modeloesp13["values"] = ["Decaying Exponential", "Raised-Cosine Window"]
         self.modeloesp13.set("Decaying Exponential")
         self.modeloesp13.bind('<<ComboboxSelected>>', self.cambiomodelo7)
+        self.modeloesp13['state'] = 'disabled'
         self.modeloesp13.grid(row=5, column=1, columnspan=2)
         # Constante modelo 1
         self.const113label = tk.Label(self.frame13, textvariable=self.constante71)
@@ -1741,135 +1919,137 @@ class Application(tk.Frame):
     def rutinaCMMPP(self):
         self.leerentradas()
         ######################################################
+        for self.rep in range(self.repeticiones):
+            print(str(self.rep))
+            self.areaCelula = np.pi * self.radiocelula ** 2  # area de la célula
+            # Iniciamos la creación de dispositivos según la distribución seleccionada
+            # Dispositivos tipo 1
+            if (self.modelodispositivos == 0):
+                self.cantidad_Tipo1 = np.random.poisson(self.dipositivos_Tipo1 * self.areaCelula)  # Poisson número de dispoitivos de tipo1
+            else:
+                self.cantidad_Tipo1 = int(self.dipositivos_Tipo1)  # si no se trata de un PPP se generarán los dispositivos especifiados
+            self.theta_Tipo1 = 2 * np.pi * np.random.uniform(0, 1, self.cantidad_Tipo1)
+            self.rho_Tipo1 = self.radiocelula * np.sqrt(np.random.uniform(0, 1, self.cantidad_Tipo1))
+            # Convertimos las coordenadas polares a cartesianas
+            self.xx_Tipo1 = self.rho_Tipo1 * np.cos(self.theta_Tipo1)
+            self.yy_Tipo1 = self.rho_Tipo1 * np.sin(self.theta_Tipo1)
+            self.posiciones_Tipo1 = [self.xx_Tipo1,
+                                self.yy_Tipo1]  # Esta lista se usará para asignar posiciones a los dispositivos que se crearán
+            # Dispositivos tipo 2
+            if (self.modelodispositivos == 0):
+                self.cantidad_Tipo2 = np.random.poisson(self.dipositivos_Tipo2 * self.areaCelula)  # Poisson número de dispoitivos de tipo1
+            else:
+                self.cantidad_Tipo2 = int(self.dipositivos_Tipo2)  # si no se trata de un PPP se generarán los dispositivos especifiados
+            self.theta_Tipo2 = 2 * np.pi * np.random.uniform(0, 1, self.cantidad_Tipo2)
+            self.rho_Tipo2 = self.radiocelula * np.sqrt(np.random.uniform(0, 1, self.cantidad_Tipo2))
+            # Convertimos las coordenadas polares a cartesianas
+            self.xx_Tipo2 = self.rho_Tipo2 * np.cos(self.theta_Tipo2)
+            self.yy_Tipo2 = self.rho_Tipo2 * np.sin(self.theta_Tipo2)
+            self.posiciones_Tipo2 = [self.xx_Tipo2,
+                                self.yy_Tipo2]  # Esta lista se usará para asignar posiciones a los dispositivos que se crearán
+            # Dispositivos tipo 3
+            if (self.modelodispositivos == 0):
+                self.cantidad_Tipo3 = np.random.poisson(self.dipositivos_Tipo3 * self.areaCelula)  # Poisson número de dispoitivos de tipo1
+            else:
+                self.cantidad_Tipo3 = int(self.dipositivos_Tipo3)  # si no se trata de un PPP se generarán los dispositivos especifiados
+            self.theta_Tipo3 = 2 * np.pi * np.random.uniform(0, 1, self.cantidad_Tipo3)
+            self.rho_Tipo3 = self.radiocelula * np.sqrt(np.random.uniform(0, 1, self.cantidad_Tipo3))
+            # Convertimos las coordenadas polares a cartesianas
+            self.xx_Tipo3 = self.rho_Tipo3 * np.cos(self.theta_Tipo3)
+            self.yy_Tipo3 = self.rho_Tipo3 * np.sin(self.theta_Tipo3)
+            self.posiciones_Tipo3 = [self.xx_Tipo3,
+                                self.yy_Tipo3]  # Esta lista se usará para asignar posiciones a los dispositivos que se crearán
 
-        self.areaCelula = np.pi * self.radiocelula ** 2  # area de la célula
-        # Iniciamos la creación de dispositivos según la distribución seleccionada
-        # Dispositivos tipo 1
-        if (self.modelodispositivos == 0):
-            self.cantidad_Tipo1 = np.random.poisson(self.dipositivos_Tipo1 * self.areaCelula)  # Poisson número de dispoitivos de tipo1
-        else:
-            self.cantidad_Tipo1 = int(self.dipositivos_Tipo1)  # si no se trata de un PPP se generarán los dispositivos especifiados
-        self.theta_Tipo1 = 2 * np.pi * np.random.uniform(0, 1, self.cantidad_Tipo1)
-        self.rho_Tipo1 = self.radiocelula * np.sqrt(np.random.uniform(0, 1, self.cantidad_Tipo1))
-        # Convertimos las coordenadas polares a cartesianas
-        self.xx_Tipo1 = self.rho_Tipo1 * np.cos(self.theta_Tipo1)
-        self.yy_Tipo1 = self.rho_Tipo1 * np.sin(self.theta_Tipo1)
-        self.posiciones_Tipo1 = [self.xx_Tipo1,
-                            self.yy_Tipo1]  # Esta lista se usará para asignar posiciones a los dispositivos que se crearán
-        # Dispositivos tipo 2
-        if (self.modelodispositivos == 0):
-            self.cantidad_Tipo2 = np.random.poisson(self.dipositivos_Tipo2 * self.areaCelula)  # Poisson número de dispoitivos de tipo1
-        else:
-            self.cantidad_Tipo2 = int(self.dipositivos_Tipo2)  # si no se trata de un PPP se generarán los dispositivos especifiados
-        self.theta_Tipo2 = 2 * np.pi * np.random.uniform(0, 1, self.cantidad_Tipo2)
-        self.rho_Tipo2 = self.radiocelula * np.sqrt(np.random.uniform(0, 1, self.cantidad_Tipo2))
-        # Convertimos las coordenadas polares a cartesianas
-        self.xx_Tipo2 = self.rho_Tipo2 * np.cos(self.theta_Tipo2)
-        self.yy_Tipo2 = self.rho_Tipo2 * np.sin(self.theta_Tipo2)
-        self.posiciones_Tipo2 = [self.xx_Tipo2,
-                            self.yy_Tipo2]  # Esta lista se usará para asignar posiciones a los dispositivos que se crearán
-        # Dispositivos tipo 3
-        if (self.modelodispositivos == 0):
-            self.cantidad_Tipo3 = np.random.poisson(self.dipositivos_Tipo3 * self.areaCelula)  # Poisson número de dispoitivos de tipo1
-        else:
-            self.cantidad_Tipo3 = int(self.dipositivos_Tipo3)  # si no se trata de un PPP se generarán los dispositivos especifiados
-        self.theta_Tipo3 = 2 * np.pi * np.random.uniform(0, 1, self.cantidad_Tipo3)
-        self.rho_Tipo3 = self.radiocelula * np.sqrt(np.random.uniform(0, 1, self.cantidad_Tipo3))
-        # Convertimos las coordenadas polares a cartesianas
-        self.xx_Tipo3 = self.rho_Tipo3 * np.cos(self.theta_Tipo3)
-        self.yy_Tipo3 = self.rho_Tipo3 * np.sin(self.theta_Tipo3)
-        self.posiciones_Tipo3 = [self.xx_Tipo3,
-                            self.yy_Tipo3]  # Esta lista se usará para asignar posiciones a los dispositivos que se crearán
-
-        self.tiempo = 0  # tiempo inicial
-        self.iteraciones = self.tiempoLimite / self.deltaTiempo  # las iteraciones  que se producirán recorriendo el tiempo k
-        self.dispositivos = []  # una lista para guardar las instancias de dipoitivos de distintos tipos
-        self.generadoresAlarmas = []  # una lista para guardar los genradores de eventos de alarmas, uno para cada tipo de dispositivo
-        self.nuevaAlarma = [False] * self.tiposDispositivos
-        DeviceMTC.tiempoLitime=self.tiempoLimite
+            self.tiempo = 0  # tiempo inicial
+            self.iteraciones = self.tiempoLimite / self.deltaTiempo  # las iteraciones  que se producirán recorriendo el tiempo k
+            self.dispositivos = []  # una lista para guardar las instancias de dipoitivos de distintos tipos
+            self.generadoresAlarmas = []  # una lista para guardar los genradores de eventos de alarmas, uno para cada tipo de dispositivo
+            self.nuevaAlarma = [False] * self.tiposDispositivos
+            DeviceMTC.tiempoLitime=self.tiempoLimite
 
 
-        # Se generan las instancias de cada tipo de dipositivos y sus generadores de alarmas
-        self.dispositivos.append(
-            creardispositivos(self.modeloTrafico_Tipo1, self.cantidad_Tipo1, self.posiciones_Tipo1, self.tasaPaquete_Tipo1, 'Control de iluminacion', self.tiempo,
-                              self.color_Tipo1, self.marcador_Tipo1))
-        self.generadoresAlarmas.append(
-            GeneradorAlarmas(self.modeloTrafico_Tipo1, self.lambdaAlarma_Tipo1, self.velPropagacionAlarma_Tipo1, self.tiempo, self.modeloEspacial_Tipo1,
-                             self.constanteEspacial1_Tipo1, self.constanteEspacial2_Tipo1, [0, 0]))
-        self.dispositivos.append(
-            creardispositivos(self.modeloTrafico_Tipo2, self.cantidad_Tipo2, self.posiciones_Tipo2, self.tasaPaquete_Tipo2, 'Monitoreo de agua y electricidad',
-                              self.tiempo, self.color_Tipo2, self.marcador_Tipo2))
-        self.generadoresAlarmas.append(
-            GeneradorAlarmas(self.modeloTrafico_Tipo2, self.lambdaAlarma_Tipo2, self.velPropagacionAlarma_Tipo2, self.tiempo, self.modeloEspacial_Tipo2,
-                             self.constanteEspacial1_Tipo2, self.constanteEspacial2_Tipo2, [0, 0]))
-        self.dispositivos.append(
-            creardispositivos(self.modeloTrafico_Tipo3, self.cantidad_Tipo3, self.posiciones_Tipo3, self.tasaPaquete_Tipo3, 'Deteccion de terremotos', self.tiempo,
-                              self.color_Tipo3, self.marcador_Tipo3))
-        self.generadoresAlarmas.append(
-            GeneradorAlarmas(self.modeloTrafico_Tipo3, self.lambdaAlarma_Tipo3, self.velPropagacionAlarma_Tipo3, self.tiempo, self.modeloEspacial_Tipo3,
-                             self.constanteEspacial1_Tipo3, self.constanteEspacial2_Tipo3, [0, 0]))
+            # Se generan las instancias de cada tipo de dipositivos y sus generadores de alarmas
+            self.dispositivos.append(
+                creardispositivos(self.modeloTrafico_Tipo1, self.cantidad_Tipo1, self.posiciones_Tipo1, self.tasaPaquete_Tipo1, 'Control de iluminacion', self.tiempo,
+                                  self.color_Tipo1, self.marcador_Tipo1))
+            self.generadoresAlarmas.append(
+                GeneradorAlarmas(self.modeloTrafico_Tipo1, self.lambdaAlarma_Tipo1, self.velPropagacionAlarma_Tipo1, self.tiempo, self.modeloEspacial_Tipo1,
+                                 self.constanteEspacial1_Tipo1, self.constanteEspacial2_Tipo1, [0, 0]))
+            self.dispositivos.append(
+                creardispositivos(self.modeloTrafico_Tipo2, self.cantidad_Tipo2, self.posiciones_Tipo2, self.tasaPaquete_Tipo2, 'Monitoreo de agua y electricidad',
+                                  self.tiempo, self.color_Tipo2, self.marcador_Tipo2))
+            self.generadoresAlarmas.append(
+                GeneradorAlarmas(self.modeloTrafico_Tipo2, self.lambdaAlarma_Tipo2, self.velPropagacionAlarma_Tipo2, self.tiempo, self.modeloEspacial_Tipo2,
+                                 self.constanteEspacial1_Tipo2, self.constanteEspacial2_Tipo2, [0, 0]))
+            self.dispositivos.append(
+                creardispositivos(self.modeloTrafico_Tipo3, self.cantidad_Tipo3, self.posiciones_Tipo3, self.tasaPaquete_Tipo3, 'Deteccion de terremotos', self.tiempo,
+                                  self.color_Tipo3, self.marcador_Tipo3))
+            self.generadoresAlarmas.append(
+                GeneradorAlarmas(self.modeloTrafico_Tipo3, self.lambdaAlarma_Tipo3, self.velPropagacionAlarma_Tipo3, self.tiempo, self.modeloEspacial_Tipo3,
+                                 self.constanteEspacial1_Tipo3, self.constanteEspacial2_Tipo3, [0, 0]))
 
-        ##########  Algoritmo CMMPP  #################
+            ##########  Algoritmo CMMPP  #################
 
-        for self.k in range(0, int(self.iteraciones + 1)):  # Ciclo que avanza el tiempo
+            for self.k in range(0, int(self.iteraciones + 1)):  # Ciclo que avanza el tiempo
 
-            for self.dispositivosaux, self.generadorAlarma, self.tipoDisp in iter.zip_longest(self.dispositivos, self.generadoresAlarmas,
-                                                                               range(0,
-                                                                                     self.dispositivos.__len__())):  # Ciclo que recorre los distintos tipos de dispositivos y sus geenradores de alarmas
+                for self.dispositivosaux, self.generadorAlarma, self.tipoDisp in iter.zip_longest(self.dispositivos, self.generadoresAlarmas,
+                                                                                   range(0,
+                                                                                         self.dispositivos.__len__())):  # Ciclo que recorre los distintos tipos de dispositivos y sus geenradores de alarmas
 
-                if (self.tiempo == 0):
+                    if (self.tiempo == 0):
+                        self.nuevaAlarma[self.tipoDisp] = self.generadorAlarma.generarAlarma(self.tiempo,
+                                                                              self.radiocelula)  # se calcula el primer tiempo de alarma
+
+                    for self.dispositivo in self.dispositivosaux:  # Ciclo que recorre cada uno de los dispositivos del mismo tipo
+
+                        ##### Esto sólo compete a los dispositivos con modelo CMMPP
+                        if (self.dispositivo.modeloTrafico == 0):  # Si se trata del algoritmo CMMPP se registra la nueva alarma en caso de haberla
+                            self.dispositivo.registrarAlarma(self.generadorAlarma.idAlarma, self.generadorAlarma.siguienteArribo, (
+                                    self.generadorAlarma.siguienteArribo + (distanciaList(self.dispositivo.posicion,
+                                                                                     self.generadorAlarma.posicion) / self.generadorAlarma.velocidad))[
+                            0], self.generadorAlarma.posicion, self.nuevaAlarma[self.tipoDisp])
+
+
+                            [self.listaPnk, self.nuevaListaAlarmas] = calcularPnk(self.tiempo, self.dispositivo.listaAlarmas,
+                                                                    self.generadorAlarma.velocidad,
+                                                                    self.generadorAlarma.modeloEspacial,
+                                                                    self.generadorAlarma.constanteEspacial1,
+                                                                    self.generadorAlarma.constanteEspacial2, self.dispositivo.m_Pu,
+                                                                    self.dispositivo.m_Pc,
+                                                                    self.deltaTiempo)  # parte A del diagrama  /assets/CMMPP_diagrama.jpg
+
+                            # listaAlarmas=[idAlarma,tiempoAparicion,tiempoLLegada,posicionAlarma,self.posicion] esta es la forma de listaAlarmas
+                            for self.pnk, self.listaAlarmas in iter.zip_longest(self.listaPnk, self.dispositivo.listaAlarmas):
+                                self.dispositivo.actualizarestado(self.pnk)  # parte B del diagrama
+                                self.dispositivo.generararribo(self.tiempo, self.listaAlarmas[0], self.listaAlarmas[2],
+                                                      self.numerosDecimalesDeltaTiempo)  # parte C del diagrama
+                                self.dispositivo.actualizarestadoanormal()  # por si hay más de un evento que cree estados de alarma, se cambia siempre a estado normal,
+
+                            self.dispositivo.actualizarListaAlarmas(self.nuevaListaAlarmas)
+                        ##### Esto sólo compete a los dispositivos con modelo Periódico
+                        if (self.dispositivo.modeloTrafico == 1):
+                            self.dispositivo.generararriboperiodico(self.tiempo,self.numerosDecimalesDeltaTiempo)
+
                     self.nuevaAlarma[self.tipoDisp] = self.generadorAlarma.generarAlarma(self.tiempo,
-                                                                          self.radiocelula)  # se calcula el primer tiempo de alarma
+                                                                          self.radiocelula)  # se genera una nueva alarma en una posición aleatoria si la actual ya sucedió
 
-                for self.dispositivo in self.dispositivosaux:  # Ciclo que recorre cada uno de los dispositivos del mismo tipo
+                self.tiempo = round(self.tiempo + self.deltaTiempo, self.numerosDecimalesDeltaTiempo)  # Función para redondear decimales
 
-                    ##### Esto sólo compete a los dispositivos con modelo CMMPP
-                    if (self.dispositivo.modeloTrafico == 0):  # Si se trata del algoritmo CMMPP se registra la nueva alarma en caso de haberla
-                        self.dispositivo.registrarAlarma(self.generadorAlarma.idAlarma, self.generadorAlarma.siguienteArribo, (
-                                self.generadorAlarma.siguienteArribo + (distanciaList(self.dispositivo.posicion,
-                                                                                 self.generadorAlarma.posicion) / self.generadorAlarma.velocidad))[
-                        0], self.generadorAlarma.posicion, self.nuevaAlarma[self.tipoDisp])
-
-
-                        [self.listaPnk, self.nuevaListaAlarmas] = calcularPnk(self.tiempo, self.dispositivo.listaAlarmas,
-                                                                self.generadorAlarma.velocidad,
-                                                                self.generadorAlarma.modeloEspacial,
-                                                                self.generadorAlarma.constanteEspacial1,
-                                                                self.generadorAlarma.constanteEspacial2, self.dispositivo.m_Pu,
-                                                                self.dispositivo.m_Pc,
-                                                                self.deltaTiempo)  # parte A del diagrama  /assets/CMMPP_diagrama.jpg
-
-                        # listaAlarmas=[idAlarma,tiempoAparicion,tiempoLLegada,posicionAlarma,self.posicion] esta es la forma de listaAlarmas
-                        for self.pnk, self.listaAlarmas in iter.zip_longest(self.listaPnk, self.dispositivo.listaAlarmas):
-                            self.dispositivo.actualizarestado(self.pnk)  # parte B del diagrama
-                            self.dispositivo.generararribo(self.tiempo, self.listaAlarmas[0], self.listaAlarmas[2],
-                                                  self.numerosDecimalesDeltaTiempo)  # parte C del diagrama
-                            self.dispositivo.actualizarestadoanormal()  # por si hay más de un evento que cree estados de alarma, se cambia siempre a estado normal,
-
-                        self.dispositivo.actualizarListaAlarmas(self.nuevaListaAlarmas)
-                    ##### Esto sólo compete a los dispositivos con modelo Periódico
-                    if (self.dispositivo.modeloTrafico == 1):
-                        self.dispositivo.generararriboperiodico(self.tiempo,self.numerosDecimalesDeltaTiempo)
-
-                self.nuevaAlarma[self.tipoDisp] = self.generadorAlarma.generarAlarma(self.tiempo,
-                                                                      self.radiocelula)  # se genera una nueva alarma en una posición aleatoria si la actual ya sucedió
-
-            self.tiempo = round(self.tiempo + self.deltaTiempo, self.numerosDecimalesDeltaTiempo)  # Función para redondear decimales
-
-        def takeSecond(elem):
-            return elem[1]
-        self.arriboOrdenado = self.dispositivo.registroCompletoArribos.sort(key=takeSecond) # Ordenamos los arribos por tiempo
-        self.ultimodispositivo=self.dispositivo
-        # Registro de todos los eventos
-        self.ListaEventos = self.dispositivo.registroCompletoArribos
-        # Creación de un Dataframe apartir de una lista
-        self.df_eventos = pd.DataFrame(self.ListaEventos)
-        # Guardado de datos en archivo con extensión .csv
-        self.df_eventos.to_csv("ArchivoEventos.csv")
-        DeviceMTC.registroCompletoArribos=[]
-        DeviceMTC.cuentaAlarmas = 0
-        DeviceMTC.totalAlarmas = []
-        print('Fin de Rutina')
+            def takeSecond(elem):
+                return elem[1]
+            self.arriboOrdenado = self.dispositivo.registroCompletoArribos.sort(key=takeSecond) # Ordenamos los arribos por tiempo
+            self.ultimodispositivo=self.dispositivo
+            # Registro de todos los eventos
+            self.ListaEventos = self.dispositivo.registroCompletoArribos
+            # Creación de un Dataframe apartir de una lista
+            self.df_eventos = pd.DataFrame(self.ListaEventos)
+            # Guardado de datos en archivo con extensión .csv
+            nombreArchivo="ArchivoEventos"+str(self.rep)+".csv"
+            self.df_eventos.to_csv(nombreArchivo)
+            DeviceMTC.registroCompletoArribos=[]
+            DeviceMTC.cuentaAlarmas = 0
+            DeviceMTC.totalAlarmas = []
+            print('Fin de Rutina ')
 
 
 
