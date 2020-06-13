@@ -1966,24 +1966,26 @@ class Application(tk.Frame):
             self.generadoresAlarmas = []  # una lista para guardar los genradores de eventos de alarmas, uno para cada tipo de dispositivo
             self.nuevaAlarma = [False] * self.tiposDispositivos
             DeviceMTC.tiempoLitime=self.tiempoLimite
+            self.DispositivosTodos=[]
+
 
 
             # Se generan las instancias de cada tipo de dipositivos y sus generadores de alarmas
             self.dispositivos.append(
                 creardispositivos(self.modeloTrafico_Tipo1, self.cantidad_Tipo1, self.posiciones_Tipo1, self.tasaPaquete_Tipo1, 'Control de iluminacion', self.tiempo,
-                                  self.color_Tipo1, self.marcador_Tipo1))
+                                  self.color_Tipo1, self.marcador_Tipo1,self.DispositivosTodos))
             self.generadoresAlarmas.append(
                 GeneradorAlarmas(self.modeloTrafico_Tipo1, self.lambdaAlarma_Tipo1, self.velPropagacionAlarma_Tipo1, self.tiempo, self.modeloEspacial_Tipo1,
                                  self.constanteEspacial1_Tipo1, self.constanteEspacial2_Tipo1, [0, 0]))
             self.dispositivos.append(
                 creardispositivos(self.modeloTrafico_Tipo2, self.cantidad_Tipo2, self.posiciones_Tipo2, self.tasaPaquete_Tipo2, 'Monitoreo de agua y electricidad',
-                                  self.tiempo, self.color_Tipo2, self.marcador_Tipo2))
+                                  self.tiempo, self.color_Tipo2, self.marcador_Tipo2, self.DispositivosTodos))
             self.generadoresAlarmas.append(
                 GeneradorAlarmas(self.modeloTrafico_Tipo2, self.lambdaAlarma_Tipo2, self.velPropagacionAlarma_Tipo2, self.tiempo, self.modeloEspacial_Tipo2,
                                  self.constanteEspacial1_Tipo2, self.constanteEspacial2_Tipo2, [0, 0]))
             self.dispositivos.append(
                 creardispositivos(self.modeloTrafico_Tipo3, self.cantidad_Tipo3, self.posiciones_Tipo3, self.tasaPaquete_Tipo3, 'Deteccion de terremotos', self.tiempo,
-                                  self.color_Tipo3, self.marcador_Tipo3))
+                                  self.color_Tipo3, self.marcador_Tipo3, self.DispositivosTodos))
             self.generadoresAlarmas.append(
                 GeneradorAlarmas(self.modeloTrafico_Tipo3, self.lambdaAlarma_Tipo3, self.velPropagacionAlarma_Tipo3, self.tiempo, self.modeloEspacial_Tipo3,
                                  self.constanteEspacial1_Tipo3, self.constanteEspacial2_Tipo3, [0, 0]))
@@ -2043,12 +2045,17 @@ class Application(tk.Frame):
             self.ListaEventos = self.dispositivo.registroCompletoArribos
             # Creación de un Dataframe apartir de una lista
             self.df_eventos = pd.DataFrame(self.ListaEventos)
+            # Creación de un Dataframe apartir de una lista
+            self.df_dispositivos = pd.DataFrame(self.DispositivosTodos)
             # Guardado de datos en archivo con extensión .csv
             nombreArchivo="ArchivoEventos"+str(self.rep)+".csv"
+            nombreArchivoDisp = "ArchivoDispositivos" + str(self.rep) + ".csv"
             self.df_eventos.to_csv(nombreArchivo)
+            self.df_dispositivos.to_csv(nombreArchivoDisp)
             DeviceMTC.registroCompletoArribos=[]
             DeviceMTC.cuentaAlarmas = 0
             DeviceMTC.totalAlarmas = []
+            #TODO tal vez resetear l acuenta de dispositivos
             print('Fin de Rutina ')
 
 

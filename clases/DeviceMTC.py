@@ -2,6 +2,9 @@ import numpy as np  # NumPy package for arrays, random number generation, etc
 
 
 class DeviceMTC(object):
+
+    totalDispositivos=1
+
     # Definición de constructor
     def __init__(self, modelotrafico,lambdareg, Xpos, Ypos, estado, tipo,tiempoInicial,identificador, registroArribos, tamañopkt,color,marcador):
         self.modeloTrafico= modelotrafico # 0 para tráfico CMMPP y 1 para periodico

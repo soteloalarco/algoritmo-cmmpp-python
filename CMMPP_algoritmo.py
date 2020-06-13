@@ -98,20 +98,22 @@ yy_Tipo3 = rho_Tipo3 * np.sin(theta_Tipo3)
 posiciones_Tipo3=[xx_Tipo3,yy_Tipo3]# Esta lista se usará para asignar posiciones a los dispositivos que se crearán
 
 
+
 tiempo = 0 # tiempo inicial
 iteraciones=tiempoLimite/deltaTiempo # las iteraciones  que se producirán recorriendo el tiempo k
 dispositivos= [] # una lista para guardar las instancias de dipoitivos de distintos tipos
 generadoresAlarmas=[] # una lista para guardar los genradores de eventos de alarmas, uno para cada tipo de dispositivo
 nuevaAlarma= [False] * tiposDispositivos
 DeviceMTC.tiempoLitime=tiempoLimite
+DispositivosTodos=[]
 
 
 #Se generan las instancias de cada tipo de dipositivos y sus generadores de alarmas
-dispositivos.append(creardispositivos(modeloTrafico_Tipo1,cantidad_Tipo1,posiciones_Tipo1, lambdaRegular_Tipo1,'Control de iluminacion',tiempo,color_Tipo1,marcador_Tipo1))
+dispositivos.append(creardispositivos(modeloTrafico_Tipo1,cantidad_Tipo1,posiciones_Tipo1, lambdaRegular_Tipo1,'Control de iluminacion',tiempo,color_Tipo1,marcador_Tipo1,DispositivosTodos))
 generadoresAlarmas.append(GeneradorAlarmas(modeloTrafico_Tipo1, lambdaAlarma_Tipo1,velPropagacionAlarma_Tipo1,tiempo,modeloEspacial_Tipo1,constanteEspacial1_Tipo1,constanteEspacial2_Tipo1,[0,0]))
-dispositivos.append(creardispositivos(modeloTrafico_Tipo2, cantidad_Tipo2, posiciones_Tipo2,lambdaRegular_Tipo2,'Monitoreo de agua y electricidad',tiempo,color_Tipo2,marcador_Tipo2))
+dispositivos.append(creardispositivos(modeloTrafico_Tipo2, cantidad_Tipo2, posiciones_Tipo2,lambdaRegular_Tipo2,'Monitoreo de agua y electricidad',tiempo,color_Tipo2,marcador_Tipo2, DispositivosTodos))
 generadoresAlarmas.append(GeneradorAlarmas(modeloTrafico_Tipo2, lambdaAlarma_Tipo2,velPropagacionAlarma_Tipo2,tiempo,modeloEspacial_Tipo2,constanteEspacial1_Tipo2,constanteEspacial2_Tipo2,[0,0]))
-dispositivos.append(creardispositivos(modeloTrafico_Tipo3, cantidad_Tipo3, posiciones_Tipo3,lambdaRegular_Tipo3,'Deteccion de terremotos',tiempo,color_Tipo3,marcador_Tipo3))
+dispositivos.append(creardispositivos(modeloTrafico_Tipo3, cantidad_Tipo3, posiciones_Tipo3,lambdaRegular_Tipo3,'Deteccion de terremotos',tiempo,color_Tipo3,marcador_Tipo3, DispositivosTodos))
 generadoresAlarmas.append(GeneradorAlarmas(modeloTrafico_Tipo3, lambdaAlarma_Tipo3,velPropagacionAlarma_Tipo3,tiempo,modeloEspacial_Tipo3,constanteEspacial1_Tipo3,constanteEspacial2_Tipo3,[0,0]))
 
 ##########  Algoritmo CMMPP  #################
