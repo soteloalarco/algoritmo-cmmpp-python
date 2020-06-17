@@ -2519,6 +2519,7 @@ class Application(tk.Frame):
             DeviceMTC.registroCompletoArribos=[]
             DeviceMTC.cuentaAlarmas = 0
             DeviceMTC.totalAlarmas = []
+            DeviceMTC.totalDispositivos=1
             #TODO tal vez resetear l acuenta de dispositivos
             print('Fin de Rutina ')
 
