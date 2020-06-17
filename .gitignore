@@ -20,3 +20,11 @@ clases/__pycache__/DeviceMTC.cpython-36.pyc
 funciones/__pycache__/funcionesdispositivos.cpython-36.pyc
 
 clases/__pycache__/GeneradorAlarma.cpython-36.pyc
+
+ArchivoEventos0.csv
+
+ArchivoEventos1.csv
+
+ArchivoEventos2.csv
+
+*.csv
