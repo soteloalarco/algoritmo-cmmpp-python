@@ -1006,7 +1006,7 @@ class Application(tk.Frame):
             self.modelodispositivos = 1
         self.repeticiones=int(self.repeticiones00.get())
 
-        self.tiposDispositivos = 3  # Cantidad total de dispositivos a caracterizar a continuación
+        self.tiposDispositivos = 7  # Cantidad total de dispositivos a caracterizar a continuación
 
         ### Control de iluminación
         self.dipositivos_Tipo1 = float(self.numero01.get())  # número de dispositivos de tipo 1,
@@ -2418,7 +2418,7 @@ class Application(tk.Frame):
             # tipo 4
             self.dispositivos.append(
                 creardispositivos(self.modeloTrafico_Tipo4, self.cantidad_Tipo4, self.posiciones_Tipo4,
-                                  self.tasaPaquete_Tipo4, 'Semáforos inteligentes', self.tiempo,
+                                  self.tasaPaquete_Tipo4, 'Semaforos inteligentes', self.tiempo,
                                   self.color_Tipo4, self.marcador_Tipo4, self.DispositivosTodos))
             self.generadoresAlarmas.append(
                 GeneradorAlarmas(self.modeloTrafico_Tipo4, self.lambdaAlarma_Tipo4, self.velPropagacionAlarma_Tipo4,
@@ -2428,7 +2428,7 @@ class Application(tk.Frame):
             # tipo 5
             self.dispositivos.append(
                 creardispositivos(self.modeloTrafico_Tipo5, self.cantidad_Tipo5, self.posiciones_Tipo5,
-                                  self.tasaPaquete_Tipo5, 'Contaminación del aire', self.tiempo,
+                                  self.tasaPaquete_Tipo5, 'Contaminacion del aire', self.tiempo,
                                   self.color_Tipo5, self.marcador_Tipo5, self.DispositivosTodos))
             self.generadoresAlarmas.append(
                 GeneradorAlarmas(self.modeloTrafico_Tipo5, self.lambdaAlarma_Tipo5, self.velPropagacionAlarma_Tipo5,
@@ -2464,8 +2464,7 @@ class Application(tk.Frame):
                                                                                          self.dispositivos.__len__())):  # Ciclo que recorre los distintos tipos de dispositivos y sus geenradores de alarmas
 
                     if (self.tiempo == 0):
-                        self.nuevaAlarma[self.tipoDisp] = self.generadorAlarma.generarAlarma(self.tiempo,
-                                                                              self.radiocelula)  # se calcula el primer tiempo de alarma
+                        self.nuevaAlarma[self.tipoDisp] = self.generadorAlarma.generarAlarma(self.tiempo, self.radiocelula)  # se calcula el primer tiempo de alarma
 
                     for self.dispositivo in self.dispositivosaux:  # Ciclo que recorre cada uno de los dispositivos del mismo tipo
 
