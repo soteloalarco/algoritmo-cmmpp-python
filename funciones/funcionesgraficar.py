@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt  # for plotting
 from clases.TiposDispositivos import TiposDispositivos
+import copy
 
 def graficardispositivos(dispositivosTodos,radio):
     fig, ax = plt.subplots(1, 1)
@@ -72,6 +73,8 @@ def graficareventosportipodispositivo(ListaEventos, bins,tiempofinal):
             dispTipo6.append(dispositivo[1])
         elif dispositivo[3] == TiposDispositivos.TIPO7:
             dispTipo7.append(dispositivo[1])
+######
+
 
     ax11.hist(dispTipo1, label='paquetes',density=False, range=(0, tiempofinal), bins=bins + 1)
     ax11.legend(loc='upper right')
@@ -81,6 +84,16 @@ def graficareventosportipodispositivo(ListaEventos, bins,tiempofinal):
     ax11.set_ylabel('Eventos')
     ax11.set_xlabel('Tiempo')
 
+    lambdaEventos1 = graficarlambdaeventos(ListaEventos,TiposDispositivos.TIPO1)
+    ax12.hist(lambdaEventos1, label='histograma', density=True)
+    ax12.legend(loc='upper right')
+    titulo = "Tiempo entre eventos y alarmas"
+    ax12.title.set_text(titulo)
+    ax12.set_ylabel('PDF')
+    ax12.set_xlabel('tiempo')
+
+
+####
     ax21.hist(dispTipo2, label='paquetes', density=False, range=(0, tiempofinal), bins=bins + 1)
     ax21.legend(loc='upper right')
     fig2.canvas.set_window_title(TiposDispositivos.TIPO2)
@@ -88,6 +101,15 @@ def graficareventosportipodispositivo(ListaEventos, bins,tiempofinal):
     ax21.title.set_text(titulo)
     ax21.set_ylabel('Eventos')
     ax21.set_xlabel('Tiempo')
+
+    lambdaEventos2 = graficarlambdaeventos(ListaEventos, TiposDispositivos.TIPO2)
+    ax22.hist(lambdaEventos2, label='histograma', density=True)
+    ax22.legend(loc='upper right')
+    titulo = "Tiempo entre eventos y alarmas"
+    ax22.title.set_text(titulo)
+    ax22.set_ylabel('PDF')
+    ax22.set_xlabel('tiempo')
+####
 
     ax31.hist(dispTipo3, label='paquetes', density=False, range=(0, tiempofinal), bins=bins + 1)
     ax31.legend(loc='upper right')
@@ -97,6 +119,15 @@ def graficareventosportipodispositivo(ListaEventos, bins,tiempofinal):
     ax31.set_ylabel('Eventos')
     ax31.set_xlabel('Tiempo')
 
+    lambdaEventos3 = graficarlambdaeventos(ListaEventos, TiposDispositivos.TIPO3)
+    ax32.hist(lambdaEventos3, label='histograma', density=True)
+    ax32.legend(loc='upper right')
+    titulo = "Tiempo entre eventos y alarmas"
+    ax32.title.set_text(titulo)
+    ax32.set_ylabel('PDF')
+    ax32.set_xlabel('tiempo')
+###
+
     ax41.hist(dispTipo4, label='paquetes', density=False, range=(0, tiempofinal), bins=bins + 1)
     ax41.legend(loc='upper right')
     fig4.canvas.set_window_title(TiposDispositivos.TIPO4)
@@ -104,6 +135,15 @@ def graficareventosportipodispositivo(ListaEventos, bins,tiempofinal):
     ax41.title.set_text(titulo)
     ax41.set_ylabel('Eventos')
     ax41.set_xlabel('Tiempo')
+
+    lambdaEventos4 = graficarlambdaeventos(ListaEventos, TiposDispositivos.TIPO4)
+    ax42.hist(lambdaEventos4, label='histograma', density=True)
+    ax42.legend(loc='upper right')
+    titulo = "Tiempo entre eventos y alarmas"
+    ax42.title.set_text(titulo)
+    ax42.set_ylabel('PDF')
+    ax42.set_xlabel('tiempo')
+###
 
     ax51.hist(dispTipo5, label='paquetes', density=False, range=(0, tiempofinal), bins=bins + 1)
     ax51.legend(loc='upper right')
@@ -113,6 +153,15 @@ def graficareventosportipodispositivo(ListaEventos, bins,tiempofinal):
     ax51.set_ylabel('Eventos')
     ax51.set_xlabel('Tiempo')
 
+    lambdaEventos5 = graficarlambdaeventos(ListaEventos, TiposDispositivos.TIPO5)
+    ax52.hist(lambdaEventos5, label='histograma', density=True)
+    ax52.legend(loc='upper right')
+    titulo = "Tiempo entre eventos y alarmas"
+    ax52.title.set_text(titulo)
+    ax52.set_ylabel('PDF')
+    ax52.set_xlabel('tiempo')
+###
+
     ax61.hist(dispTipo6, label='paquetes', density=False, range=(0, tiempofinal), bins=bins + 1)
     ax61.legend(loc='upper right')
     fig6.canvas.set_window_title(TiposDispositivos.TIPO6)
@@ -121,6 +170,15 @@ def graficareventosportipodispositivo(ListaEventos, bins,tiempofinal):
     ax61.set_ylabel('Eventos')
     ax61.set_xlabel('Tiempo')
 
+    lambdaEventos6 = graficarlambdaeventos(ListaEventos, TiposDispositivos.TIPO6)
+    ax62.hist(lambdaEventos6, label='histograma', density=True)
+    ax62.legend(loc='upper right')
+    titulo = "Tiempo entre eventos y alarmas"
+    ax62.title.set_text(titulo)
+    ax62.set_ylabel('PDF')
+    ax62.set_xlabel('tiempo')
+###
+
     ax71.hist(dispTipo7, label='paquetes', density=False, range=(0, tiempofinal), bins=bins + 1)
     ax71.legend(loc='upper right')
     fig7.canvas.set_window_title(TiposDispositivos.TIPO7)
@@ -128,3 +186,24 @@ def graficareventosportipodispositivo(ListaEventos, bins,tiempofinal):
     ax71.title.set_text(titulo)
     ax71.set_ylabel('Eventos')
     ax71.set_xlabel('Tiempo')
+
+    lambdaEventos7 = graficarlambdaeventos(ListaEventos, TiposDispositivos.TIPO7)
+    ax72.hist(lambdaEventos7, label='histograma', density=True)
+    ax72.legend(loc='upper right')
+    titulo = "Tiempo entre eventos y alarmas"
+    ax72.title.set_text(titulo)
+    ax72.set_ylabel('PDF')
+    ax72.set_xlabel('tiempo')
+
+def graficarlambdaeventos(ListaEventos,tipoDispositivo):
+    #TODO corregir para que se calcule una idferencia distinta por dispositivo
+
+        Eventos = copy.deepcopy(ListaEventos)
+        valorPrevio=0
+        diferencias=[]
+        for evento in Eventos:
+            if evento[0]==0 and evento[3]==tipoDispositivo:
+                diferencias.append(evento[1]-valorPrevio)
+                valorPrevio=evento[1]
+
+        return diferencias
