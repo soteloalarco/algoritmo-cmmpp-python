@@ -9,13 +9,15 @@ from funciones.miscelaneo import distanciaList
 from decimal import *
 import numpy as np
 from clases.DeviceMTC import DeviceMTC
+from funciones.funcionesgraficar import graficardispositivos
+from funciones.funcionesgraficar import histogramatodoseventos
 
 
 class Application(tk.Frame):
 
     # Variables a modificar
     tiempoLimite = 1  # segundos, tiempo de paro del algoritmo
-    deltaTiempo = 0.1  # segundos , diferencial de tiempo entre iteración
+    deltaTiempo = 0.01  # segundos , diferencial de tiempo entre iteración
     numerosDecimalesDeltaTiempo = 1  # Si se modifica deltaTiempo modificar también esta variable
     tiposDispositivos = 7  # Cantidad total de dispositivos a caracterizar a continuación
     radiocelula=50 # radio de la célula en metros
@@ -2516,12 +2518,19 @@ class Application(tk.Frame):
             nombreArchivoDisp = "ArchivoDispositivos" + str(self.rep) + ".csv"
             self.df_eventos.to_csv(nombreArchivo)
             self.df_dispositivos.to_csv(nombreArchivoDisp)
+            print('Fin de Rutina ')
+
+            ## Aquí voy a graficar
+            graficardispositivos(self.DispositivosTodos,self.radiocelula)
+            histogramatodoseventos(self.ListaEventos,self.k,self.tiempo)
+
+
             DeviceMTC.registroCompletoArribos=[]
             DeviceMTC.cuentaAlarmas = 0
             DeviceMTC.totalAlarmas = []
             DeviceMTC.totalDispositivos=1
             #TODO tal vez resetear l acuenta de dispositivos
-            print('Fin de Rutina ')
+
 
 
 

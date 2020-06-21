@@ -28,3 +28,5 @@ ArchivoEventos1.csv
 ArchivoEventos2.csv
 
 *.csv
+
+funciones/__pycache__/funcionesgraficar.cpython-36.pyc
