@@ -17,13 +17,14 @@ from funciones.funcionesgraficar import graficareventosportipodispositivo
 class Application(tk.Frame):
 
     # Variables a modificar
-    tiempoLimite = 1  # segundos, tiempo de paro del algoritmo
+    tiempoLimite = 1000  # segundos, tiempo de paro del algoritmo
     deltaTiempo = 0.1  # segundos , diferencial de tiempo entre iteración
     numerosDecimalesDeltaTiempo = 1  # Si se modifica deltaTiempo modificar también esta variable
     tiposDispositivos = 7  # Cantidad total de dispositivos a caracterizar a continuación
     radiocelula=50 # radio de la célula en metros
     modelodispositivos=0 # 0 para PPP y 1 para uniforme
     repeticiones=1 # repeticiones de la rutina CCMMPP
+    tasasEventosAlarmas = []
 
     ### Control de iluminación
     dipositivos_Tipo1 = 0.05  # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución  (modelodispositivos) es uniforme
@@ -54,7 +55,7 @@ class Application(tk.Frame):
     ### Detección de terremotos
     dipositivos_Tipo3 = 0.08 # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución  (modelodispositivos) es uniforme
     modeloTrafico_Tipo3 = 0  # Modelo de generación de tráfico, 0 CMMPP 1 Periódico
-    tasaPaquete_Tipo3 = 1 / 180  # si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 3, si modelotrafico==1 tasa de Paquete/seg
+    tasaPaquete_Tipo3 = 1 / 45  # si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 3, si modelotrafico==1 tasa de Paquete/seg
     lambdaAlarma_Tipo3 = 1 / 100  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
     velPropagacionAlarma_Tipo3 = 3000  # m/s Velocidad de propagación de alarma
     modeloEspacial_Tipo3 = 0  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
@@ -67,7 +68,7 @@ class Application(tk.Frame):
     ### Contaminación del aire
     dipositivos_Tipo4 = 0.01  # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución  (modelodispositivos) es uniforme
     modeloTrafico_Tipo4 = 0  # Modelo de generación de tráfico, 0 CMMPP 1 Periódico
-    tasaPaquete_Tipo4 = 1 / 190  # si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 4, si modelotrafico==1 tasa de Paquete/seg
+    tasaPaquete_Tipo4 = 1 / 30  # si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 4, si modelotrafico==1 tasa de Paquete/seg
     lambdaAlarma_Tipo4 = 1 / 100  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
     velPropagacionAlarma_Tipo4 = 1000  # m/s Velocidad de propagación de alarma
     modeloEspacial_Tipo4 = 0  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
@@ -80,7 +81,7 @@ class Application(tk.Frame):
     ### Control de semáforos
     dipositivos_Tipo5 = 0.03  # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución  (modelodispositivos) es uniforme
     modeloTrafico_Tipo5 = 0  # Modelo de generación de tráfico, 0 CMMPP 1 Periódico
-    tasaPaquete_Tipo5 = 1 / 170  #  si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 5, si modelotrafico==1 tasa de Paquete/seg
+    tasaPaquete_Tipo5 = 1 / 20  #  si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 5, si modelotrafico==1 tasa de Paquete/seg
     lambdaAlarma_Tipo5 = 1 / 200  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
     velPropagacionAlarma_Tipo5 = 2000  # m/s Velocidad de propagación de alarma
     modeloEspacial_Tipo5 = 1  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
@@ -93,7 +94,7 @@ class Application(tk.Frame):
     ### Otros dispositivos nMTC
     dipositivos_Tipo6 = 0.03  # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución  (modelodispositivos) es uniforme
     modeloTrafico_Tipo6 = 0  # Modelo de generación de tráfico, 0 CMMPP 1 Periódico
-    tasaPaquete_Tipo6 = 1 / 170  # si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 5, si modelotrafico==1 tasa de Paquete/seg
+    tasaPaquete_Tipo6 = 1 / 38  # si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 5, si modelotrafico==1 tasa de Paquete/seg
     lambdaAlarma_Tipo6 = 1 / 200  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
     velPropagacionAlarma_Tipo6 = 2000  # m/s Velocidad de propagación de alarma
     modeloEspacial_Tipo6 = 1  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
@@ -106,7 +107,7 @@ class Application(tk.Frame):
     ### Dispositivos URLLC
     dipositivos_Tipo7 = 0.03  # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución  (modelodispositivos) es uniforme
     modeloTrafico_Tipo7 = 0  # Modelo de generación de tráfico, 0 CMMPP 1 Periódico
-    tasaPaquete_Tipo7 = 1 / 170  # si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 5, si modelotrafico==1 tasa de Paquete/seg
+    tasaPaquete_Tipo7 = 1 / 25  # si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 5, si modelotrafico==1 tasa de Paquete/seg
     lambdaAlarma_Tipo7 = 1 / 200  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
     velPropagacionAlarma_Tipo7 = 2000  # m/s Velocidad de propagación de alarma
     modeloEspacial_Tipo7 = 1  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
@@ -1022,6 +1023,7 @@ class Application(tk.Frame):
             self.lambdaAlarma_Tipo1=0
         else:
             self.lambdaAlarma_Tipo1 = float(self.tasaalarma01.get())  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 500 seg)
+        self.tasasEventosAlarmas.append([self.tasaPaquete_Tipo1,self.lambdaAlarma_Tipo1])
         if(self.veloalarma01.get()==''):
             self.velPropagacionAlarma_Tipo1 =0
         else:
@@ -1053,7 +1055,8 @@ class Application(tk.Frame):
             self.lambdaAlarma_Tipo2 = 0
         else:
             self.lambdaAlarma_Tipo2 = float(
-                self.tasaalarma02.get())  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 500 seg)
+                self.tasaalarma02.get())  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 500 seg
+        self.tasasEventosAlarmas.append([self.tasaPaquete_Tipo2, self.lambdaAlarma_Tipo2])
         if (self.veloalarma02.get() == ''):
             self.velPropagacionAlarma_Tipo2 = 0
         else:
@@ -1087,6 +1090,7 @@ class Application(tk.Frame):
         else:
             self.lambdaAlarma_Tipo3 = float(
                 self.tasaalarma03.get())  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 500 seg)
+        self.tasasEventosAlarmas.append([self.tasaPaquete_Tipo3, self.lambdaAlarma_Tipo3])
         if (self.veloalarma03.get() == ''):
             self.velPropagacionAlarma_Tipo3 = 0
         else:
@@ -1121,6 +1125,7 @@ class Application(tk.Frame):
         else:
             self.lambdaAlarma_Tipo4 = float(
                 self.tasaalarma10.get())
+        self.tasasEventosAlarmas.append([self.tasaPaquete_Tipo4, self.lambdaAlarma_Tipo4])
         if (self.veloalarma10.get() == ''):
             self.velPropagacionAlarma_Tipo4 = 0
         else:
@@ -1152,6 +1157,7 @@ class Application(tk.Frame):
         else:
             self.lambdaAlarma_Tipo5 = float(
                 self.tasaalarma11.get())
+        self.tasasEventosAlarmas.append([self.tasaPaquete_Tipo5, self.lambdaAlarma_Tipo5])
         if (self.veloalarma11.get() == ''):
             self.velPropagacionAlarma_Tipo5 = 0
         else:
@@ -1183,6 +1189,7 @@ class Application(tk.Frame):
         else:
             self.lambdaAlarma_Tipo6 = float(
                 self.tasaalarma12.get())
+        self.tasasEventosAlarmas.append([self.tasaPaquete_Tipo6, self.lambdaAlarma_Tipo6])
         if (self.veloalarma12.get() == ''):
             self.velPropagacionAlarma_Tipo6 = 0
         else:
@@ -1203,7 +1210,7 @@ class Application(tk.Frame):
         self.color_Tipo6 = 'k'
         self.marcador_Tipo6 = '^'
 
-        ### Otros dispositivos mMTC
+        ### Dispositivos URLLC
         self.dipositivos_Tipo7 = float(self.numero13.get())  # número de dispositivos de tipo 5
         if (self.modelotra13.get() == 'CMMPP'):
             self.modeloTrafico_Tipo7 = 0  # modelo de trafico 0 CMMPP 1 Periódico
@@ -1216,6 +1223,7 @@ class Application(tk.Frame):
         else:
             self.lambdaAlarma_Tipo7 = float(
                 self.tasaalarma13.get())
+        self.tasasEventosAlarmas.append([self.tasaPaquete_Tipo7, self.lambdaAlarma_Tipo7])
         if (self.veloalarma13.get() == ''):
             self.velPropagacionAlarma_Tipo7 = 0
         else:
@@ -2524,7 +2532,7 @@ class Application(tk.Frame):
             ## Aquí voy a graficar
             graficardispositivos(self.DispositivosTodos,self.radiocelula)
             histogramatodoseventos(self.ListaEventos,self.k,self.tiempo)
-            graficareventosportipodispositivo(self.ListaEventos,self.k,self.tiempo)
+            graficareventosportipodispositivo(self.ListaEventos,self.k,self.tiempo,self.tasasEventosAlarmas)
 
             DeviceMTC.registroCompletoArribos=[]
             DeviceMTC.cuentaAlarmas = 0

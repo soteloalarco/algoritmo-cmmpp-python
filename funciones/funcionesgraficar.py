@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt  # for plotting
 from clases.TiposDispositivos import TiposDispositivos
 import copy
+import numpy as np
+from scipy.stats import expon
 
 def graficardispositivos(dispositivosTodos,radio):
     fig, ax = plt.subplots(1, 1)
@@ -27,7 +29,7 @@ def histogramatodoseventos(ListaEventos, bins,tiempofinal):
     plt.xlabel('Tiempo')
     plt.axhline()
 
-def graficareventosportipodispositivo(ListaEventos, bins,tiempofinal):
+def graficareventosportipodispositivo(ListaEventos, bins,tiempofinal, tasasEventosAlarmas):
 
     fig1=plt.figure()
     ax11 = fig1.add_subplot(121)
@@ -85,12 +87,19 @@ def graficareventosportipodispositivo(ListaEventos, bins,tiempofinal):
     ax11.set_xlabel('Tiempo')
 
     lambdaEventos1 = graficarlambdaeventos(ListaEventos,TiposDispositivos.TIPO1)
-    ax12.hist(lambdaEventos1, label='histograma', density=True)
-    ax12.legend(loc='upper right')
-    titulo = "Tiempo entre eventos y alarmas"
+    count1, bins1, _ = ax12.hist(lambdaEventos1, label='histograma eventos', density=True, bins=30)
+    titulo = "Tiempo entre eventos ("+str(len(lambdaEventos1))+" muestras) y alarmas"
     ax12.title.set_text(titulo)
     ax12.set_ylabel('PDF')
     ax12.set_xlabel('tiempo')
+
+    x = np.linspace(0, max(bins1), 500)
+    # Varying positional arguments
+    y = expon.pdf(x, 0, 1 / tasasEventosAlarmas[0][0])
+    label='expon lambda= ' + str(tasasEventosAlarmas[0][0])
+    ax12.plot(x, y, "--", color='r', label=label)
+
+    ax12.legend(loc='upper right')
 
 
 ####
@@ -103,12 +112,15 @@ def graficareventosportipodispositivo(ListaEventos, bins,tiempofinal):
     ax21.set_xlabel('Tiempo')
 
     lambdaEventos2 = graficarlambdaeventos(ListaEventos, TiposDispositivos.TIPO2)
-    ax22.hist(lambdaEventos2, label='histograma', density=True)
-    ax22.legend(loc='upper right')
-    titulo = "Tiempo entre eventos y alarmas"
+    #ax22.hist(lambdaEventos2, label='histograma', density=False)
+    ax22.vlines(lambdaEventos2, 0, lambdaEventos2, colors='b', lw=5, alpha=0.5)
+    #ax22.legend(loc='upper right')
+    titulo = "Tiempo entre eventos ("+str(len(lambdaEventos2))+" muestras) y alarmas"
     ax22.title.set_text(titulo)
     ax22.set_ylabel('PDF')
     ax22.set_xlabel('tiempo')
+
+
 ####
 
     ax31.hist(dispTipo3, label='paquetes', density=False, range=(0, tiempofinal), bins=bins + 1)
@@ -120,12 +132,20 @@ def graficareventosportipodispositivo(ListaEventos, bins,tiempofinal):
     ax31.set_xlabel('Tiempo')
 
     lambdaEventos3 = graficarlambdaeventos(ListaEventos, TiposDispositivos.TIPO3)
-    ax32.hist(lambdaEventos3, label='histograma', density=True)
-    ax32.legend(loc='upper right')
-    titulo = "Tiempo entre eventos y alarmas"
+    count3, bins3, _ = ax32.hist(lambdaEventos3, label='histograma eventos', density=True, bins=30)
+
+    titulo = "Tiempo entre eventos ("+str(len(lambdaEventos3))+" muestras) y alarmas"
     ax32.title.set_text(titulo)
     ax32.set_ylabel('PDF')
     ax32.set_xlabel('tiempo')
+
+    x = np.linspace(0, max(bins3), 500)
+    # Varying positional arguments
+    y = expon.pdf(x, 0, 1 / tasasEventosAlarmas[2][0])
+    label = 'expon lambda= ' + str(tasasEventosAlarmas[2][0])
+    ax32.plot(x, y, "--", color='r', label=label)
+
+    ax32.legend(loc='upper right')
 ###
 
     ax41.hist(dispTipo4, label='paquetes', density=False, range=(0, tiempofinal), bins=bins + 1)
@@ -137,12 +157,20 @@ def graficareventosportipodispositivo(ListaEventos, bins,tiempofinal):
     ax41.set_xlabel('Tiempo')
 
     lambdaEventos4 = graficarlambdaeventos(ListaEventos, TiposDispositivos.TIPO4)
-    ax42.hist(lambdaEventos4, label='histograma', density=True)
-    ax42.legend(loc='upper right')
-    titulo = "Tiempo entre eventos y alarmas"
+    count4, bins4, _ = ax42.hist(lambdaEventos4, label='histograma eventos', density=True, bins=30)
+
+    titulo = "Tiempo entre eventos ("+str(len(lambdaEventos4))+" muestras) y alarmas"
     ax42.title.set_text(titulo)
     ax42.set_ylabel('PDF')
     ax42.set_xlabel('tiempo')
+
+    x = np.linspace(0, max(bins4), 500)
+    # Varying positional arguments
+    y = expon.pdf(x, 0, 1 / tasasEventosAlarmas[3][0])
+    label = 'expon lambda= ' + str(tasasEventosAlarmas[3][0])
+    ax42.plot(x, y, "--", color='r', label=label)
+
+    ax42.legend(loc='upper right')
 ###
 
     ax51.hist(dispTipo5, label='paquetes', density=False, range=(0, tiempofinal), bins=bins + 1)
@@ -154,12 +182,20 @@ def graficareventosportipodispositivo(ListaEventos, bins,tiempofinal):
     ax51.set_xlabel('Tiempo')
 
     lambdaEventos5 = graficarlambdaeventos(ListaEventos, TiposDispositivos.TIPO5)
-    ax52.hist(lambdaEventos5, label='histograma', density=True)
-    ax52.legend(loc='upper right')
-    titulo = "Tiempo entre eventos y alarmas"
+    count5, bins5, _ = ax52.hist(lambdaEventos5, label='histograma eventos', density=True, bins=30)
+
+    titulo = "Tiempo entre eventos ("+str(len(lambdaEventos5))+" muestras) y alarmas"
     ax52.title.set_text(titulo)
     ax52.set_ylabel('PDF')
     ax52.set_xlabel('tiempo')
+
+    x = np.linspace(0, max(bins5), 500)
+    # Varying positional arguments
+    y = expon.pdf(x, 0, 1 / tasasEventosAlarmas[4][0])
+    label = 'expon lambda= ' + str(tasasEventosAlarmas[4][0])
+    ax52.plot(x, y, "--", color='r', label=label)
+
+    ax52.legend(loc='upper right')
 ###
 
     ax61.hist(dispTipo6, label='paquetes', density=False, range=(0, tiempofinal), bins=bins + 1)
@@ -171,12 +207,20 @@ def graficareventosportipodispositivo(ListaEventos, bins,tiempofinal):
     ax61.set_xlabel('Tiempo')
 
     lambdaEventos6 = graficarlambdaeventos(ListaEventos, TiposDispositivos.TIPO6)
-    ax62.hist(lambdaEventos6, label='histograma', density=True)
-    ax62.legend(loc='upper right')
-    titulo = "Tiempo entre eventos y alarmas"
+    count6, bins6, _ = ax62.hist(lambdaEventos6, label='histograma eventos', density=True, bins=30)
+
+    titulo = "Tiempo entre eventos ("+str(len(lambdaEventos6))+" muestras) y alarmas"
     ax62.title.set_text(titulo)
     ax62.set_ylabel('PDF')
     ax62.set_xlabel('tiempo')
+
+    x = np.linspace(0, max(bins6), 500)
+    # Varying positional arguments
+    y = expon.pdf(x, 0, 1 / tasasEventosAlarmas[5][0])
+    label = 'expon lambda= ' + str(tasasEventosAlarmas[5][0])
+    ax62.plot(x, y, "--", color='r', label=label)
+
+    ax62.legend(loc='upper right')
 ###
 
     ax71.hist(dispTipo7, label='paquetes', density=False, range=(0, tiempofinal), bins=bins + 1)
@@ -188,22 +232,46 @@ def graficareventosportipodispositivo(ListaEventos, bins,tiempofinal):
     ax71.set_xlabel('Tiempo')
 
     lambdaEventos7 = graficarlambdaeventos(ListaEventos, TiposDispositivos.TIPO7)
-    ax72.hist(lambdaEventos7, label='histograma', density=True)
-    ax72.legend(loc='upper right')
-    titulo = "Tiempo entre eventos y alarmas"
+    count7, bins7, _ = ax72.hist(lambdaEventos7, label='histograma eventos', density=True, bins=30)
+
+    titulo = "Tiempo entre eventos ("+str(len(lambdaEventos7))+" muestras) y alarmas"
     ax72.title.set_text(titulo)
     ax72.set_ylabel('PDF')
     ax72.set_xlabel('tiempo')
+
+    x = np.linspace(0, max(bins7), 500)
+    # Varying positional arguments
+    y = expon.pdf(x, 0, 1 / tasasEventosAlarmas[6][0])
+    label = 'expon lambda= ' + str(tasasEventosAlarmas[6][0])
+    ax72.plot(x, y, "--", color='r', label=label)
+
+    ax72.legend(loc='upper right')
 
 def graficarlambdaeventos(ListaEventos,tipoDispositivo):
     #TODO corregir para que se calcule una idferencia distinta por dispositivo
 
         Eventos = copy.deepcopy(ListaEventos)
-        valorPrevio=0
+        Eventosaux = copy.deepcopy(ListaEventos)
+
         diferencias=[]
         for evento in Eventos:
-            if evento[0]==0 and evento[3]==tipoDispositivo:
-                diferencias.append(evento[1]-valorPrevio)
-                valorPrevio=evento[1]
+            if evento in Eventosaux:
+                if evento[0] == 0 and evento[3]==tipoDispositivo: # si se trata de un evento del tipo dado
+                    if evento[6]==0: # si no se trata de un evento periodico
+                        diferencias.append(evento[2])
+                    eventoActual=evento
+                    Eventosaux.remove(evento)
+                    for eventoaux in Eventos: # se recorre la lista ahora sin el primer evento
+                        if eventoaux in Eventosaux:
+                            # si se trata de un evento normal, y tienen el mismo id y son del mismo tipo se calcula su diferencia
+                            if eventoaux[1]!=eventoActual[1] and eventoaux[0]==0 and eventoaux[2]==eventoActual[2] and eventoActual[3]==tipoDispositivo :
+                                diferencias.append(eventoaux[1]-eventoActual[1])
+                                eventoActual = eventoaux
+                                Eventosaux.remove(eventoaux)
+
+                else:
+                    Eventosaux.remove(evento)
+
+
 
         return diferencias
