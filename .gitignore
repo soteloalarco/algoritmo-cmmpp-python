@@ -30,3 +30,5 @@ ArchivoEventos2.csv
 *.csv
 
 funciones/__pycache__/funcionesgraficar.cpython-36.pyc
+
+clases/__pycache__/TiposDispositivos.cpython-36.pyc
