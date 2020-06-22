@@ -39,22 +39,32 @@ def graficardispositivos(archivoDispositivosTodos,archivoConfig):
         ax.scatter(dispositivo[2], dispositivo[3], s=100, edgecolor='w', facecolor=TiposDispositivos.tipocolor(dispositivo[1]), alpha=1, marker=".")
     ax.scatter(0,0, s=100, label='eNB',edgecolors="k", facecolor='k', marker="1")
     ax.legend(loc='upper right')
-    titulo="Ubicación de "+ str(len(ListaDispositivos)) +" UEs. Célula de radio= "+ str(ListaConfig[0][0]) + " m"
+    titulo="Ubicación de "+ str(len(ListaDispositivos)) +" UEs. Célula de radio= "+ str(ListaConfig[0][1]) + " m"
     plt.title(titulo)
     plt.ylabel('Eje vertical')
     plt.xlabel('Eje Horizontal')
     plt.axis('equal')
 
 
-def histogramatodoseventos(ListaEventos, bins,tiempofinal):
+def histogramatodoseventos(archivoEventos,archivoConfig):
+    df_eventos_rec = pd.read_csv(archivoEventos, index_col=0)
+    # Convertir de DataFrame a Lista
+    ListaEventos = df_eventos_rec.values.tolist()
+
+    df_config_rec = pd.read_csv(archivoConfig, index_col=0)
+    # Convertir de DataFrame a Lista
+    ListaConfig = df_config_rec.values.tolist()
+
     fig, ax2 = plt.subplots(1, 1)
+    fig.canvas.set_window_title('Histograma de eventos')
 
     tiempoEvento= [evento[1] for evento in ListaEventos]
 
-    ax2.hist(tiempoEvento, density=False, range=(0,tiempofinal), bins=bins+1  ) #rwidth=1 range=(0,tiempofinal)
+    ax2.hist(tiempoEvento, density=False, range=(0,ListaConfig[0][2]), bins=int(ListaConfig[0][3])+1  ) #rwidth=1 range=(0,tiempofinal)
     plt.title("Histograma de eventos en el tiempo, todos los UEs")
+    plt.grid(b=True, color='grey', alpha=0.3, linestyle='-.', linewidth=1)
     plt.ylabel('Eventos')
-    plt.xlabel('Tiempo')
+    plt.xlabel('Tiempo (s)')
     plt.axhline()
 
 def graficareventosportipodispositivo(ListaEventos, bins,tiempofinal, tasasEventosAlarmas):

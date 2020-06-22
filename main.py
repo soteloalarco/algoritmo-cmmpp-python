@@ -2572,21 +2572,21 @@ class Application(tk.Frame):
             print('Fin de Rutina ')
 
             ## se crea archivo de salida con información de la configuración
-            self.configSalida.append([self.radiocelula,self.tiempo,self.k])
+            self.configSalida.append([0,self.radiocelula,self.tiempo,self.k])
             if (self.dipositivos_Tipo1 > 0):
-                self.configSalida.append([1, self.tasaPaquete_Tipo1, self.lambdaAlarma_Tipo1])
+                self.configSalida.append([1, self.modeloTrafico_Tipo1,self.tasaPaquete_Tipo1, self.lambdaAlarma_Tipo1])
             if (self.dipositivos_Tipo2 > 0):
-                self.configSalida.append([2, self.tasaPaquete_Tipo2, self.lambdaAlarma_Tipo2])
+                self.configSalida.append([2, self.modeloTrafico_Tipo2, self.tasaPaquete_Tipo2, self.lambdaAlarma_Tipo2])
             if (self.dipositivos_Tipo3 > 0):
-                self.configSalida.append([3, self.tasaPaquete_Tipo3, self.lambdaAlarma_Tipo3])
+                self.configSalida.append([3,self.modeloTrafico_Tipo3, self.tasaPaquete_Tipo3, self.lambdaAlarma_Tipo3])
             if (self.dipositivos_Tipo4 > 0):
-                self.configSalida.append([4, self.tasaPaquete_Tipo4, self.lambdaAlarma_Tipo4])
+                self.configSalida.append([4,self.modeloTrafico_Tipo4, self.tasaPaquete_Tipo4, self.lambdaAlarma_Tipo4])
             if (self.dipositivos_Tipo5 > 0):
-                self.configSalida.append([5, self.tasaPaquete_Tipo5, self.lambdaAlarma_Tipo5])
+                self.configSalida.append([5, self.modeloTrafico_Tipo5,self.tasaPaquete_Tipo5, self.lambdaAlarma_Tipo5])
             if (self.dipositivos_Tipo6 > 0):
-                self.configSalida.append([6, self.tasaPaquete_Tipo6, self.lambdaAlarma_Tipo6])
+                self.configSalida.append([6, self.modeloTrafico_Tipo6,self.tasaPaquete_Tipo6, self.lambdaAlarma_Tipo6])
             if (self.dipositivos_Tipo7 > 0):
-                self.configSalida.append([7, self.tasaPaquete_Tipo7, self.lambdaAlarma_Tipo7])
+                self.configSalida.append([7,self.modeloTrafico_Tipo7, self.tasaPaquete_Tipo7, self.lambdaAlarma_Tipo7])
             self.df_configSalida = pd.DataFrame(self.configSalida)
             nombreconfigSalida = "ArchivoConfigSalida" + str(self.rep) + ".csv"
             self.df_configSalida.to_csv(nombreconfigSalida)
@@ -2598,7 +2598,7 @@ class Application(tk.Frame):
 
             ## Aquí voy a graficar
             graficardispositivos('ArchivoDispositivos0.csv','ArchivoConfigSalida0.csv')
-            #histogramatodoseventos(self.ListaEventos,self.k,self.tiempo)
+            histogramatodoseventos('ArchivoEventos0.csv','ArchivoConfigSalida0.csv')
             #graficareventosportipodispositivo(self.ListaEventos,self.k,self.tiempo,self.tasasEventosAlarmas)
 
             DeviceMTC.registroCompletoArribos=[]
