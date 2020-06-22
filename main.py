@@ -2599,7 +2599,7 @@ class Application(tk.Frame):
             ## Aquí voy a graficar
             graficardispositivos('ArchivoDispositivos0.csv','ArchivoConfigSalida0.csv')
             histogramatodoseventos('ArchivoEventos0.csv','ArchivoConfigSalida0.csv')
-            #graficareventosportipodispositivo(self.ListaEventos,self.k,self.tiempo,self.tasasEventosAlarmas)
+            graficareventosportipodispositivo('ArchivoEventos0.csv','ArchivoConfigSalida0.csv','ArchivoAlarmas0.csv')
 
             DeviceMTC.registroCompletoArribos=[]
             DeviceMTC.cuentaAlarmas = 0
