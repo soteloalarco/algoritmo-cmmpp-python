@@ -8,3 +8,19 @@ class TiposDispositivos:
     TIPO5 = 'Contaminacion del aire'
     TIPO6 =  'Otros dispositivos mMTC'
     TIPO7 = 'Dispositivos URLLC'
+
+    def tipocolor(tipo):
+        if tipo==TiposDispositivos.TIPO1:
+            return 'b'
+        if tipo==TiposDispositivos.TIPO2:
+            return 'g'
+        if tipo==TiposDispositivos.TIPO3:
+            return 'r'
+        if tipo==TiposDispositivos.TIPO4:
+            return 'c'
+        if tipo==TiposDispositivos.TIPO5:
+            return 'm'
+        if tipo==TiposDispositivos.TIPO6:
+            return 'y'
+        if tipo==TiposDispositivos.TIPO7:
+            return 'tab:brown'

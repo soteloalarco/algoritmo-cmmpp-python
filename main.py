@@ -17,7 +17,7 @@ from funciones.funcionesgraficar import graficareventosportipodispositivo
 class Application(tk.Frame):
 
     # Variables a modificar
-    tiempoLimite = 1000  # segundos, tiempo de paro del algoritmo
+    tiempoLimite = 100  # segundos, tiempo de paro del algoritmo
     deltaTiempo = 0.1  # segundos , diferencial de tiempo entre iteración
     numerosDecimalesDeltaTiempo = 1  # Si se modifica deltaTiempo modificar también esta variable
     tiposDispositivos = 0  # Cantidad total de dispositivos a caracterizar a continuación
@@ -2597,7 +2597,7 @@ class Application(tk.Frame):
             self.df_ArchivoAlarmas.to_csv(nombreArchivoAlarmas)
 
             ## Aquí voy a graficar
-            #graficardispositivos(self.DispositivosTodos,self.radiocelula)
+            graficardispositivos('ArchivoDispositivos0.csv','ArchivoConfigSalida0.csv')
             #histogramatodoseventos(self.ListaEventos,self.k,self.tiempo)
             #graficareventosportipodispositivo(self.ListaEventos,self.k,self.tiempo,self.tasasEventosAlarmas)
 

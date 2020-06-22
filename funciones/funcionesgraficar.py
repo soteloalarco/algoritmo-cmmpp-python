@@ -3,15 +3,43 @@ from clases.TiposDispositivos import TiposDispositivos
 import copy
 import numpy as np
 from scipy.stats import expon
+import pandas as pd
 
-def graficardispositivos(dispositivosTodos,radio):
+def graficardispositivos(archivoDispositivosTodos,archivoConfig):
+    df_dispositivos_rec = pd.read_csv(archivoDispositivosTodos, index_col=0)
+    # Convertir de DataFrame a Lista
+    ListaDispositivos = df_dispositivos_rec.values.tolist()
+
+    df_config_rec = pd.read_csv(archivoConfig, index_col=0)
+    # Convertir de DataFrame a Lista
+    ListaConfig = df_config_rec.values.tolist()
+
     fig, ax = plt.subplots(1, 1)
+    fig.canvas.set_window_title('Ubicación de UEs en la célula')
     # Graficando en el círculo
-    xx = [dispositivo[2] for dispositivo in dispositivosTodos]
-    yy = [dispositivo[3] for dispositivo in dispositivosTodos]
-    ax.scatter(xx, yy, edgecolor='b', facecolor='b', alpha=0.5, marker=".")
-    ax.scatter(0,0, s=10, edgecolors="k", facecolor='k', marker="1")
-    titulo="Ubicación de "+ str(len(dispositivosTodos)) +" UEs. Célula de radio= "+ str(radio) + " m"
+    #xx = [dispositivo[2] for dispositivo in ListaDispositivos]
+    #yy = [dispositivo[3] for dispositivo in ListaDispositivos] , TiposDispositivos.tiponumero(dispositivo[1])
+    ax.scatter(0, 0,s=100,label='Control de iluminacion', edgecolor='w',
+               facecolor=TiposDispositivos.tipocolor('Control de iluminacion'), alpha=1, marker=".")
+    ax.scatter(0, 0,s=100, label='Monitoreo de agua y elect.', edgecolor='w',
+               facecolor=TiposDispositivos.tipocolor('Monitoreo de agua y electricidad'), alpha=1, marker=".")
+    ax.scatter(0, 0,s=100, label='Deteccion de terremotos', edgecolor='w',
+               facecolor=TiposDispositivos.tipocolor('Deteccion de terremotos'), alpha=1, marker=".")
+    ax.scatter(0, 0,s=100, label='Semaforos inteligentes', edgecolor='w',
+               facecolor=TiposDispositivos.tipocolor('Semaforos inteligentes'), alpha=1, marker=".")
+    ax.scatter(0, 0,s=100, label='Contaminacion del aire', edgecolor='w',
+               facecolor=TiposDispositivos.tipocolor('Contaminacion del aire'), alpha=1, marker=".")
+    ax.scatter(0, 0,s=100, label='Otros dispositivos mMTC', edgecolor='w',
+               facecolor=TiposDispositivos.tipocolor('Otros dispositivos mMTC'), alpha=1, marker=".")
+    ax.scatter(0, 0,s=100, label='Dispositivos URLLC', edgecolor='w',
+               facecolor=TiposDispositivos.tipocolor('Dispositivos URLLC'), alpha=1, marker=".")
+
+
+    for dispositivo in ListaDispositivos:
+        ax.scatter(dispositivo[2], dispositivo[3], s=100, edgecolor='w', facecolor=TiposDispositivos.tipocolor(dispositivo[1]), alpha=1, marker=".")
+    ax.scatter(0,0, s=100, label='eNB',edgecolors="k", facecolor='k', marker="1")
+    ax.legend(loc='upper right')
+    titulo="Ubicación de "+ str(len(ListaDispositivos)) +" UEs. Célula de radio= "+ str(ListaConfig[0][0]) + " m"
     plt.title(titulo)
     plt.ylabel('Eje vertical')
     plt.xlabel('Eje Horizontal')
