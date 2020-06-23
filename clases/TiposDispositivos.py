@@ -15,7 +15,7 @@ class TiposDispositivos:
         if tipo==TiposDispositivos.TIPO2:
             return 'g'
         if tipo==TiposDispositivos.TIPO3:
-            return 'r'
+            return 'tab:orange'
         if tipo==TiposDispositivos.TIPO4:
             return 'c'
         if tipo==TiposDispositivos.TIPO5:

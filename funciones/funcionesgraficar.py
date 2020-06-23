@@ -95,6 +95,7 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
         ax12 = fig1.add_subplot(122)
         periodico_Tipo1 = int(ListaConfig[indice_Tipo1][1])
         tasaEventos_Tipo1 = ListaConfig[indice_Tipo1][2]
+        tasaAlarmas_Tipo1 = ListaConfig[indice_Tipo1][3]
         color_Tipo1 = TiposDispositivos.tipocolor(TiposDispositivos.TIPO1)
 
     ## Tipo 2
@@ -107,6 +108,7 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
         ax22 = fig2.add_subplot(122)
         periodico_Tipo2 = int(ListaConfig[indice_Tipo2][1])
         tasaEventos_Tipo2 = ListaConfig[indice_Tipo2][2]
+        tasaAlarmas_Tipo2 = ListaConfig[indice_Tipo2][3]
         color_Tipo2 = TiposDispositivos.tipocolor(TiposDispositivos.TIPO2)
 
     ## Tipo 3
@@ -119,6 +121,7 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
         ax32 = fig3.add_subplot(122)
         periodico_Tipo3 = int(ListaConfig[indice_Tipo3][1])
         tasaEventos_Tipo3 = ListaConfig[indice_Tipo3][2]
+        tasaAlarmas_Tipo3 = ListaConfig[indice_Tipo3][3]
         color_Tipo3 = TiposDispositivos.tipocolor(TiposDispositivos.TIPO3)
 
     ## Tipo 4
@@ -131,6 +134,7 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
         ax42 = fig4.add_subplot(122)
         periodico_Tipo4 = int(ListaConfig[indice_Tipo4][1])
         tasaEventos_Tipo4 = ListaConfig[indice_Tipo4][2]
+        tasaAlarmas_Tipo4 = ListaConfig[indice_Tipo4][3]
         color_Tipo4 = TiposDispositivos.tipocolor(TiposDispositivos.TIPO4)
 
     ## Tipo5
@@ -143,6 +147,7 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
         ax52 = fig5.add_subplot(122)
         periodico_Tipo5 = int(ListaConfig[indice_Tipo5][1])
         tasaEventos_Tipo5 = ListaConfig[indice_Tipo5][2]
+        tasaAlarmas_Tipo5 = ListaConfig[indice_Tipo5][3]
         color_Tipo5 = TiposDispositivos.tipocolor(TiposDispositivos.TIPO5)
 
     ## Tipo 6
@@ -155,6 +160,7 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
         ax62 = fig6.add_subplot(122)
         periodico_Tipo6 = int(ListaConfig[indice_Tipo6][1])
         tasaEventos_Tipo6 = ListaConfig[indice_Tipo6][2]
+        tasaAlarmas_Tipo6 = ListaConfig[indice_Tipo6][3]
         color_Tipo6 = TiposDispositivos.tipocolor(TiposDispositivos.TIPO6)
 
     ## Tipo 7
@@ -167,15 +173,23 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
         ax72 = fig7.add_subplot(122)
         periodico_Tipo7 = int(ListaConfig[indice_Tipo7][1])
         tasaEventos_Tipo7 = ListaConfig[indice_Tipo7][2]
+        tasaAlarmas_Tipo7 = ListaConfig[indice_Tipo7][3]
         color_Tipo7 = TiposDispositivos.tipocolor(TiposDispositivos.TIPO7)
 
     dispTipo1 = []
+    alarmasTipo1 = []
     dispTipo2 = []
+    alarmasTipo2 = []
     dispTipo3 = []
+    alarmasTipo3 = []
     dispTipo4 = []
+    alarmasTipo4 = []
     dispTipo5 = []
+    alarmasTipo5 = []
     dispTipo6 = []
+    alarmasTipo6 = []
     dispTipo7 = []
+    alarmasTipo7 = []
     for dispositivo in ListaEventos:
         if dispositivo[3] == TiposDispositivos.TIPO1:
             dispTipo1.append(dispositivo[1])
@@ -191,11 +205,28 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
             dispTipo6.append(dispositivo[1])
         elif dispositivo[3] == TiposDispositivos.TIPO7:
             dispTipo7.append(dispositivo[1])
+
+    for alarma in ListaAlarmas:
+        if alarma[0] == 1:
+            alarmasTipo1.append(alarma[2])
+        elif alarma[0] == 2:
+            alarmasTipo2.append(alarma[2])
+        elif alarma[0] == 3:
+            alarmasTipo3.append(alarma[2])
+        elif alarma[0] == 4:
+            alarmasTipo4.append(alarma[2])
+        elif alarma[0] == 5:
+            alarmasTipo5.append(alarma[2])
+        elif alarma[0] == 6:
+            alarmasTipo6.append(alarma[2])
+        elif alarma[0] == 7:
+            alarmasTipo7.append(alarma[2])
 ######
     ## Tipo 1
     if 1 in dispositivos:
 
-        ax11.hist(dispTipo1, color=color_Tipo1,label='paquetes',density=False, range=(0, tiempofinal), bins=bins + 1)
+        c1, b1, _ = ax11.hist(dispTipo1, color=color_Tipo1,label='paquetes',density=False, range=(0, tiempofinal), bins=bins + 1)
+        ax11.vlines(alarmasTipo1, 0, max(c1),label='alarmas', colors='r', lw=2, alpha=0.2)
         ax11.legend(loc='upper right')
         fig1.canvas.set_window_title(TiposDispositivos.TIPO1)
         titulo = "Histograma de eventos en el tiempo"
@@ -205,19 +236,29 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
         ax11.grid(b=True, color='grey', alpha=0.3, linestyle='-.', linewidth=1)
 
         lambdaEventos1 = graficarlambdaeventos(ListaEventos,TiposDispositivos.TIPO1)
+        lambdaAlarmas1=0
         if(periodico_Tipo1==0):
-            count1, bins1, _ = ax12.hist(lambdaEventos1, color=color_Tipo1,label='histograma eventos (normalizado)', density=True, bins=30)
+            count1, bins1, _ = ax12.hist(lambdaEventos1, color=color_Tipo1,label='histograma eventos (normalizado)', density=True, bins=30,alpha=0.4)
             x = np.linspace(0, max(bins1), 500)
             # Varying positional arguments
             y = expon.pdf(x, 0, 1 / tasaEventos_Tipo1)
             label = 'expon lambda eventos= ' + str(tasaEventos_Tipo1)
-            ax12.plot(x, y, "--", color='r', label=label)
-
+            ax12.plot(x, y, "--", color='k', label=label)
+            #
+            lambdaAlarmas1 = graficarlambdaalarmas(alarmasTipo1)
+            cnt1, bin1, _ = ax12.hist(lambdaAlarmas1, color='grey', label='histograma alarmas (normalizado)',
+                                         density=True, bins=10, alpha=0.4)
+            x = np.linspace(0, max(bin1), 500)
+            # Varying positional arguments
+            y = expon.pdf(x, 0, 1 / tasaAlarmas_Tipo1)
+            label = 'expon lambda alarmas= ' + str(tasaAlarmas_Tipo1)
+            ax12.plot(x, y, "-.", color='r', label=label)
+            #
             ax12.legend(loc='upper right')
             ax12.grid(b=True, color='grey', alpha=0.3, linestyle='-.', linewidth=1)
         else:
             ax12.vlines(lambdaEventos1, 0, lambdaEventos1, colors=color_Tipo1, lw=5, alpha=0.5)
-        titulo = "Tiempo entre eventos ("+str(len(lambdaEventos1))+" muestras) y alarmas"
+        titulo = "Tiempo entre eventos ("+str(len(lambdaEventos1))+") y alarmas ("+str(len(lambdaAlarmas1))+")"
         ax12.title.set_text(titulo)
         ax12.set_ylabel('Función de Densidad de Probabilidad')
         ax12.set_xlabel('Tiempo (s)')
@@ -227,7 +268,9 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
     ## Tipo 2
     if 2 in dispositivos:
 
-        ax21.hist(dispTipo2, color=color_Tipo2, label='paquetes', density=False, range=(0, tiempofinal), bins=bins + 1)
+
+        c2, b2, _ = ax21.hist(dispTipo2, color=color_Tipo2, label='paquetes', density=False, range=(0, tiempofinal), bins=bins + 1)
+        ax21.vlines(alarmasTipo2, 0, max(c2), label='alarmas', colors='r', lw=2, alpha=0.2)
         ax21.legend(loc='upper right')
         fig2.canvas.set_window_title(TiposDispositivos.TIPO2)
         titulo = "Histograma de eventos en el tiempo"
@@ -237,21 +280,31 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
         ax21.grid(b=True, color='grey', alpha=0.3, linestyle='-.', linewidth=1)
 
         lambdaEventos2 = graficarlambdaeventos(ListaEventos, TiposDispositivos.TIPO2)
+        lambdaAlarmas2 = 0
         if (periodico_Tipo2 == 0):
             count2, bins2, _ = ax22.hist(lambdaEventos2, color=color_Tipo2, label='histograma eventos (normalizado)',
-                                         density=True, bins=30)
+                                         density=True, bins=30, alpha=0.4)
             x = np.linspace(0, max(bins2), 500)
             # Varying positional arguments
             y = expon.pdf(x, 0, 1 / tasaEventos_Tipo2)
             label = 'expon lambda eventos= ' + str(tasaEventos_Tipo2)
-            ax22.plot(x, y, "--", color='r', label=label)
-
+            ax22.plot(x, y, "--", color='k', label=label)
+            #
+            lambdaAlarmas2 = graficarlambdaalarmas(alarmasTipo2)
+            cnt2, bin2, _ = ax22.hist(lambdaAlarmas2, color='grey', label='histograma alarmas (normalizado)',
+                                      density=True, bins=10, alpha=0.4)
+            x = np.linspace(0, max(bin2), 500)
+            # Varying positional arguments
+            y = expon.pdf(x, 0, 1 / tasaAlarmas_Tipo2)
+            label = 'expon lambda alarmas= ' + str(tasaAlarmas_Tipo2)
+            ax22.plot(x, y, "-.", color='r', label=label)
+            #
             ax22.legend(loc='upper right')
             ax22.grid(b=True, color='grey', alpha=0.3, linestyle='-.', linewidth=1)
         else:
             ax22.vlines(lambdaEventos2, 0, lambdaEventos2, colors=color_Tipo2, lw=5, alpha=0.5)
 
-        titulo = "Tiempo entre eventos ("+str(len(lambdaEventos2))+" muestras) y alarmas"
+        titulo = "Tiempo entre eventos ("+str(len(lambdaEventos2))+") y alarmas ("+str(len(lambdaAlarmas2))+")"
         ax22.title.set_text(titulo)
         ax22.set_ylabel('PDF')
         ax22.set_xlabel('tiempo')
@@ -261,7 +314,8 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
     ## Tipo 3
     if 3 in dispositivos:
 
-        ax31.hist(dispTipo3,color=color_Tipo3, label='paquetes', density=False, range=(0, tiempofinal), bins=bins + 1)
+        c3, b3, _ = ax31.hist(dispTipo3,color=color_Tipo3, label='paquetes', density=False, range=(0, tiempofinal), bins=bins + 1)
+        ax31.vlines(alarmasTipo3, 0, max(c3), label='alarmas', colors='r', lw=2, alpha=0.2)
         ax31.legend(loc='upper right')
         fig3.canvas.set_window_title(TiposDispositivos.TIPO3)
         titulo = "Histograma de eventos en el tiempo"
@@ -271,19 +325,29 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
         ax31.grid(b=True, color='grey', alpha=0.3, linestyle='-.', linewidth=1)
 
         lambdaEventos3 = graficarlambdaeventos(ListaEventos, TiposDispositivos.TIPO3)
+        lambdaAlarmas3 = 0
         if (periodico_Tipo3 == 0):
-            count3, bins3, _ = ax32.hist(lambdaEventos3, color=color_Tipo3,label='histograma eventos', density=True, bins=30)
+            count3, bins3, _ = ax32.hist(lambdaEventos3, color=color_Tipo3,label='histograma eventos', density=True, bins=30, alpha=0.4)
             x = np.linspace(0, max(bins3), 500)
             # Varying positional arguments
             y = expon.pdf(x, 0, 1 / tasaEventos_Tipo3)
             label = 'expon lambda eventos= ' + str(tasaEventos_Tipo3)
-            ax32.plot(x, y, "--", color='r', label=label)
-
+            ax32.plot(x, y, "--", color='k', label=label)
+            #
+            lambdaAlarmas3 = graficarlambdaalarmas(alarmasTipo3)
+            cnt3, bin3, _ = ax32.hist(lambdaAlarmas3, color='grey', label='histograma alarmas (normalizado)',
+                                      density=True, bins=10, alpha=0.4)
+            x = np.linspace(0, max(bin3), 500)
+            # Varying positional arguments
+            y = expon.pdf(x, 0, 1 / tasaAlarmas_Tipo3)
+            label = 'expon lambda alarmas= ' + str(tasaAlarmas_Tipo3)
+            ax32.plot(x, y, "-.", color='r', label=label)
+            #
             ax32.legend(loc='upper right')
             ax32.grid(b=True, color='grey', alpha=0.3, linestyle='-.', linewidth=1)
         else:
             ax32.vlines(lambdaEventos3, 0, lambdaEventos3, colors=color_Tipo3, lw=5, alpha=0.5)
-        titulo = "Tiempo entre eventos ("+str(len(lambdaEventos3))+" muestras) y alarmas"
+        titulo = "Tiempo entre eventos ("+str(len(lambdaEventos3))+") y alarmas ("+str(len(lambdaAlarmas3))+")"
         ax32.title.set_text(titulo)
         ax32.set_ylabel('PDF')
         ax32.set_xlabel('tiempo')
@@ -293,7 +357,8 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
     ## Tipo 4
     if 4 in dispositivos:
 
-        ax41.hist(dispTipo4,color=color_Tipo4, label='paquetes', density=False, range=(0, tiempofinal), bins=bins + 1)
+        c4, b4, _ = ax41.hist(dispTipo4,color=color_Tipo4, label='paquetes', density=False, range=(0, tiempofinal), bins=bins + 1)
+        ax41.vlines(alarmasTipo4, 0, max(c4), label='alarmas', colors='r', lw=2, alpha=0.2)
         ax41.legend(loc='upper right')
         fig4.canvas.set_window_title(TiposDispositivos.TIPO4)
         titulo = "Histograma de eventos en el tiempo"
@@ -303,20 +368,30 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
         ax41.grid(b=True, color='grey', alpha=0.3, linestyle='-.', linewidth=1)
 
         lambdaEventos4 = graficarlambdaeventos(ListaEventos, TiposDispositivos.TIPO4)
+        lambdaAlarmas4 = 0
         if (periodico_Tipo4 == 0):
-            count4, bins4, _ = ax42.hist(lambdaEventos4,color=color_Tipo4, label='histograma eventos', density=True, bins=30)
+            count4, bins4, _ = ax42.hist(lambdaEventos4,color=color_Tipo4, label='histograma eventos', density=True, bins=30, alpha=0.4)
             x = np.linspace(0, max(bins4), 500)
             # Varying positional arguments
             y = expon.pdf(x, 0, 1 / tasaEventos_Tipo4)
             label = 'expon lambda eventos= ' + str(tasaEventos_Tipo4)
-            ax42.plot(x, y, "--", color='r', label=label)
-
+            ax42.plot(x, y, "--", color='k', label=label)
+            #
+            lambdaAlarmas4 = graficarlambdaalarmas(alarmasTipo4)
+            cnt4, bin4, _ = ax42.hist(lambdaAlarmas4, color='grey', label='histograma alarmas (normalizado)',
+                                      density=True, bins=10, alpha=0.4)
+            x = np.linspace(0, max(bin4), 500)
+            # Varying positional arguments
+            y = expon.pdf(x, 0, 1 / tasaAlarmas_Tipo4)
+            label = 'expon lambda alarmas= ' + str(tasaAlarmas_Tipo4)
+            ax42.plot(x, y, "-.", color='r', label=label)
+            #
             ax42.legend(loc='upper right')
             ax42.grid(b=True, color='grey', alpha=0.3, linestyle='-.', linewidth=1)
         else:
             ax42.vlines(lambdaEventos4, 0, lambdaEventos4, colors=color_Tipo4, lw=5, alpha=0.5)
 
-        titulo = "Tiempo entre eventos ("+str(len(lambdaEventos4))+" muestras) y alarmas"
+        titulo = "Tiempo entre eventos ("+str(len(lambdaEventos4))+") y alarmas ("+str(len(lambdaAlarmas4))+")"
         ax42.title.set_text(titulo)
         ax42.set_ylabel('PDF')
         ax42.set_xlabel('tiempo')
@@ -327,7 +402,8 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
     ## Tipo 5
     if 5 in dispositivos:
 
-        ax51.hist(dispTipo5,color=color_Tipo5, label='paquetes', density=False, range=(0, tiempofinal), bins=bins + 1)
+        c5, b5, _ = ax51.hist(dispTipo5,color=color_Tipo5, label='paquetes', density=False, range=(0, tiempofinal), bins=bins + 1)
+        ax51.vlines(alarmasTipo5, 0, max(c5), label='alarmas', colors='r', lw=2, alpha=0.2)
         ax51.legend(loc='upper right')
         fig5.canvas.set_window_title(TiposDispositivos.TIPO5)
         titulo = "Histograma de eventos en el tiempo"
@@ -337,20 +413,30 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
         ax51.grid(b=True, color='grey', alpha=0.3, linestyle='-.', linewidth=1)
 
         lambdaEventos5 = graficarlambdaeventos(ListaEventos, TiposDispositivos.TIPO5)
+        lambdaAlarmas5 = 0
         if (periodico_Tipo5 == 0):
-            count5, bins5, _ = ax52.hist(lambdaEventos5,color=color_Tipo5, label='histograma eventos', density=True, bins=30)
+            count5, bins5, _ = ax52.hist(lambdaEventos5,color=color_Tipo5, label='histograma eventos', density=True, bins=30, alpha=0.4)
             x = np.linspace(0, max(bins5), 500)
             # Varying positional arguments
             y = expon.pdf(x, 0, 1 / tasaEventos_Tipo5)
             label = 'expon lambda eventos= ' + str(tasaEventos_Tipo5)
-            ax52.plot(x, y, "--", color='r', label=label)
-
+            ax52.plot(x, y, "--", color='k', label=label)
+            #
+            lambdaAlarmas5 = graficarlambdaalarmas(alarmasTipo5)
+            cnt5, bin5, _ = ax52.hist(lambdaAlarmas5, color='grey', label='histograma alarmas (normalizado)',
+                                      density=True, bins=10, alpha=0.4)
+            x = np.linspace(0, max(bin5), 500)
+            # Varying positional arguments
+            y = expon.pdf(x, 0, 1 / tasaAlarmas_Tipo5)
+            label = 'expon lambda alarmas= ' + str(tasaAlarmas_Tipo5)
+            ax52.plot(x, y, "-.", color='r', label=label)
+            #
             ax52.legend(loc='upper right')
             ax52.grid(b=True, color='grey', alpha=0.3, linestyle='-.', linewidth=1)
         else:
             ax52.vlines(lambdaEventos5, 0, lambdaEventos5, colors=color_Tipo5, lw=5, alpha=0.5)
 
-        titulo = "Tiempo entre eventos ("+str(len(lambdaEventos5))+" muestras) y alarmas"
+        titulo = "Tiempo entre eventos ("+str(len(lambdaEventos5))+") y alarmas ("+str(len(lambdaAlarmas5))+")"
         ax52.title.set_text(titulo)
         ax52.set_ylabel('PDF')
         ax52.set_xlabel('tiempo')
@@ -360,7 +446,8 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
     ## Tipo 6
     if 6 in dispositivos:
 
-        ax61.hist(dispTipo6, color=color_Tipo6,label='paquetes', density=False, range=(0, tiempofinal), bins=bins + 1)
+        c6, b6, _ = ax61.hist(dispTipo6, color=color_Tipo6,label='paquetes', density=False, range=(0, tiempofinal), bins=bins + 1)
+        ax61.vlines(alarmasTipo6, 0, max(c6), label='alarmas', colors='r', lw=2, alpha=0.2)
         ax61.legend(loc='upper right')
         fig6.canvas.set_window_title(TiposDispositivos.TIPO6)
         titulo = "Histograma de eventos en el tiempo"
@@ -370,20 +457,30 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
         ax61.grid(b=True, color='grey', alpha=0.3, linestyle='-.', linewidth=1)
 
         lambdaEventos6 = graficarlambdaeventos(ListaEventos, TiposDispositivos.TIPO6)
+        lambdaAlarmas6 = 0
         if (periodico_Tipo6 == 0):
-            count6, bins6, _ = ax62.hist(lambdaEventos6,color=color_Tipo6, label='histograma eventos', density=True, bins=30)
+            count6, bins6, _ = ax62.hist(lambdaEventos6,color=color_Tipo6, label='histograma eventos', density=True, bins=30, alpha=0.4)
             x = np.linspace(0, max(bins6), 500)
             # Varying positional arguments
             y = expon.pdf(x, 0, 1 / tasaEventos_Tipo6)
             label = 'expon lambda eventos= ' + str(tasaEventos_Tipo6)
-            ax62.plot(x, y, "--", color='r', label=label)
-
+            ax62.plot(x, y, "--", color='k', label=label)
+            #
+            lambdaAlarmas6 = graficarlambdaalarmas(alarmasTipo6)
+            cnt6, bin6, _ = ax62.hist(lambdaAlarmas6, color='grey', label='histograma alarmas (normalizado)',
+                                      density=True, bins=10, alpha=0.4)
+            x = np.linspace(0, max(bin6), 500)
+            # Varying positional arguments
+            y = expon.pdf(x, 0, 1 / tasaAlarmas_Tipo6)
+            label = 'expon lambda alarmas= ' + str(tasaAlarmas_Tipo6)
+            ax62.plot(x, y, "-.", color='r', label=label)
+            #
             ax62.legend(loc='upper right')
             ax62.grid(b=True, color='grey', alpha=0.3, linestyle='-.', linewidth=1)
         else:
             ax62.vlines(lambdaEventos6, 0, lambdaEventos6, colors=color_Tipo6, lw=5, alpha=0.5)
 
-        titulo = "Tiempo entre eventos ("+str(len(lambdaEventos6))+" muestras) y alarmas"
+        titulo = "Tiempo entre eventos ("+str(len(lambdaEventos6))+") y alarmas ("+str(len(lambdaAlarmas6))+")"
         ax62.title.set_text(titulo)
         ax62.set_ylabel('PDF')
         ax62.set_xlabel('tiempo')
@@ -393,7 +490,8 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
     ## Tipo 7
     if 7 in dispositivos:
 
-        ax71.hist(dispTipo7,color=color_Tipo7, label='paquetes', density=False, range=(0, tiempofinal), bins=bins + 1)
+        c7, b7, _ = ax71.hist(dispTipo7,color=color_Tipo7, label='paquetes', density=False, range=(0, tiempofinal), bins=bins + 1)
+        ax71.vlines(alarmasTipo7, 0, max(c7), label='alarmas', colors='r', lw=2, alpha=0.2)
         ax71.legend(loc='upper right')
         fig7.canvas.set_window_title(TiposDispositivos.TIPO7)
         titulo = "Histograma de eventos en el tiempo"
@@ -403,20 +501,30 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
         ax71.grid(b=True, color='grey', alpha=0.3, linestyle='-.', linewidth=1)
 
         lambdaEventos7 = graficarlambdaeventos(ListaEventos, TiposDispositivos.TIPO7)
+        lambdaAlarmas7 = 0
         if (periodico_Tipo7 == 0):
-            count7, bins7, _ = ax72.hist(lambdaEventos7,color=color_Tipo7, label='histograma eventos', density=True, bins=30)
+            count7, bins7, _ = ax72.hist(lambdaEventos7,color=color_Tipo7, label='histograma eventos', density=True, bins=30, alpha=0.4)
             x = np.linspace(0, max(bins7), 500)
             # Varying positional arguments
             y = expon.pdf(x, 0, 1 / tasaEventos_Tipo7)
             label = 'expon lambda eventos= ' + str(tasaEventos_Tipo7)
-            ax72.plot(x, y, "--", color='r', label=label)
-
+            ax72.plot(x, y, "--", color='k', label=label)
+            #
+            lambdaAlarmas7 = graficarlambdaalarmas(alarmasTipo7)
+            cnt7, bin7, _ = ax72.hist(lambdaAlarmas7, color='grey', label='histograma alarmas (normalizado)',
+                                      density=True, bins=10, alpha=0.4)
+            x = np.linspace(0, max(bin7), 500)
+            # Varying positional arguments
+            y = expon.pdf(x, 0, 1 / tasaAlarmas_Tipo7)
+            label = 'expon lambda alarmas= ' + str(tasaAlarmas_Tipo7)
+            ax72.plot(x, y, "-.", color='r', label=label)
+            #
             ax72.legend(loc='upper right')
             ax72.grid(b=True, color='grey', alpha=0.3, linestyle='-.', linewidth=1)
         else:
             ax72.vlines(lambdaEventos7, 0, lambdaEventos7, colors=color_Tipo7, lw=5, alpha=0.5)
 
-        titulo = "Tiempo entre eventos ("+str(len(lambdaEventos7))+" muestras) y alarmas"
+        titulo = "Tiempo entre eventos ("+str(len(lambdaEventos7))+") y alarmas ("+str(len(lambdaAlarmas7))+")"
         ax72.title.set_text(titulo)
         ax72.set_ylabel('PDF')
         ax72.set_xlabel('tiempo')
@@ -424,7 +532,6 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
 
 
 def graficarlambdaeventos(ListaEventos,tipoDispositivo):
-    #TODO corregir para que se calcule una idferencia distinta por dispositivo
 
         Eventos = copy.deepcopy(ListaEventos)
         Eventosaux = copy.deepcopy(ListaEventos)
@@ -451,3 +558,13 @@ def graficarlambdaeventos(ListaEventos,tipoDispositivo):
 
 
         return diferencias
+
+def graficarlambdaalarmas(ListaAlarmasTipox):
+
+    tiempoactual=0
+    diferencias=[]
+    for tiempo in ListaAlarmasTipox:
+        diferencias.append(tiempo-tiempoactual)
+        tiempoactual=tiempo
+
+    return diferencias

@@ -31,8 +31,8 @@ class Application(tk.Frame):
     dipositivos_Tipo1 = 0.05  # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución  (modelodispositivos) es uniforme
     modeloTrafico_Tipo1 = 0  # Modelo de generación de tráfico, 0 CMMPP 1 Periódico
     tasaPaquete_Tipo1 = 1 / 40  # si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 1, si modelotrafico==1 tasa de Paquete/seg
-    lambdaAlarma_Tipo1 = 1 / 40  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 500 seg)
-    velPropagacionAlarma_Tipo1 = 500  # m/s Velocidad de propagación de alarma
+    lambdaAlarma_Tipo1 = 1 / 50  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 500 seg)
+    velPropagacionAlarma_Tipo1 = 50  # m/s Velocidad de propagación de alarma
     modeloEspacial_Tipo1 = 0  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
     constanteEspacial1_Tipo1 = 0.007  # alpha para Decaying exponential, W para raised-cosine Window
     constanteEspacial2_Tipo1 = 0  # ignorar para Decaying exponential, dth para raised-cosine Window
@@ -57,8 +57,8 @@ class Application(tk.Frame):
     dipositivos_Tipo3 = 0.08 # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución  (modelodispositivos) es uniforme
     modeloTrafico_Tipo3 = 0  # Modelo de generación de tráfico, 0 CMMPP 1 Periódico
     tasaPaquete_Tipo3 = 1 / 45  # si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 3, si modelotrafico==1 tasa de Paquete/seg
-    lambdaAlarma_Tipo3 = 1 / 100  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
-    velPropagacionAlarma_Tipo3 = 3000  # m/s Velocidad de propagación de alarma
+    lambdaAlarma_Tipo3 = 1 / 80  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
+    velPropagacionAlarma_Tipo3 = 60  # m/s Velocidad de propagación de alarma
     modeloEspacial_Tipo3 = 0  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
     constanteEspacial1_Tipo3 = 0.007  # alpha para Decaying exponential, W para raised-cosine Window
     constanteEspacial2_Tipo3 = 0  # ignorar para Decaying exponential, dth para raised-cosine Window
@@ -70,8 +70,8 @@ class Application(tk.Frame):
     dipositivos_Tipo4 = 0.01  # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución  (modelodispositivos) es uniforme
     modeloTrafico_Tipo4 = 0  # Modelo de generación de tráfico, 0 CMMPP 1 Periódico
     tasaPaquete_Tipo4 = 1 / 30  # si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 4, si modelotrafico==1 tasa de Paquete/seg
-    lambdaAlarma_Tipo4 = 1 / 100  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
-    velPropagacionAlarma_Tipo4 = 1000  # m/s Velocidad de propagación de alarma
+    lambdaAlarma_Tipo4 = 1 / 70  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
+    velPropagacionAlarma_Tipo4 = 100  # m/s Velocidad de propagación de alarma
     modeloEspacial_Tipo4 = 0  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
     constanteEspacial1_Tipo4 = 0.005  # alpha para Decaying exponential, W para raised-cosine Window
     constanteEspacial2_Tipo4 = 0  # ignorar para Decaying exponential, dth para raised-cosine Window
@@ -83,8 +83,8 @@ class Application(tk.Frame):
     dipositivos_Tipo5 = 0.03  # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución  (modelodispositivos) es uniforme
     modeloTrafico_Tipo5 = 0  # Modelo de generación de tráfico, 0 CMMPP 1 Periódico
     tasaPaquete_Tipo5 = 1 / 20  #  si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 5, si modelotrafico==1 tasa de Paquete/seg
-    lambdaAlarma_Tipo5 = 1 / 200  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
-    velPropagacionAlarma_Tipo5 = 2000  # m/s Velocidad de propagación de alarma
+    lambdaAlarma_Tipo5 = 1 / 40  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
+    velPropagacionAlarma_Tipo5 = 10  # m/s Velocidad de propagación de alarma
     modeloEspacial_Tipo5 = 1  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
     constanteEspacial1_Tipo5 = 300  # alpha para Decaying exponential, W para raised-cosine Window
     constanteEspacial2_Tipo5 = 200  # ignorar para Decaying exponential, dth para raised-cosine Window
@@ -95,9 +95,9 @@ class Application(tk.Frame):
     ### Otros dispositivos nMTC
     dipositivos_Tipo6 = 0.03  # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución  (modelodispositivos) es uniforme
     modeloTrafico_Tipo6 = 0  # Modelo de generación de tráfico, 0 CMMPP 1 Periódico
-    tasaPaquete_Tipo6 = 1 / 38  # si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 5, si modelotrafico==1 tasa de Paquete/seg
-    lambdaAlarma_Tipo6 = 1 / 200  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
-    velPropagacionAlarma_Tipo6 = 2000  # m/s Velocidad de propagación de alarma
+    tasaPaquete_Tipo6 = 1 / 20 # si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 5, si modelotrafico==1 tasa de Paquete/seg
+    lambdaAlarma_Tipo6 = 1 / 40  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
+    velPropagacionAlarma_Tipo6 = 300  # m/s Velocidad de propagación de alarma
     modeloEspacial_Tipo6 = 1  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
     constanteEspacial1_Tipo6 = 300  # alpha para Decaying exponential, W para raised-cosine Window
     constanteEspacial2_Tipo6 = 200  # ignorar para Decaying exponential, dth para raised-cosine Window
@@ -109,8 +109,8 @@ class Application(tk.Frame):
     dipositivos_Tipo7 = 0.03  # intensidad de dispositivos/m^2, o cantidad total si el modelo de distribución  (modelodispositivos) es uniforme
     modeloTrafico_Tipo7 = 0  # Modelo de generación de tráfico, 0 CMMPP 1 Periódico
     tasaPaquete_Tipo7 = 1 / 25  # si modelotrafico==0 la tasa lambda para el estado regular de los dispositivos de tipo 5, si modelotrafico==1 tasa de Paquete/seg
-    lambdaAlarma_Tipo7 = 1 / 200  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
-    velPropagacionAlarma_Tipo7 = 2000  # m/s Velocidad de propagación de alarma
+    lambdaAlarma_Tipo7 = 1 / 30  # la tasa a la que se producen eventos de alarma para este tipo de dispositivos (1 evento cada 350 seg)
+    velPropagacionAlarma_Tipo7 = 20  # m/s Velocidad de propagación de alarma
     modeloEspacial_Tipo7 = 1  # Propagación espacial de alarma, 0 Decaying exponential 1 raised-cosine Window
     constanteEspacial1_Tipo7 = 300  # alpha para Decaying exponential, W para raised-cosine Window
     constanteEspacial2_Tipo7 = 200  # ignorar para Decaying exponential, dth para raised-cosine Window
@@ -2438,6 +2438,7 @@ class Application(tk.Frame):
             self.generadoresAlarmas = []  # una lista para guardar los genradores de eventos de alarmas, uno para cada tipo de dispositivo
             self.nuevaAlarma = [False] * tiposDisp
             DeviceMTC.tiempoLitime=self.tiempoLimite
+            GeneradorAlarmas.tiempoLitime = self.tiempoLimite
             self.DispositivosTodos=[]
 
 

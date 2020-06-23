@@ -18,7 +18,7 @@ class GeneradorAlarmas(object):
         self.idGenerador= idGenerador
 
     TodasAlarmas=[]
-
+    tiempoLitime = 0
 
     def calcularSiguienteAlarma(self,radio): #Calcular en qué momento sucederá la siguiente alarma
         tiempoEspera = np.random.exponential(1 / (self.lambdaEvento), 1)  # el siguiente arribo se producirá segun una varible exponencial
@@ -32,7 +32,8 @@ class GeneradorAlarmas(object):
         self.posicion=[xx, yy] # se asigna la posición del evento dentro de la célula
         self.totalAlarmas.append([self.idGenerador,self.idAlarma,self.siguienteArribo,self.posicion])
         self.idAlarma=self.idAlarma+1
-        self.TodasAlarmas.append([self.idGenerador, self.idAlarma, self.siguienteArribo[0], self.posicion[0][0],self.posicion[1][0]])
+        if(self.siguienteArribo[0]<=self.tiempoLitime):
+            self.TodasAlarmas.append([self.idGenerador, self.idAlarma, self.siguienteArribo[0], self.posicion[0][0],self.posicion[1][0]])
 
     def generarAlarma(self,tiempoActual,radio): # Función que verifica si ya sucedio la última alarma
 
