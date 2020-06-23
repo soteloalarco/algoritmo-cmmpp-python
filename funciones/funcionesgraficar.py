@@ -236,7 +236,7 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
         ax11.grid(b=True, color='grey', alpha=0.3, linestyle='-.', linewidth=1)
 
         lambdaEventos1 = graficarlambdaeventos(ListaEventos,TiposDispositivos.TIPO1)
-        lambdaAlarmas1=0
+        lambdaAlarmas1=[]
         if(periodico_Tipo1==0):
             count1, bins1, _ = ax12.hist(lambdaEventos1, color=color_Tipo1,label='histograma eventos (normalizado)', density=True, bins=30,alpha=0.4)
             x = np.linspace(0, max(bins1), 500)
@@ -280,7 +280,7 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
         ax21.grid(b=True, color='grey', alpha=0.3, linestyle='-.', linewidth=1)
 
         lambdaEventos2 = graficarlambdaeventos(ListaEventos, TiposDispositivos.TIPO2)
-        lambdaAlarmas2 = 0
+        lambdaAlarmas2 = []
         if (periodico_Tipo2 == 0):
             count2, bins2, _ = ax22.hist(lambdaEventos2, color=color_Tipo2, label='histograma eventos (normalizado)',
                                          density=True, bins=30, alpha=0.4)
@@ -325,7 +325,7 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
         ax31.grid(b=True, color='grey', alpha=0.3, linestyle='-.', linewidth=1)
 
         lambdaEventos3 = graficarlambdaeventos(ListaEventos, TiposDispositivos.TIPO3)
-        lambdaAlarmas3 = 0
+        lambdaAlarmas3 = []
         if (periodico_Tipo3 == 0):
             count3, bins3, _ = ax32.hist(lambdaEventos3, color=color_Tipo3,label='histograma eventos', density=True, bins=30, alpha=0.4)
             x = np.linspace(0, max(bins3), 500)
@@ -368,7 +368,7 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
         ax41.grid(b=True, color='grey', alpha=0.3, linestyle='-.', linewidth=1)
 
         lambdaEventos4 = graficarlambdaeventos(ListaEventos, TiposDispositivos.TIPO4)
-        lambdaAlarmas4 = 0
+        lambdaAlarmas4 = []
         if (periodico_Tipo4 == 0):
             count4, bins4, _ = ax42.hist(lambdaEventos4,color=color_Tipo4, label='histograma eventos', density=True, bins=30, alpha=0.4)
             x = np.linspace(0, max(bins4), 500)
@@ -413,7 +413,7 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
         ax51.grid(b=True, color='grey', alpha=0.3, linestyle='-.', linewidth=1)
 
         lambdaEventos5 = graficarlambdaeventos(ListaEventos, TiposDispositivos.TIPO5)
-        lambdaAlarmas5 = 0
+        lambdaAlarmas5 = []
         if (periodico_Tipo5 == 0):
             count5, bins5, _ = ax52.hist(lambdaEventos5,color=color_Tipo5, label='histograma eventos', density=True, bins=30, alpha=0.4)
             x = np.linspace(0, max(bins5), 500)
@@ -457,7 +457,7 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
         ax61.grid(b=True, color='grey', alpha=0.3, linestyle='-.', linewidth=1)
 
         lambdaEventos6 = graficarlambdaeventos(ListaEventos, TiposDispositivos.TIPO6)
-        lambdaAlarmas6 = 0
+        lambdaAlarmas6 = []
         if (periodico_Tipo6 == 0):
             count6, bins6, _ = ax62.hist(lambdaEventos6,color=color_Tipo6, label='histograma eventos', density=True, bins=30, alpha=0.4)
             x = np.linspace(0, max(bins6), 500)
@@ -501,7 +501,7 @@ def graficareventosportipodispositivo(archivoEventos,archivoConfig,archivoAlarma
         ax71.grid(b=True, color='grey', alpha=0.3, linestyle='-.', linewidth=1)
 
         lambdaEventos7 = graficarlambdaeventos(ListaEventos, TiposDispositivos.TIPO7)
-        lambdaAlarmas7 = 0
+        lambdaAlarmas7 = []
         if (periodico_Tipo7 == 0):
             count7, bins7, _ = ax72.hist(lambdaEventos7,color=color_Tipo7, label='histograma eventos', density=True, bins=30, alpha=0.4)
             x = np.linspace(0, max(bins7), 500)
