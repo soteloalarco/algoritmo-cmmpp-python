@@ -12,7 +12,8 @@ from clases.DeviceMTC import DeviceMTC
 from funciones.funcionesgraficar import graficardispositivos
 from funciones.funcionesgraficar import histogramatodoseventos
 from funciones.funcionesgraficar import graficareventosportipodispositivo
-
+from funciones.funcionesgraficar import graficaralarmas
+from clases.TiposDispositivos import TiposDispositivos
 
 class Application(tk.Frame):
 
@@ -2573,21 +2574,21 @@ class Application(tk.Frame):
             print('Fin de Rutina ')
 
             ## se crea archivo de salida con información de la configuración
-            self.configSalida.append([0,self.radiocelula,self.tiempo,self.k])
+            self.configSalida.append([0,self.radiocelula,self.tiempo,self.k,0.0,0.0,0.0])
             if (self.dipositivos_Tipo1 > 0):
-                self.configSalida.append([1, self.modeloTrafico_Tipo1,self.tasaPaquete_Tipo1, self.lambdaAlarma_Tipo1])
+                self.configSalida.append([1, self.modeloTrafico_Tipo1,self.tasaPaquete_Tipo1, self.lambdaAlarma_Tipo1, self.modeloEspacial_Tipo1,self.constanteEspacial1_Tipo1,self.constanteEspacial2_Tipo1])
             if (self.dipositivos_Tipo2 > 0):
-                self.configSalida.append([2, self.modeloTrafico_Tipo2, self.tasaPaquete_Tipo2, self.lambdaAlarma_Tipo2])
+                self.configSalida.append([2, self.modeloTrafico_Tipo2, self.tasaPaquete_Tipo2, self.lambdaAlarma_Tipo2, self.modeloEspacial_Tipo2,self.constanteEspacial1_Tipo2,self.constanteEspacial2_Tipo2])
             if (self.dipositivos_Tipo3 > 0):
-                self.configSalida.append([3,self.modeloTrafico_Tipo3, self.tasaPaquete_Tipo3, self.lambdaAlarma_Tipo3])
+                self.configSalida.append([3,self.modeloTrafico_Tipo3, self.tasaPaquete_Tipo3, self.lambdaAlarma_Tipo3, self.modeloEspacial_Tipo3,self.constanteEspacial1_Tipo3,self.constanteEspacial2_Tipo3])
             if (self.dipositivos_Tipo4 > 0):
-                self.configSalida.append([4,self.modeloTrafico_Tipo4, self.tasaPaquete_Tipo4, self.lambdaAlarma_Tipo4])
+                self.configSalida.append([4,self.modeloTrafico_Tipo4, self.tasaPaquete_Tipo4, self.lambdaAlarma_Tipo4, self.modeloEspacial_Tipo4,self.constanteEspacial1_Tipo4,self.constanteEspacial2_Tipo4])
             if (self.dipositivos_Tipo5 > 0):
-                self.configSalida.append([5, self.modeloTrafico_Tipo5,self.tasaPaquete_Tipo5, self.lambdaAlarma_Tipo5])
+                self.configSalida.append([5, self.modeloTrafico_Tipo5,self.tasaPaquete_Tipo5, self.lambdaAlarma_Tipo5, self.modeloEspacial_Tipo5,self.constanteEspacial1_Tipo5,self.constanteEspacial2_Tipo5])
             if (self.dipositivos_Tipo6 > 0):
-                self.configSalida.append([6, self.modeloTrafico_Tipo6,self.tasaPaquete_Tipo6, self.lambdaAlarma_Tipo6])
+                self.configSalida.append([6, self.modeloTrafico_Tipo6,self.tasaPaquete_Tipo6, self.lambdaAlarma_Tipo6, self.modeloEspacial_Tipo6,self.constanteEspacial1_Tipo6,self.constanteEspacial2_Tipo6])
             if (self.dipositivos_Tipo7 > 0):
-                self.configSalida.append([7,self.modeloTrafico_Tipo7, self.tasaPaquete_Tipo7, self.lambdaAlarma_Tipo7])
+                self.configSalida.append([7,self.modeloTrafico_Tipo7, self.tasaPaquete_Tipo7, self.lambdaAlarma_Tipo7, self.modeloEspacial_Tipo7,self.constanteEspacial1_Tipo7,self.constanteEspacial2_Tipo7])
             self.df_configSalida = pd.DataFrame(self.configSalida)
             nombreconfigSalida = "ArchivoConfigSalida" + str(self.rep) + ".csv"
             self.df_configSalida.to_csv(nombreconfigSalida)
@@ -2599,9 +2600,9 @@ class Application(tk.Frame):
 
             ## Aquí voy a graficar
             graficardispositivos('ArchivoDispositivos0.csv','ArchivoConfigSalida0.csv')
-            histogramatodoseventos('ArchivoEventos0.csv','ArchivoConfigSalida0.csv')
-            graficareventosportipodispositivo('ArchivoEventos0.csv','ArchivoConfigSalida0.csv','ArchivoAlarmas0.csv')
-            graficaralarmas('ArchivoEventos0.csv','ArchivoAlarmas0.csv','ArchivoDispositivos0.csv','ArchivoConfigSalida0.csv',1,self.modeloEspacial_Tipo1,self.constanteEspacial1_Tipo1,self.constanteEspacial2_Tipo1)
+            #histogramatodoseventos('ArchivoEventos0.csv','ArchivoConfigSalida0.csv')
+            #graficareventosportipodispositivo('ArchivoEventos0.csv','ArchivoConfigSalida0.csv','ArchivoAlarmas0.csv')
+            #graficaralarmas('ArchivoEventos0.csv','ArchivoAlarmas0.csv','ArchivoDispositivos0.csv','ArchivoConfigSalida0.csv',TiposDispositivos.TIPO1)
 
             DeviceMTC.registroCompletoArribos=[]
             DeviceMTC.cuentaAlarmas = 0
