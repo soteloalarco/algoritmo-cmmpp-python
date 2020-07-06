@@ -2601,6 +2601,7 @@ class Application(tk.Frame):
             graficardispositivos('ArchivoDispositivos0.csv','ArchivoConfigSalida0.csv')
             histogramatodoseventos('ArchivoEventos0.csv','ArchivoConfigSalida0.csv')
             graficareventosportipodispositivo('ArchivoEventos0.csv','ArchivoConfigSalida0.csv','ArchivoAlarmas0.csv')
+            graficaralarmas('ArchivoEventos0.csv','ArchivoAlarmas0.csv','ArchivoDispositivos0.csv','ArchivoConfigSalida0.csv',1,self.modeloEspacial_Tipo1,self.constanteEspacial1_Tipo1,self.constanteEspacial2_Tipo1)
 
             DeviceMTC.registroCompletoArribos=[]
             DeviceMTC.cuentaAlarmas = 0

@@ -5,6 +5,23 @@ import numpy as np
 from scipy.stats import expon
 import pandas as pd
 
+def graficaralarmas(archivoEventos, archivoAlarmas, archivodispositivos,archivoconfig, tipodisp, modeloespacial, constante1, constante2):
+    df_eventos_rec = pd.read_csv(archivoEventos, index_col=0)
+    # Convertir de DataFrame a Lista
+    ListaEventos = df_eventos_rec.values.tolist()
+
+    df_alarmas_rec = pd.read_csv(archivoAlarmas, index_col=0)
+    # Convertir de DataFrame a Lista
+    ListaAlarmas = df_alarmas_rec.values.tolist()
+
+    df_dispositivos_rec = pd.read_csv(archivodispositivos, index_col=0)
+    # Convertir de DataFrame a Lista
+    ListaDispositivos = df_dispositivos_rec.values.tolist()
+
+    df_config_rec = pd.read_csv(archivoconfig, index_col=0)
+    # Convertir de DataFrame a Lista
+    ListaConfig = df_config_rec.values.tolist()
+
 def graficardispositivos(archivoDispositivosTodos,archivoConfig):
     df_dispositivos_rec = pd.read_csv(archivoDispositivosTodos, index_col=0)
     # Convertir de DataFrame a Lista
