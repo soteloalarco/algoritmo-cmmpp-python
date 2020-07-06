@@ -7,6 +7,7 @@ import pandas as pd
 
 def graficaralarmas(archivoEventos, archivoAlarmas, archivodispositivos,archivoconfig, tipodisp):
 
+    numAlarma=1
     if(tipodisp==TiposDispositivos.TIPO1):
         tipo=1
     elif(tipodisp==TiposDispositivos.TIPO2):
@@ -40,31 +41,36 @@ def graficaralarmas(archivoEventos, archivoAlarmas, archivodispositivos,archivoc
     ListaConfig = df_config_rec.values.tolist()
 
     fig, ax = plt.subplots(1, 1)
-    titulo='UEs de tipo '+str(tipodisp)+'activados por una alarma'
+    titulo='UEs de tipo '+str(tipodisp)+' activados por una alarma'
     fig.canvas.set_window_title(titulo)
 
     for alarma in ListaAlarmas:
-        if (alarma[0]==tipo and alarma[1]==1):
+        if (alarma[0]==tipo and alarma[1]==numAlarma):
             xxalarma=alarma[3]
             yyalarma = alarma[4]
 
     dispEnAlarma=[]
     xxdispEnAlarma=[]
     yydispEnAlarma=[]
+    numDispEnAlarma=0
 
     for evento in ListaEventos:
-        if evento[0]==1 and evento[3]==tipodisp:
+        if evento[0]==numAlarma and evento[3]==tipodisp:
             indice=evento[2]-1
             dispEnAlarma.append(ListaDispositivos[indice])
             xxdispEnAlarma.append(ListaDispositivos[indice][2])
             yydispEnAlarma.append(ListaDispositivos[indice][3])
+            numDispEnAlarma=numDispEnAlarma+1
 
     heatmap, xedges, yedges = np.histogram2d(xxdispEnAlarma, yydispEnAlarma, bins=50)
     extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]]
 
     plt.clf()
+    titulo2=str(numDispEnAlarma)+' dispositivos entraron en alarma'
     plt.imshow(heatmap.T, extent=extent, origin='lower')
-    plt.scatter(xxalarma, yyalarma, s=100, label='alarma', edgecolors="r", facecolor='r', marker="*")
+    plt.scatter(xxalarma, yyalarma, s=20, label='alarma', edgecolors="r", facecolor='r', marker="*")
+    plt.title(titulo2)
+    plt.legend(loc='upper right')
     plt.show()
 
     #if(modeloespacial==0): # Decaying exponential

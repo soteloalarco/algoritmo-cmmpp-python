@@ -2599,7 +2599,7 @@ class Application(tk.Frame):
             self.df_ArchivoAlarmas.to_csv(nombreArchivoAlarmas)
 
             ## Aquí voy a graficar
-            graficardispositivos('ArchivoDispositivos0.csv','ArchivoConfigSalida0.csv')
+            #graficardispositivos('ArchivoDispositivos0.csv','ArchivoConfigSalida0.csv')
             #histogramatodoseventos('ArchivoEventos0.csv','ArchivoConfigSalida0.csv')
             #graficareventosportipodispositivo('ArchivoEventos0.csv','ArchivoConfigSalida0.csv','ArchivoAlarmas0.csv')
             #graficaralarmas('ArchivoEventos0.csv','ArchivoAlarmas0.csv','ArchivoDispositivos0.csv','ArchivoConfigSalida0.csv',TiposDispositivos.TIPO1)
