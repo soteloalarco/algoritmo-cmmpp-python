@@ -5,6 +5,78 @@ import numpy as np
 from scipy.stats import expon
 import pandas as pd
 
+def graficaralarmas(archivoEventos, archivoAlarmas, archivodispositivos,archivoconfig, tipodisp):
+
+    numAlarma=1
+    if(tipodisp==TiposDispositivos.TIPO1):
+        tipo=1
+    elif(tipodisp==TiposDispositivos.TIPO2):
+        tipo=2
+    elif(tipodisp==TiposDispositivos.TIPO3):
+        tipo=3
+    elif (tipodisp == TiposDispositivos.TIPO4):
+        tipo = 4
+    elif (tipodisp == TiposDispositivos.TIPO5):
+        tipo = 5
+    elif (tipodisp == TiposDispositivos.TIPO6):
+        tipo = 6
+    else:
+        tipo=7
+
+
+    df_eventos_rec = pd.read_csv(archivoEventos, index_col=0)
+    # Convertir de DataFrame a Lista
+    ListaEventos = df_eventos_rec.values.tolist()
+
+    df_alarmas_rec = pd.read_csv(archivoAlarmas, index_col=0)
+    # Convertir de DataFrame a Lista
+    ListaAlarmas = df_alarmas_rec.values.tolist()
+
+    df_dispositivos_rec = pd.read_csv(archivodispositivos, index_col=0)
+    # Convertir de DataFrame a Lista
+    ListaDispositivos = df_dispositivos_rec.values.tolist()
+
+    df_config_rec = pd.read_csv(archivoconfig, index_col=0)
+    # Convertir de DataFrame a Lista
+    ListaConfig = df_config_rec.values.tolist()
+
+    fig, ax = plt.subplots(1, 1)
+    titulo='UEs de tipo '+str(tipodisp)+' activados por una alarma'
+    fig.canvas.set_window_title(titulo)
+
+    for alarma in ListaAlarmas:
+        if (alarma[0]==tipo and alarma[1]==numAlarma):
+            xxalarma=alarma[3]
+            yyalarma = alarma[4]
+
+    dispEnAlarma=[]
+    xxdispEnAlarma=[]
+    yydispEnAlarma=[]
+    numDispEnAlarma=0
+
+    for evento in ListaEventos:
+        if evento[0]==numAlarma and evento[3]==tipodisp:
+            indice=evento[2]-1
+            dispEnAlarma.append(ListaDispositivos[indice])
+            xxdispEnAlarma.append(ListaDispositivos[indice][2])
+            yydispEnAlarma.append(ListaDispositivos[indice][3])
+            numDispEnAlarma=numDispEnAlarma+1
+
+    heatmap, xedges, yedges = np.histogram2d(xxdispEnAlarma, yydispEnAlarma, bins=50)
+    extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]]
+
+    plt.clf()
+    titulo2=str(numDispEnAlarma)+' dispositivos entraron en alarma'
+    plt.imshow(heatmap.T, extent=extent, origin='lower')
+    plt.scatter(xxalarma, yyalarma, s=20, label='alarma', edgecolors="r", facecolor='r', marker="*")
+    plt.title(titulo2)
+    plt.legend(loc='upper right')
+    plt.show()
+
+    #if(modeloespacial==0): # Decaying exponential
+
+    #else: # rised-cosine window
+
 def graficardispositivos(archivoDispositivosTodos,archivoConfig):
     df_dispositivos_rec = pd.read_csv(archivoDispositivosTodos, index_col=0)
     # Convertir de DataFrame a Lista
